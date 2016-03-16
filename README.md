@@ -2,6 +2,7 @@
 Describing lambda-calculus using ES6 arrow notation (currently only on FF)
 
 
+(doc/church.jpg)
 
 
 
