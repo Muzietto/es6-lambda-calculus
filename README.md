@@ -195,7 +195,7 @@ Wholly inspired by the study of "Functional Programming through Lambda Calculus"
 
     var add = x => y => (y === 0) ? x : add(x+1)(y-1)
     def ADD x y = COND x (ADD (SUCC x) (PRED y)) (ISZERO y)
-    
+
   we need to find a way to have the same bound variable both in the function signature and in its body;
   we do some juggling remembering `SELF_APPLY = λs.(s s)`, for whom we know that an infinite loop `(SELF_APPLY SELF_APPLY) = ... = (SELF_APPLY SELF_APPLY)` exists;
   we create a helper function `add2` that carries an additional self-applying function in its signature:
@@ -206,8 +206,8 @@ Wholly inspired by the study of "Functional Programming through Lambda Calculus"
   this magic function `ADD2` has the remarkable power that:   
 
     def ADD = ADD2 ADD2
-    
-  **unfortunately, this bit cannot be verified in ES6**, because the eager execution tries to calculate both branches of the `COND`, which leads us to a stack overflow even if we know that only one of them should be evalued.
+
+  **unfortunately, this bit cannot be verified in ES6**, because the eager execution tries to calculate both branches of the `COND`, which leads us to a stack overflow even if we know that only one of them should be evalued at a time.
 
 ### multiplication
 
@@ -221,15 +221,67 @@ Wholly inspired by the study of "Functional Programming through Lambda Calculus"
     def MULT1 f x y = COND ZERO (ADD x (f x (PRED y))) (ISZERO y)
 
   and a recursive multiplication
-  
+
     def MULT = RECURSIVE MULT1
-    
+
   where `RECURSIVE` is an abstraction of any helper function:
 
     def RECURSIVE f = (λs.(f (s s)) λs.(f (s s)))
 
 ### other operations
 
-  Alonzo defined also subtraction, power, absolute value and integer division.
+  Alonzo Church managed to define also subtraction, power, absolute value and integer division.
 
+## types (see [05-types.es6](/es6/05-types.es6))
+
+  types ensure that operations are used on the objects they are supposed to handle;
+
+  we want to be able to pass only `TRUE` and `FALSE` to functions like `NOT`, `AND`, `OR`; we want to be able to pass only `ZERO`, `ONE`, etc to functions like `PRED` and `SUCC`
+  
+  we represent a typed object with a pair:
+
+    def MAKE_OBJ type value = PAIR type value = λs.(s type value)
+
+  we get to know the type by applying the whole object to `FIRST`, we get to know the value by doing the same with `SECOND`:
+
+    def TYPE obj = obj FIRST
+    def VALUE obj = obj SECOND
+
+  we use natural numbers to represent types and numeric comparison to test the type
+
+    def ISTYPE t obj = EQUAL (TYPE obj) t
+
+  because EQUAL has a recursive definition, we have to come up with some clever trick if we want to be able to actually perform type comparison in ES6; here's what we will do:
+
+    var EQUAL = obj => t => { if (TYPE(obj) === t) { return TRUE; } else { return FALSE; }
+
+### zeroeth object type: errors
+
+  we decide that errors are object type ZERO; we define errors by means of a set of useful functions
+
+    def error_type = ZERO
+    def MAKE_ERROR e = MAKE_OBJ error_type e
+    def ISERROR e = ISTYPE error_type e
+
+  the values for errors will be defined based upon the function where the error took place; but we define also the ultimate error:
+
+    def ERROR = MAKE_ERROR error_type // = PAIR error_type error_type
+
+  we verify that ERROR satisfied the functions mentioned before:
+
+    ISERROR ERROR = ISTYPE ZERO ERROR = EQUAL (TYPE ERROR) ZERO
+    TYPE ERROR = ERROR FIRST = error_type = ZERO
+
+### first object type: booleans
+
+  we decide that booleans are object of type ONE; we define booleans by means of a set of useful functions
+
+    def bool_type = ONE
+    def MAKE_BOOL b = MAKE_OBJ bool_type b
+    def ISBOOL b = ISTYPE bool_type b
+
+  we define now the typed versions of `TRUE` and `FALSE`:
+
+    def TRUEOBJ = MAKE_BOOL TRUE
+    def FALSEOBJ = MAKE_BOOL FALSE
 
