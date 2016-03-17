@@ -33,5 +33,5 @@ var OR = x => y => COND(TRUE)(y)(x);
 
 // OR(FALSE)(TRUE) --> x => y => x
 
-var _AND = x(y)(FALSE);
-var _OR = x(TRUE)(y);
+var _AND = x => y => x(y)(FALSE);
+var _OR = x => y => x(TRUE)(y);
