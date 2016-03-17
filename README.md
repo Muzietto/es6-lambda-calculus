@@ -78,7 +78,7 @@ Describing lambda-calculus using ES6 arrow notation (currently only on FF)
 
   NB: ES6 is an eager language, so the second example is just for the show.
 
-## pairs
+### pairs
 
   A pair is a way to freeze two expressions to be able to operate on them later (i.e. to apply a function upon them):
 
@@ -134,3 +134,20 @@ Describing lambda-calculus using ES6 arrow notation (currently only on FF)
   Expressing OR in terms of λ-calculus derives immediately:
 
     def OR x = COND TRUE y x = x TRUE y (try it with paper and pen...)
+
+## natural numbers (see [03-natural-numbers.es6](/es6/03-natural-numbers.es6))
+
+  we just decide di express number 0 with the identity function:
+
+    def ZERO = ID = λx.x
+
+  we express all natural numbers as SUCCessors of their precedent ones:
+
+    def ONE = SUCC ZERO
+    def TWO = SUCC ONE = SUCC (SUCC ZERO)
+    
+  we need to define SUCC; we just decide to pick
+
+    SUCC n nplus1 = PAIR FALSE n nplus1
+  
+  these picks for ZERO and SUCC are just one of the infinite possibilities; they just happen to be simple and powerful enough to start our conversation. Actually Church ended up with less simple yet a lot more powerful definitions.
