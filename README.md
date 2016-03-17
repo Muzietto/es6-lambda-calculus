@@ -3,7 +3,7 @@ Describing lambda-calculus using ES6 arrow notation (currently only on FF)
 
 ![Alonzo Church](/img/church.jpg)
 
-## definitions
+## definitions  (see [01-definitions-first-examples.es6](/es6/01-definitions-first-examples.es6))
 
   lambda-expression := name
                     |  function
@@ -46,6 +46,8 @@ Describing lambda-calculus using ES6 arrow notation (currently only on FF)
     var IDENTITY = x => x;
     var SUM = x => y => x + y;
 
+  alas, using ES6 we cannot shift bound variables to the left (use Haskell for that...)
+
 ### function applications
 
   function-application := (function lambda-expression)
@@ -87,7 +89,7 @@ Describing lambda-calculus using ES6 arrow notation (currently only on FF)
     PAIR 1 2 FIRST = 1 => def FIRST = λx.λy.x
     PAIR 1 2 SECOND = 2 => def SECOND = λx.λy.y
 
-## booleans (see [02-booleans.es6](/es6/02.booleans.es6))
+## booleans (see [02-booleans.es6](/es6/02-booleans.es6))
 
   Ternary operator = condition ? exp_true : exp_false
 
