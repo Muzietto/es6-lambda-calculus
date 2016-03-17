@@ -14,3 +14,23 @@ var TWO = SUCC(ONE);
 var THREE = SUCC(TWO);
 var PRED = n => (ISZERO(n))(ZERO)(n(SECOND));
 
+
+var MAKE_OBJ = type => value => PAIR(type)(value)
+
+var TYPE = obj => obj(FIRST)
+
+var VALUE = obj => obj(SECOND)
+
+var EQUAL = obj => t => { if (TYPE(obj) === t) { return TRUE; } else { return FALSE; } }
+                         
+var ISTYPE = t => obj => EQUAL(TYPE(obj))(t)
+
+// type = ZERO -> error stuff
+
+var error_type = ZERO
+
+var MAKE_ERROR = e => MAKE_OBJ(error_type)(e)
+
+var ISERROR = e => ISTYPE(error_type)(e)
+
+var ERROR = MAKE_ERROR(error_type)
