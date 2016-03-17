@@ -21,7 +21,7 @@ var TYPE = obj => obj(FIRST)
 
 var VALUE = obj => obj(SECOND)
 
-var EQUAL = obj => t => { if (TYPE(obj) === t) { return TRUE; } else { return FALSE; } }
+var EQUAL = a => b => { if (a === b) { return TRUE; } else { return FALSE; } }
                          
 var ISTYPE = t => obj => EQUAL(TYPE(obj))(t)
 
@@ -34,3 +34,5 @@ var MAKE_ERROR = e => MAKE_OBJ(error_type)(e)
 var ISERROR = e => ISTYPE(error_type)(e)
 
 var ERROR = MAKE_ERROR(error_type)
+
+// ISTYPE(error_type)(ERROR)
