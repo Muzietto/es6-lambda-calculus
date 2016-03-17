@@ -3,6 +3,8 @@ Describing lambda-calculus using ES6 arrow notation (currently only on FF).
 
 Wholly inspired by the study of "Functional Programming through Lambda Calculus" (G. Michaelson)
 
+Made possible only by the mind-blowing work of Alonzo Church.
+
 ![Alonzo Church](/img/church.jpg)
 
 ## definitions  (see [01-definitions-first-examples.es6](/es6/01-definitions-first-examples.es6))
