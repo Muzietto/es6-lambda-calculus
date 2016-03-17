@@ -1,5 +1,7 @@
 # es6-lambda-calculus
-Describing lambda-calculus using ES6 arrow notation (currently only on FF)
+Describing lambda-calculus using ES6 arrow notation (currently only on FF).
+
+Wholly inspired by the study of "Functional Programming through Lambda Calculus" (G. Michaelson)
 
 ![Alonzo Church](/img/church.jpg)
 
@@ -137,17 +139,97 @@ Describing lambda-calculus using ES6 arrow notation (currently only on FF)
 
 ## natural numbers (see [03-natural-numbers.es6](/es6/03-natural-numbers.es6))
 
-  we just decide di express number 0 with the identity function:
+  we just decide to express number 0 with the identity function:
 
-    def ZERO = ID = λx.x
+    def ZERO = IDENTITY = λx.x
 
-  we express all natural numbers as SUCCessors of their precedent ones:
+  we express every natural number as the `SUCC`essors of its preceding one:
 
     def ONE = SUCC ZERO
     def TWO = SUCC ONE = SUCC (SUCC ZERO)
     
   we need to define SUCC; we just decide to pick
 
-    SUCC n nplus1 = PAIR FALSE n nplus1
+    SUCC n = PAIR FALSE n
   
-  these picks for ZERO and SUCC are just one of the infinite possibilities; they just happen to be simple and powerful enough to start our conversation. Actually Church ended up with less simple yet a lot more powerful definitions.
+  these picks for ZERO and SUCC are just one of the infinite possibilities; they just happen to be simple and powerful enough to start our conversation. Actually Church ended up with less simple yet (a lot) more powerful definitions.
+  
+    def ONE = SUCC ZERO = PAIR FALSE IDENTITY
+    def TWO = SUCC ONE = PAIR FALSE (PAIR FALSE IDENTITY)
+    def THREE = SUCC TWO = PAIR FALSE (PAIR FALSE (PAIR FALSE IDENTITY))
+    
+  let's start to slowly build something really useful; first step is to become able to tell whether a number is zero or not:
+  
+    ISZERO = COND TRUE FALSE ZERO 
+    ISZERO IDENTITY = TRUE
+    ISZERO λx.x = λx.λy.x
+    ISZERO ONE = FALSE
+    ISZERO (PAIR FALSE ZERO) = FALSE
+
+  a function that satisfies these requirements is `ISZERO n = n FIRST`; here's why:
+
+    ISZERO ZERO = ZERO FIRST = IDENTITY FIRST = FIRST = TRUE
+    ISZERO ONE = PAIR FALSE ZERO FIRST = FALSE
+    ISZERO TWO = PAIR FALSE (PAIR FALSE ZERO) FIRST = FALSE
+    
+ now we define the `PRED`ecessor function, such that:
+ 
+    PRED ONE = PRED (PAIR FALSE ZERO) = ZERO
+    PRED TWO = PRED (PAIR FALSE (PAIR FALSE ZERO)) = ONE = PAIR FALSE ZERO 
+ 
+ therefore we could initially say that `SIMPLE_PRED n = n SECOND`, but we need to guard against n = ZERO
+ 
+    SIMPLE_PRED ZERO = ZERO SECOND = SECOND = FALSE // not a number anymore
+   
+  we define then that `PRED ZERO = ZERO` and we get:
+
+    predecessor(n) = isZero(n) ? 0 : simplePredecessor(n)  // using the ternary operator
+
+    PRED n = COND ZERO (SIMPLE_PRED n) (ISZERO n) = (ISZERO n) ZERO (SIMPLE_PRED n)
+
+## recursion and arithmetics (see [04-recursion-arithmetics.es6](/es6/04-recursion-arithmetics.es6))
+
+### addition
+
+  an intuitive definition of `add` is possible using recursion, first in ES6, then in λ-calculus notation:
+
+    var add = x => y => (y === 0) ? x : add(x+1)(y-1)
+    def ADD x y = COND x (ADD (SUCC x) (PRED y)) (ISZERO y)
+    
+  we need to find a way to have the same bound variable both in the function signature and in its body;
+  we do some juggling remembering `SELF_APPLY = λs.(s s)`, for whom we know that an infinite loop `(SELF_APPLY SELF_APPLY) = ... = (SELF_APPLY SELF_APPLY)` exists;
+  we create a helper function `add2` that carries an additional self-applying function in its signature:
+
+    var add2 = x => y => (y === 0) ? x : f(f)(x+1)(y-1)
+    def ADD2 f x y = COND x (f f (SUCC x) (PRED y)) (ISZERO y) = (ISZERO y) x (f f (SUCC x) (PRED y))
+
+  this magic function `ADD2` has the remarkable power that:   
+
+    def ADD = ADD2 ADD2
+    
+  **unfortunately, this bit cannot be verified in ES6**, because the eager execution tries to calculate both branches of the `COND`, which leads us to a stack overflow even if we know that only one of them should be evalued.
+
+### multiplication
+
+  an even intuitive, recursive definition exists for multiplication:
+
+    var mult = x => y => (y === 0) ? 0 : x + mult(x)(y-1)
+    def MULT x y = COND ZERO (ADD x (MULT (SUCC x) (PRED y))) (ISZERO y)
+
+  which leads to a helper function
+
+    def MULT1 f x y = COND ZERO (ADD x (f x (PRED y))) (ISZERO y)
+
+  and a recursive multiplication
+  
+    def MULT = RECURSIVE MULT1
+    
+  where `RECURSIVE` is an abstraction of any helper function:
+
+    def RECURSIVE f = (λs.(f (s s)) λs.(f (s s)))
+
+### other operations
+
+  Alonzo defined also subtraction, power, absolute value and integer division.
+
+
