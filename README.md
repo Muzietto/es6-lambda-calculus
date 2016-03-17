@@ -9,11 +9,7 @@ Made possible only by the mind-blowing work of Alonzo Church.
 
 ## definitions  (see [01-definitions-first-examples.es6](/es6/01-definitions-first-examples.es6))
 
-  lambda-expression := name
-
-  |  function
-
-  |  function-application
+  lambda-expression := name  |  function  |  function-application
 
   a "resolved" (or "evalued") λ-expression is called a _value_.
 
@@ -74,15 +70,15 @@ Made possible only by the mind-blowing work of Alonzo Church.
 
   application to can be thought of in two ways:
 
-  - call-by-value (or __applicative order reduction__): substitutions can be made only using values --> __eager__ languages
+  - __call-by-value__ (or _applicative order reduction_): substitutions can be made only using values --> __eager__ languages
 
     (x => x + 1)(12) --> 13
 
-  - call-by-name (or __normal order reduction__): substitutions are made also using expressions --> __lazy__ languages
+  - __call-by-name__ (or _normal order reduction_): substitutions are made also using expressions --> __lazy__ languages
 
     (x => x + 1)(y + z + 5) --> ((y + z + 5) => (y + z + 5) + 1) --> we will see...
 
-  NB: ES6 is an eager language, so the second example is just for the show.
+  NB: ES6 is an eager language, so the second example aint't real running code, and it is just for the show.
 
 ### pairs
 
