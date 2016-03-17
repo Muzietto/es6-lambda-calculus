@@ -1,7 +1,7 @@
 # es6-lambda-calculus
 Describing lambda-calculus using ES6 arrow notation (currently only on FF)
 
-![alt image](/img/church.jpg)
+![Alonzo Church](/img/church.jpg)
 
 ## definitions
 
@@ -87,7 +87,7 @@ Describing lambda-calculus using ES6 arrow notation (currently only on FF)
     PAIR 1 2 FIRST = 1 => def FIRST = λx.λy.x
     PAIR 1 2 SECOND = 2 => def SECOND = λx.λy.y
 
-## booleans
+## booleans (see [02-booleans.es6](/es6/02.booleans.es6))
 
   Ternary operator = condition ? exp_true : exp_false
 
@@ -97,7 +97,7 @@ Describing lambda-calculus using ES6 arrow notation (currently only on FF)
 
     def COND = PAIR
 
-  We attempt now to define TRUE and FALSE as functions.
+  We attempt now to define TRUE and FALSE as functions:
 
     COND 1 2 TRUE = 1 => def TRUE = FIRST
 
@@ -121,4 +121,14 @@ Describing lambda-calculus using ES6 arrow notation (currently only on FF)
 
   Expressing AND in terms of λ-calculus derives immediately:
 
-    def NOT x = COND FALSE TRUE x
+    def AND x y = COND y FALSE x = x y FALSE (try it with paper and pen...)
+
+### OR operator
+
+  Definition using the ternary operator is the following:
+
+    x || y = x ? true : y
+
+  Expressing OR in terms of λ-calculus derives immediately:
+
+    def OR x = COND TRUE y x = x TRUE y (try it with paper and pen...)
