@@ -8,12 +8,12 @@ Wholly inspired by the study of "Functional Programming through Lambda Calculus"
 ## definitions  (see [01-definitions-first-examples.es6](/es6/01-definitions-first-examples.es6))
 
   lambda-expression := name
-  
-                    |  function
-                    
-                    |  function-application
 
-  a "resolved" (or "evalued") λ-expression is called a __value__.
+  |  function
+
+  |  function-application
+
+  a "resolved" (or "evalued") λ-expression is called a _value_.
 
   name := character sequence
 
