@@ -13,23 +13,23 @@ var ADD_1 = x => x + 1
 // (x => y => x + y)(1)(2) // --> 3
 // (x => y => x + y)(1) // --> ADD_1
 
-var SELF_APPLY = s => s(s)
+var SELF_APPLY = s => s(s);
 var S = SELF_APPLY;
 
 // S(I) // --> I
 // S(S) // --> S(S)
 
-var APPLY = f => x => f(x)
+var APPLY = f => x => f(x);
 
 // APPLY(ID)(SELF_APPLY) // ID
 
-var PAIR = x => y => f => f(x)(y)
+var PAIR = x => y => f => f(x)(y);
 
 // PAIR(1)(2) // f => f(1)(2)
 
-var FIRST = x => y => x
+var FIRST = x => y => x;
 
-var SECOND = x => y => y
+var SECOND = x => y => y;
 
 // PAIR(1)(2)(FIRST) // --> 1
 // PAIR(1)(2)(SECOND) // --> 2

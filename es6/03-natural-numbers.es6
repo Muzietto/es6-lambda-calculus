@@ -18,7 +18,7 @@ var ONE = SUCC(ZERO);
 var TWO = SUCC(ONE);
 var THREE = SUCC(TWO);
 
-// ISZERO(ONE);
+// ISZERO(ONE)
 // ISZERO(SUCC(ZERO))
 
 var PRED = n => (ISZERO(n))(ZERO)(n(SECOND));

@@ -15,16 +15,15 @@ var THREE = SUCC(TWO);
 var PRED = n => (ISZERO(n))(ZERO)(n(SECOND));
 
 // helper function for addition
-var ADD2 = f => x => y => (ISZERO(y))(x)(f(f)(SUCC(x))(PRED(y)))
+var ADD2 = f => x => y => (ISZERO(y))(x)(f(f)(SUCC(x))(PRED(y)));
 
 // recursive addition
 var ADD = ADD2(ADD2)
 
 // ADD(ZERO)(ONE) // 'Internal Error: too much recursion'
 
-var RECURSIVE = f => (s => (f(s(s))))(s => (f(s(s))))
+var RECURSIVE = f => (s => (f(s(s))))(s => (f(s(s))));
 
-var MULT1 = f => x => y => (ISZERO(y))(ZERO)(ADD(x)(f(x)(PRED(y)))) 
+var MULT1 = f => x => y => (ISZERO(y))(ZERO)(ADD(x)(f(x)(PRED(y))));
 
 // var MULT = RECURSIVE(MULT1) // 'Internal Error: too much recursion'
-
