@@ -200,17 +200,19 @@ Made possible only by the mind-blowing work of Alonzo Church.
     var add = x => y => (y === 0) ? x : add(x+1)(y-1)
     def ADD x y = COND x (ADD (SUCC x) (PRED y)) (ISZERO y)
 
-  we need to find a way to have the same bound variable both in the function signature and in its body;
-  we do some juggling remembering `SELF_APPLY = λs.(s s)`, for whom we know that an infinite loop `(SELF_APPLY SELF_APPLY) = ... = (SELF_APPLY SELF_APPLY)` exists;
-  we create a helper function `add2` that carries an additional self-applying function in its signature:
+  the big problem here is that we have the function referred to in its own body, and this is not allowed;  
+  therefore we do some juggling remembering `SELF_APPLY = λs.(s s)`, for which we know that an infinite loop `(SELF_APPLY SELF_APPLY) = ... = (SELF_APPLY SELF_APPLY)` exists;
+  we create a helper function `add2` that carries an additional function `f` in its signature __and applies it to itself__:
 
     var add2 = x => y => (y === 0) ? x : f(f)(x+1)(y-1)
     def ADD2 f x y = COND x (f f (SUCC x) (PRED y)) (ISZERO y) = (ISZERO y) x (f f (SUCC x) (PRED y))
 
-  this magic function `ADD2` has the remarkable power that:   
+  this magic function `ADD2` has the remarkable power that, when applied to itself, it behaves like we expected from ADD:
 
     def ADD = ADD2 ADD2
 
+  the big gain is that nobody mentions itself inside its own body anymore; you can see in the definition of `ADD2` that the recursion is created implicitly by the self application of argument `f` and __not__ by an explicit invocation
+  
   **unfortunately, this bit cannot be verified in ES6**, because the eager execution tries to calculate both branches of the `COND`, which leads us to a stack overflow even if we know that only one of them should be evalued at a time
 
   the codebase shows a little cheat that makes use of the real JavaScript `if then else` (which evaluates the FALSE branch only when needed) to create a recursive addition helper that performs some crude and simple calculations
