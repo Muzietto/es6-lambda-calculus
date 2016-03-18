@@ -40,3 +40,5 @@ var MULT2 = f => x => y => { if (ISZERO(y) === TRUE) {
 
 // var MULT = MULT1(MULT1) // 'Internal Error: too much recursion'
 var MULT = MULT2(MULT2);
+
+// MULT(ONE)(TWO)
