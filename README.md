@@ -9,11 +9,11 @@ Made possible only by the mind-blowing work of Alonzo Church.
 
 ## definitions  (see [01-definitions-first-examples.es6](/es6/01-definitions-first-examples.es6))
 
-  lambda-expression := name  |  function  |  function-application
+#####  lambda-expression := name  |  function  |  function-application
 
   a "resolved" (or "evalued") λ-expression is called a _value_.
 
-  name := character sequence
+#####  name := character sequence
 
     e.g. IDENTITY, pippo, c3b0
 
@@ -24,7 +24,7 @@ Made possible only by the mind-blowing work of Alonzo Church.
 
 ### functions
 
-  function := λ name . lambda-expression
+#####  function := λ name . lambda-expression
 
     name --> "bound variable"
     lambda-expression --> "body"
@@ -43,7 +43,7 @@ Made possible only by the mind-blowing work of Alonzo Church.
 
 #### why use ES6?
 
-  λ-calculus is generally done with paper and pencil or in esoteric niche languages; ES6 is a good-enough trade-off, because it runs in (almost) every browser and it allows a good approximation of funtions using its brand new __arrows__:
+  λ-calculus is generally done with paper and pencil or in esoteric niche languages; ES6 is a good-enough trade-off, because it runs in (almost) every browser and it allows a good approximation of funtions using its brand new [__arrow functions__](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions):
 
     var IDENTITY = x => x;
     var SUM = x => y => x + y;
@@ -52,7 +52,7 @@ Made possible only by the mind-blowing work of Alonzo Church.
 
 ### function applications
 
-  function-application := (function lambda-expression)
+#####  function-application := (function lambda-expression)
 
     e.g. (λx.x+1 1) = 2; (λx.x λx.x) = λx.x; ((λx.λy.x+y 1) 2) = (λy.1+y 2) = 3
 
