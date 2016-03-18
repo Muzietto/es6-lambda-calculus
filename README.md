@@ -39,7 +39,7 @@ Made possible only by the mind-blowing work of Alonzo Church.
 
     def SUM = λx.λy.x+y => SUM x = λy.x+y
 
-  NB: things like 'pippo*2' and 'x+y' are used here just to give an idea of what function bodies are made for. Actually function bodies can host only precise λ-expressions. The most relevant function bodies contain __function applications__.
+  NB: things like `pippo*2` and `x+y` are used here just to give an idea of what function bodies are made for. Actually function bodies can host only precise λ-expressions. The most relevant function bodies contain __function applications__.
 
 #### why use ES6?
 
