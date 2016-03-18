@@ -211,7 +211,9 @@ Made possible only by the mind-blowing work of Alonzo Church.
 
     def ADD = ADD2 ADD2
 
-  **unfortunately, this bit cannot be verified in ES6**, because the eager execution tries to calculate both branches of the `COND`, which leads us to a stack overflow even if we know that only one of them should be evalued at a time.
+  **unfortunately, this bit cannot be verified in ES6**, because the eager execution tries to calculate both branches of the `COND`, which leads us to a stack overflow even if we know that only one of them should be evalued at a time
+
+  the codebase shows a little cheat that makes use of the real JavaScript `if then else` (which evaluates the FALSE branch only when needed) to create a recursive addition helper that performs some crude and simple calculations
 
 ### multiplication
 
@@ -228,13 +230,17 @@ Made possible only by the mind-blowing work of Alonzo Church.
 
     def MULT = RECURSIVE MULT1
 
-  where `RECURSIVE` is an abstraction of any helper function:
+  where `RECURSIVE` is an abstraction upon which every helper function can be applied:
 
     def RECURSIVE f = (λs.(f (s s)) λs.(f (s s)))
 
+  unfortunately `RECURSIVE` is very much akin to `SELF_APPLY` and causes an infinite loop at the very first moment we present it to the browser.
+
+  the codebase shows a little cheat that allows to run multiplication also in an eager interpreter.
+
 ### other operations
 
-  Alonzo Church managed to define also subtraction, power, absolute value and integer division.
+  Alonzo Church managed to define also subtraction, power, absolute value and integer division; the numerals he designed eventually are different from the ones shown here.
 
 ## types (see [05-types.es6](/es6/05-types.es6))
 
