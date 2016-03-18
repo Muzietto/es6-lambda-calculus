@@ -1,11 +1,14 @@
 # es6-lambda-calculus
-Describing lambda-calculus using ES6 arrow notation (currently only on FF).
+Describing lambda-calculus using EcmaScript 6 arrow notation (currently only on FF).
 
 Wholly inspired by the study of "Functional Programming through Lambda Calculus" (G. Michaelson)
 
 Made possible only by the mind-blowing work of Alonzo Church.
 
 ![Alonzo Church](/img/church.jpg)
+
+At each paragraph you can load the related ES6 code by doubleclicking the HTML file with the same name.
+
 
 ## definitions  (see [01-definitions-first-examples.es6](/es6/01-definitions-first-examples.es6))
 
@@ -315,4 +318,57 @@ Made possible only by the mind-blowing work of Alonzo Church.
 
     def TYPED_AND X Y = (AND (ISBOOL X) (ISBOOL Y)) (MAKE_BOOL (AND (VALUE X) (VALUE Y))) (BOOL_ERROR)
     def TYPED_OR X Y = (OR (ISBOOL X) (ISBOOL Y)) (MAKE_BOOL (OR (VALUE X) (VALUE Y))) (BOOL_ERROR)
+
+### second object type: numerals
+
+  we decide that natural numbers are object of type TWO; we define numerals by means of a set of useful functions
+
+    def num_type = TWO
+    def MAKE_NUM = MAKE_OBJ num_type
+    def ISNUM = ISTYPE num_type
+
+  we define now the typed versions of a few integers:
+
+    def ONE_OBJ = MAKE_NUM ONE
+    def TWO_OBJ = MAKE_NUM TWO
+    def THREE_OBJ = MAKE_NUM THREE
+
+  plus a specific error troubles with numerals:
+
+    def NUM_ERROR = MAKE_ERROR num_type
+
+  now we make sure that TYPED_ADD and TYPED_MULT will operate only on numerals:
+
+    def TYPED_ADD X Y = (AND (ISNUM X) (ISNUM Y)) (MAKE_NUM (ADD (VALUE X) (VALUE Y))) (NUM_ERROR)
+    def TYPED_MULT X Y = (AND (ISNUM X) (ISNUM Y)) (MAKE_NUM (MULT (VALUE X) (VALUE Y))) (NUM_ERROR)
+
+#### before talking about strings (the third object type) here is a little detour about _lists_; after talking about that, we will be able to represent strings as lists of characters
+
+
+## lists (see [06-lists.es6](/es6/06-lists.es6))
+
+  a list is implemented by chaining pairs one inside the other (guess where LISP got the idea from, in the first place...); we start from the empty list, which we chose to represent with `IDENTITY` (aka `ZERO`); but we call the empty list `NIL`
+
+  for example:
+
+    [1, 2, 5] --> PAIR ONE (PAIR TWO (PAIR FIVE NIL))
+
+  we need a few basic functions to start managing this stuff
+  
+    def HEAD list = list FIRST
+    def TAIL list = list SECOND
+    def ISEMPTY list = COND TRUE FALSE (ISZERO list) = (ISZERO list) TRUE FALSE
+
+  and we proceed thinking about some more sophisticated stuff
+
+    def MAP list mapper = MAP_HELPER list mapper NIL // won't be possible
+    def MAP_HELPER list mapper acc = COND acc (MAP_HELPER (TAIL list) mapper (PAIR (mapper (HEAD list)) acc)) (ISEMPTY list) // recursive, no way!
+
+    def MAP_HELPER2 f list mapper acc = COND (PAIR acc NIL) (f (TAIL list) (PAIR (mapper (HEAD list)) acc)) (ISEMPTY list) = (ISEMPTY list) (PAIR acc NIL) (f (TAIL list) (PAIR (mapper (HEAD list)) acc))
+    def MAP = MAP_HELPER2 MAP_HELPER2 // the good version
+    
+
+## strings, the third object type (see [07-strings.es6](/es6/07-strings.es6))
+
+  TBC
 
