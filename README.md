@@ -240,7 +240,7 @@ Made possible only by the mind-blowing work of Alonzo Church.
 
 ### other operations
 
-  Alonzo Church managed to define also subtraction, power, absolute value and integer division; the numerals he designed eventually are different from the ones shown here.
+  Alonzo Church managed to define also subtraction, power, absolute value and integer division; the [numerals he designed eventually](https://en.wikipedia.org/wiki/Church_encoding) are different from the ones shown here.
 
 ## types (see [05-types.es6](/es6/05-types.es6))
 
