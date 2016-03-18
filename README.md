@@ -82,30 +82,34 @@ Made possible only by the mind-blowing work of Alonzo Church.
 
 ### pairs
 
-  A pair is a way to freeze two expressions to be able to operate on them later (i.e. to apply a function upon them):
+  a pair is a way to freeze two expressions to be able to operate on them later (i.e. to apply a function upon them):
 
     def PAIR = λx.λy.λf.(f x y)
 
-  The two simplest operations on pairs are the getters FIRST and SECOND
+  the two simplest operations on pairs are the getters FIRST and SECOND
 
     PAIR 1 2 FIRST = 1 => def FIRST = λx.λy.x
     PAIR 1 2 SECOND = 2 => def SECOND = λx.λy.y
 
 ## booleans (see [02-booleans.es6](/es6/02-booleans.es6))
 
-  Ternary operator = condition ? exp_true : exp_false
+  ternary operator = condition ? exp_true : exp_false
 
-  We want to define it in terms of λ-calculus. One possibility is:
+  we want to define it in terms of λ-calculus. One possibility is:
 
     def COND = λexp_true.λexp_false.λcondition.(cond exp_true exp_false)
 
     def COND = PAIR
 
-  We attempt now to define TRUE and FALSE as functions:
+  we attempt now to define TRUE and FALSE as functions:
 
     COND 1 2 TRUE = 1 => def TRUE = FIRST
 
     COND 1 2 FALSE = 2 => def FALSE = SECOND
+
+  substituting the function body once all the variables have been fulfilled, we come to __a form that will be used a lot__ in the following paragraphs:
+
+    COND exp_true exp_false condition = __condition exp_true exp_false__
 
 ### NOT operator
 
@@ -253,7 +257,9 @@ Made possible only by the mind-blowing work of Alonzo Church.
 
   because EQUAL has a recursive definition, we have to come up with some clever trick if we want to be able to actually perform type comparison in ES6; here's what we will do:
 
-    var EQUAL = obj => t => { if (TYPE(obj) === t) { return TRUE; } else { return FALSE; }
+    var EQUAL = a => b => { if a === b) { return TRUE; } else { return FALSE; }
+
+  but this function can only compare numerals, and therefore types. Nothing else.
 
 ### zeroeth object type: errors
 
@@ -282,6 +288,23 @@ Made possible only by the mind-blowing work of Alonzo Church.
 
   we define now the typed versions of `TRUE` and `FALSE`:
 
-    def TRUEOBJ = MAKE_BOOL TRUE
-    def FALSEOBJ = MAKE_BOOL FALSE
+    def TRUE_OBJ = MAKE_BOOL TRUE
+    def FALSE_OBJ = MAKE_BOOL FALSE
+
+  plus a specific error for boolean troubles:
+
+    def BOOL_ERROR = MAKE_ERROR bool_type
+
+  then we make sure that TYPED_NOT operates only on booleans:
+
+    def NOT x = COND FALSE TRUE x // this was untyped NOT
+
+    ISBOOL(X) ? MAKE_BOOL (NOT (VALUE X) : BOOL_ERROR // using the ternary operator
+
+    def TYPED_NOT X = COND (MAKE_BOOL (NOT (VALUE X))) (BOOL_ERROR) (ISBOOL(X)) = (ISBOOL(X)) (MAKE_BOOL (NOT (VALUE X))) (BOOL_ERROR)
+
+  `AND` and `OR` follow along the same lines:
+
+    def TYPED_AND X Y = (AND (ISBOOL X) (ISBOOL Y)) (MAKE_BOOL (AND (VALUE X) (VALUE Y))) (BOOL_ERROR)
+    def TYPED_OR X Y = (OR (ISBOOL X) (ISBOOL Y)) (MAKE_BOOL (OR (VALUE X) (VALUE Y))) (BOOL_ERROR)
 
