@@ -25,7 +25,7 @@ var VALUE = obj => obj(SECOND)
 var EQUAL = a => b => { if (a === b) { return TRUE; } else { return FALSE; } }
 var ISTYPE = t => obj => EQUAL(TYPE(obj))(t)
 
-// type = ZERO -> error stuff
+// --> type = ZERO -> error stuff
 var error_type = ZERO
 var MAKE_ERROR = e => MAKE_OBJ(error_type)(e)
 var ISERROR = e => ISTYPE(error_type)(e)
@@ -35,7 +35,7 @@ var ERROR = MAKE_ERROR(error_type)
 // ISERROR(ERROR) // x => y => x
 // ISTYPE(error_type)(ERROR)
 
-// type = ONE -> boolean stuff
+// --> type = ONE -> boolean stuff
 var bool_type = ONE;
 var MAKE_BOOL = MAKE_OBJ(bool_type);
 var ISBOOL = ISTYPE(bool_type);
@@ -67,3 +67,21 @@ var TYPED_OR = X => Y => (OR(ISBOOL(X)(ISBOOL(Y))))(MAKE_BOOL(OR(VALUE(X))(VALUE
 // VALUE(TYPED_OR(FALSE_OBJ)(FALSE_OBJ)) --> FALSE
 // VALUE(TYPED_AND(TRUE_OBJ)(ERROR)) --> bool_error === ONE
 // TYPE(TYPED_OR(ERROR)(ERROR)) --> error_type === ZERO === IDENTITY
+
+// --> type = TWO -> numeral stuff
+var num_type = TWO;
+var MAKE_NUM = MAKE_OBJ(num_type);
+var ISNUMBER = ISTYPE(num_type);
+
+// number instances
+var ZERO_OBJ = MAKE_NUM(ZERO);
+var ONE_OBJ = MAKE_NUM(ONE);
+var TWO_OBJ = MAKE_NUM(TWO);
+var THREE_OBJ = MAKE_NUM(THREE);
+
+// specific error
+var NUM_ERROR = MAKE_ERROR(num_type);
+
+// ISNUM(TWO_OBJ) // TRUE --> x => y => x
+// ISERROR(ZERO_OBJ) // FALSE --> x => y => y
+// ISERROR(NUM_ERROR) // TRUE --> x => y => x
