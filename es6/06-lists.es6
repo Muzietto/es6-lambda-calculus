@@ -52,12 +52,24 @@ var NUM_ERROR = MAKE_ERROR(num_type);
 var TYPED_ADD = X => Y => (AND(ISNUM(X))(ISNUM(Y)))(MAKE_NUM(ADD(VALUE(X))(VALUE(Y))))(NUM_ERROR);
 var TYPED_MULT = X => Y => (AND(ISNUM(X))(ISNUM(Y)))(MAKE_NUM(MULT(VALUE(X))(VALUE(Y))))(NUM_ERROR);
 
+// var HEAD = list => list(FIRST);
+// var TAIL = list => list(SECOND);
+// var NIL = ZERO;
+// var ISEMPTY = list => (ISZERO(list))(TRUE)(FALSE);
+var list_type = THREE;
+var ISLIST = ISTYPE(list_type);
+var LIST_ERROR = MAKE_ERROR(list_type);
+var MAKE_LIST = MAKE_OBJ(list_type);
+var CONS = H => T => (ISLIST(T))(MAKE_LIST(PAIR(H)(T)))(LIST_ERROR);
+var HEAD = list => (ISLIST(list))(VALUE(list)(FIRST))(LIST_ERROR);
+var TAIL = list => (ISLIST(list))(VALUE(list)(SECOND))(LIST_ERROR);
+var NIL = CONS(LIST_ERROR)(LIST_ERROR); // a very strange NIL, indeed...
+var ISEMPTY = list => (ISLIST(list))(ISERROR(HEAD(list)))(FALSE);
+var ISNIL = ISEMPTY;
+var LENGTH = list => (ISEMPTY(list))(ZERO)(SUCC(LENGTH(TAIL)(list))); // recursive definition, no way...
+var APPEND = element => list => (ISEMPTY(list))(CONS(element)(NIL))(CONS(HEAD(list))(APPEND(element)(TAIL(list)))); // another recursive definition
 
-var HEAD = list => list(FIRST);
-var TAIL = list => list(SECOND);
-var ISEMPTY = list => (ISZERO(list))(TRUE)(FALSE);
-
-var MAP_HELPER2 = f => list => mapper => acc = (ISEMPTY(list))(PAIR(acc)(NIL))(f(TAIL(list))(PAIR(mapper(HEAD(list)))(acc));
+var MAP_HELPER2 = f => list => mapper => acc = (ISEMPTY(list))(PAIR(acc)(NIL))(f(TAIL(list))(PAIR(mapper(HEAD(list)))(acc)));
 var MAP = MAP_HELPER2(MAP_HELPER2); // MAP list mapper
 
 // MAP(PAIR(ZERO)(PAIR(TWO)(PAIR(TWO)(NIL))))(ADD(ONE)) // PAIR(ONE)(PAIR(THREE)(PAIR(THREE)(NIL)))

@@ -347,26 +347,44 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
 ## lists (see [06-lists.es6](/es6/06-lists.es6))
 
-  a list is implemented by chaining pairs one inside the other (guess where LISP got the idea from, in the first place...); we start from the empty list, which we chose to represent with `IDENTITY` (aka `ZERO`); but we'll rename it to `NIL`
+  a list is implemented by chaining pairs one inside the other (guess where LISP got the idea from, in the first place...); we start from the empty list, which we chose to represent with `IDENTITY` (aka `ZERO`); but we'll rename `PAIR` into `CONS` and `IDENTITY` into `NIL`
 
   for example:
 
-    [1, 2, 5] --> PAIR ONE (PAIR TWO (PAIR FIVE NIL))
+    [1, 2, 5] --> CONS ONE (CONS TWO (CONS FIVE NIL))
 
-  we need a few basic functions to start managing this stuff
-  
+  we seem to need just a few basic functions to start managing this stuff
+
+    def CONS = PAIR
     def HEAD list = list FIRST  // CAR
     def TAIL list = list SECOND  // CDR
     def ISEMPTY list = COND TRUE FALSE (ISZERO list) = (ISZERO list) TRUE FALSE
 
-  and we proceed thinking about some more sophisticated stuff
+  but then we define the type for lists and the basic operators:
+
+    def list_type = THREE
+    def ISLIST = ISTYPE list_type
+    def LIST_ERROR = MAKE_ERROR list_type
+    def MAKE_LIST = MAKE_OBJ list_type
+
+  using these concepts, this time we can try a more ambitious constructor and getters:
+
+    def CONS H T = (ISLIST T) (MAKE_LIST (PAIR H T)) LIST_ERROR
+    def HEAD list = (ISLIST list) (VALUE list FIRST) LIST_ERROR
+    def TAIL list = (ISLIST list) (VALUE list SECOND) LIST_ERROR
+
+  then we need some atomic operations on lists:
+
+    def LENGTH list = (ISEMPTY list) ZERO (SUCC (LENGTH TAIL list) // recursive definition, no way...
+    def APPEND element list = (ISEMPTY list) (CONS element NIL) (CONS (HEAD list) (APPEND element (TAIL list)))
+
+  and we proceed thinking about some more sophisticated stuff:
 
     def MAP list mapper = MAP_HELPER list mapper NIL // won't be possible
-    def MAP_HELPER list mapper acc = COND acc (MAP_HELPER (TAIL list) mapper (PAIR (mapper (HEAD list)) acc)) (ISEMPTY list) // recursive, no way!
+    def MAP_HELPER list mapper acc = COND acc (MAP_HELPER (TAIL list) mapper (CONS (mapper (HEAD list)) acc)) (ISEMPTY list) // recursive, no way!
 
-    def MAP_HELPER2 f list mapper acc = COND (PAIR acc NIL) (f (TAIL list) (PAIR (mapper (HEAD list)) acc)) (ISEMPTY list) = (ISEMPTY list) (PAIR acc NIL) (f (TAIL list) (PAIR (mapper (HEAD list)) acc))
+    def MAP_HELPER2 f list mapper acc = COND (CONS acc NIL) (f (TAIL list) (CONS (mapper (HEAD list)) acc)) (ISEMPTY list) = (ISEMPTY list) (CONS acc NIL) (f (TAIL list) (CONS (mapper (HEAD list)) acc))
     def MAP = MAP_HELPER2 MAP_HELPER2 // the good version
-    
 
 ## strings, the third object type (see [07-strings.es6](/es6/07-strings.es6))
 
