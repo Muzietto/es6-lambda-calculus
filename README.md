@@ -63,7 +63,7 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
     (λx.λy.x+y 1 2) = ((λx.λy.x+y 1) 2)
 
-  convention is also that function application can be omitted:
+  convention is also that function application can be omitted every time this does not bring ambiguities in the expression:
 
     λx.λy.x+y 1 2 = (λx.λy.x+y 1 2)
 
@@ -100,7 +100,7 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
   we want to define it in terms of λ-calculus. One possibility is:
 
-    def COND = λexp_true.λexp_false.λcondition.(cond exp_true exp_false)
+    def COND = λexp_true.λexp_false.λcondition.(condition exp_true exp_false)
 
     def COND = PAIR
 
@@ -112,7 +112,7 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
   substituting the function body once all the variables have been fulfilled, we come to __a form that will be used a lot__ in the following paragraphs:
 
-    COND exp_true exp_false condition = __condition exp_true exp_false__
+    COND exp_true exp_false condition = condition exp_true exp_false
 
 ### NOT operator
 
@@ -159,13 +159,13 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
     SUCC n = PAIR FALSE n
   
-  these picks for ZERO and SUCC are just one of the infinite possibilities; they just happen to be simple and powerful enough to start our conversation. Actually Church ended up with less simple yet (a lot) more powerful definitions.
+  these picks for `ZERO` and `SUCC` are just one of the infinite possibilities; they just happen to be simple and powerful enough to start our conversation. Actually Church ended up with less simple yet (a lot) more powerful definitions.
   
     def ONE = SUCC ZERO = PAIR FALSE IDENTITY
     def TWO = SUCC ONE = PAIR FALSE (PAIR FALSE IDENTITY)
     def THREE = SUCC TWO = PAIR FALSE (PAIR FALSE (PAIR FALSE IDENTITY))
     
-  let's start to slowly build something really useful; first step is to become able to tell whether a number is zero or not:
+  let's start to slowly build something really useful; first step is to become able to tell whether a number is `ZERO` or not:
   
     ISZERO = COND TRUE FALSE ZERO 
     ISZERO IDENTITY = TRUE
@@ -184,7 +184,7 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
     PRED ONE = PRED (PAIR FALSE ZERO) = ZERO
     PRED TWO = PRED (PAIR FALSE (PAIR FALSE ZERO)) = ONE = PAIR FALSE ZERO 
  
- therefore we could initially say that `SIMPLE_PRED n = n SECOND`, but we need to guard against n = ZERO
+ therefore we could initially say that `SIMPLE_PRED n = n SECOND`, but we need to guard against `n = ZERO`
  
     SIMPLE_PRED ZERO = ZERO SECOND = SECOND = FALSE // not a number anymore
    
@@ -216,9 +216,9 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
   the big gain is that nobody mentions itself inside its own body anymore; you can see in the definition of `ADD2` that the recursion is created implicitly by the self application of argument `f` and __not__ by an explicit invocation
   
-  **unfortunately, this bit cannot be verified in ES6**, because the eager execution tries to calculate both branches of the `COND`, which leads us to a stack overflow even if we know that only one of them should be evalued at a time
+  **unfortunately, this truly interesting bit cannot be verified in ES6**, because its eager interpreter tries to calculate both branches of the `COND` at all times, causing a stack overflow even if we know that only one of them should be evalued at a time
 
-  the codebase shows a little cheat that makes use of the real JavaScript `if then else` (which evaluates the FALSE branch only when needed) to create a recursive addition helper that performs some crude and simple calculations
+  the codebase shows a little cheat that makes use of the real JavaScript `if then else` (which evaluates the `FALSE` branch only when needed) to create a recursive addition helper that performs some crude and simple calculations
 
 ### multiplication
 
@@ -253,7 +253,7 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
   we want to be able to pass only `TRUE` and `FALSE` to functions like `NOT`, `AND`, `OR`; we want to be able to pass only `ZERO`, `ONE`, etc to functions like `PRED` and `SUCC`
   
-  we represent a typed object with a pair:
+  we represent a typed object with a pair `(type, value)`:
 
     def MAKE_OBJ type value = PAIR type value = λs.(s type value)
 
@@ -266,7 +266,7 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
     def ISTYPE t obj = EQUAL (TYPE obj) t
 
-  because EQUAL has a recursive definition, we have to come up with some clever trick if we want to be able to actually perform type comparison in ES6; here's what we will do:
+  because `EQUAL` will have a recursive definition, we must come up with some clever trick if we want to be able to actually perform type comparison in ES6; here's what we will do:
 
     var EQUAL = a => b => { if a === b) { return TRUE; } else { return FALSE; }
 
@@ -274,7 +274,7 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
 ### zeroeth object type: errors
 
-  we decide that errors are object type ZERO; we define errors by means of a set of useful functions
+  we decide that errors are object type `ZERO`; we define errors by means of a set of useful functions
 
     def error_type = ZERO
     def MAKE_ERROR e = MAKE_OBJ error_type e
@@ -284,14 +284,14 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
     def ERROR = MAKE_ERROR error_type // = PAIR error_type error_type
 
-  we verify that ERROR satisfied the functions mentioned before:
+  we verify that `ERROR` satisfied the functions mentioned before:
 
     ISERROR ERROR = ISTYPE ZERO ERROR = EQUAL (TYPE ERROR) ZERO
     TYPE ERROR = ERROR FIRST = error_type = ZERO
 
 ### first object type: booleans
 
-  we decide that booleans are object of type ONE; we define booleans by means of a set of useful functions
+  we decide that booleans are object of type `ONE`; we define booleans by means of a set of useful functions
 
     def bool_type = ONE
     def MAKE_BOOL b = MAKE_OBJ bool_type b
@@ -306,7 +306,7 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
     def BOOL_ERROR = MAKE_ERROR bool_type
 
-  then we make sure that TYPED_NOT operates only on booleans:
+  then we make sure that `TYPED_NOT` operates only on booleans:
 
     def NOT x = COND FALSE TRUE x // this was untyped NOT
 
@@ -314,14 +314,14 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
     def TYPED_NOT X = COND (MAKE_BOOL (NOT (VALUE X))) (BOOL_ERROR) (ISBOOL(X)) = (ISBOOL(X)) (MAKE_BOOL (NOT (VALUE X))) (BOOL_ERROR)
 
-  `AND` and `OR` follow along the same lines:
+  `TYPED_AND` and `TYPED_OR` follow along the same lines:
 
     def TYPED_AND X Y = (AND (ISBOOL X) (ISBOOL Y)) (MAKE_BOOL (AND (VALUE X) (VALUE Y))) (BOOL_ERROR)
     def TYPED_OR X Y = (OR (ISBOOL X) (ISBOOL Y)) (MAKE_BOOL (OR (VALUE X) (VALUE Y))) (BOOL_ERROR)
 
 ### second object type: numerals
 
-  we decide that natural numbers are object of type TWO; we define numerals by means of a set of useful functions
+  we decide that natural numbers are object of type `TWO`; we define numerals by means of a set of useful functions
 
     def num_type = TWO
     def MAKE_NUM = MAKE_OBJ num_type
@@ -337,17 +337,17 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
     def NUM_ERROR = MAKE_ERROR num_type
 
-  now we make sure that TYPED_ADD and TYPED_MULT will operate only on numerals:
+  now we make sure that `TYPED_ADD` and `TYPED_MULT` will operate only on numerals:
 
     def TYPED_ADD X Y = (AND (ISNUM X) (ISNUM Y)) (MAKE_NUM (ADD (VALUE X) (VALUE Y))) (NUM_ERROR)
     def TYPED_MULT X Y = (AND (ISNUM X) (ISNUM Y)) (MAKE_NUM (MULT (VALUE X) (VALUE Y))) (NUM_ERROR)
 
-#### before talking about strings (the third object type) here is a little detour about _lists_; after talking about that, we will be able to represent strings as lists of characters
+###### before talking about strings (the third object type) here is a little detour about _lists_; after talking about that, we will be able to represent strings as lists of characters
 
 
 ## lists (see [06-lists.es6](/es6/06-lists.es6))
 
-  a list is implemented by chaining pairs one inside the other (guess where LISP got the idea from, in the first place...); we start from the empty list, which we chose to represent with `IDENTITY` (aka `ZERO`); but we call the empty list `NIL`
+  a list is implemented by chaining pairs one inside the other (guess where LISP got the idea from, in the first place...); we start from the empty list, which we chose to represent with `IDENTITY` (aka `ZERO`); but we'll rename it to `NIL`
 
   for example:
 
@@ -355,8 +355,8 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
   we need a few basic functions to start managing this stuff
   
-    def HEAD list = list FIRST
-    def TAIL list = list SECOND
+    def HEAD list = list FIRST  // CAR
+    def TAIL list = list SECOND  // CDR
     def ISEMPTY list = COND TRUE FALSE (ISZERO list) = (ISZERO list) TRUE FALSE
 
   and we proceed thinking about some more sophisticated stuff
