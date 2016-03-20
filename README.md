@@ -381,17 +381,17 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
     def LIST_ERROR = MAKE_ERROR list_type
     def MAKE_LIST = MAKE_OBJ list_type
 
+### the building blocks
+
   we start building lists from the empty list `NIL`, which will have a few characteristics:
-
     - it is a list (`EQUAL(TYPE(NIL))(list_type)`)
-
     - it has value `PAIR LIST_ERROR LIST_ERROR`, so that whoever tries to read it, will get an error
 
   all this is satisfied by the following λ-expression
 
     def NIL = MAKE_LIST (PAIR LIST_ERROR LIST_ERROR)
 
-  once we have NIL, we may start building real lists; the process is, for example:
+  once we have `NIL`, we may start building real lists; the process is, for example:
 
     [1, 2, 5] --> CONS ONE (CONS TWO (CONS FIVE NIL))
 
@@ -408,6 +408,8 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
     def HEAD list = (ISLIST list) (VALUE list FIRST) LIST_ERROR
     def TAIL list = (ISLIST list) (VALUE list SECOND) LIST_ERROR
 
+### basic list operations
+
   then we need some further basic operations on lists, all based on recursion:
 
     def LENGTH list = (ISEMPTY list) ZERO (SUCC (LENGTH TAIL list) // recursive definition, no way...
@@ -420,7 +422,11 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
     def APP1 f element list = (ISEMPTY list) (CONS element NIL) (CONS (HEAD list) (f f element (TAIL list)))
     def APPEND = APP1 APP1
 
-  and we end thinking about some more sophisticated stuff:
+  in the codeabase there are two venial tricks, called `LEN2` and `APP2` which allow to express `LENGTH` and `APPEND` in eager EcmaScript.
+
+### advanced list operations
+
+  we end up thinking about some more sophisticated stuff:
 
     def MAP list mapper = MAP_HELPER list mapper NIL // won't be possible
     def MAP_HELPER list mapper acc = COND acc (MAP_HELPER (TAIL list) mapper (CONS (mapper (HEAD list)) acc)) (ISEMPTY list) // recursive, no way!
