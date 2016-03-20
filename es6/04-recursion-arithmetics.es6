@@ -30,15 +30,15 @@ var ADD3 = f => x => y => { if (ISZERO(y) === TRUE) {
 var ADD = ADD3(ADD3)
 // PRED(ADD(ONE)(ONE))===PRED(ADD(TWO)(ZERO)) // TRUE
 
-var MULT1 = f => x => y => (ISZERO(y))(ZERO)(ADD(x)(f(x)(PRED(y))));
+var MULT1 = f => x => y => (ISZERO(y))(ZERO)(ADD(x)(f(f)(x)(PRED(y))));
 var MULT2 = f => x => y => { if (ISZERO(y) === TRUE) {
     return ZERO;
   } else {
-    return ADD(x)(f(x)(PRED(y)));
+    return ADD(x)(f(f)(x)(PRED(y)));
   }
 };
 
 // var MULT = MULT1(MULT1) // 'Internal Error: too much recursion'
 var MULT = MULT2(MULT2);
 
-// MULT(ONE)(TWO)
+// MULT(ONE)(TWO)  // check it with PRED(PRED(MULT(ONE)(TWO)))===IDENTITY
