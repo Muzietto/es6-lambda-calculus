@@ -67,6 +67,28 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
     λx.λy.x+y 1 2 = (λx.λy.x+y 1 2)
 
+#### two remarkable applicators
+
+##### function `APPLY`
+
+  function `APPLY` is the abstraction of application; it applies whatever function to whatever argument:
+
+    def APPLY = λf.λx.(f x)
+    var APPLY = f => x => f(x)
+
+##### function `SELF_APPLY`
+
+  function `SELF_APPLY` is a quirky thing; it applies whatever function to _itself_. It is customary to call `s` the argument of `SELF_APPLY`:
+
+    def APPLY = λs.(s s)
+    var SELF_APPLY = s => s(s)
+
+  this function has a very strange, rather unique characteristic: if you try with paper and pencil the next equation, you will verify that:
+
+    (SELF_APPLY SELF_APPLY) = (SELF_APPLY SELF_APPLY)
+
+  because of this peculiarity, `SELF_APPLY` takes a primary role in the λ-calculus definition and implementation of __recursion__.
+
 #### two ways of looking at function application
 
   application inside function bodies means substituting every bound variable as soon as we know what is (either a value or another λ-expression)
@@ -82,6 +104,8 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
     (x => x + 1)(y + z + 5) --> ((y + z + 5) => (y + z + 5) + 1) --> we will see...
 
   NB: ES6 is an eager language, so the second example aint't real running code, and it is just for the show.
+
+  trying to implement recursion using `SELF_APPLY` in an eager language is impossible.
 
 ### pairs
 
