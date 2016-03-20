@@ -174,7 +174,7 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
     def ZERO = IDENTITY = λx.x
 
-  we express every natural number as the `SUCC`essors of its preceding one:
+  we express every natural number as the `SUCC`essor of its preceding one:
 
     def ONE = SUCC ZERO
     def TWO = SUCC ONE = SUCC (SUCC ZERO)
