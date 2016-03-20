@@ -428,15 +428,17 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
   we end up thinking about some more sophisticated stuff:
 
-    def MAP list mapper = MAP_HELPER list mapper NIL // won't be possible
-    def MAP_HELPER list mapper acc = COND acc (MAP_HELPER (TAIL list) mapper (CONS (mapper (HEAD list)) acc)) (ISEMPTY list) // recursive, no way!
+    def MAP list mapper = COND NIL (CONS (mapper (HEAD list))(MAP (TAIL list) mapper) (ISEMPTY list) // recursive, no way!
 
   we realize `MAP` once more with the implicit recursion of the `SELF_APPLY` method:
 
-    def MAP_HELPER2 f list mapper acc = COND acc (f f (TAIL list) mapper (CONS (mapper (HEAD list)) acc)) (ISEMPTY list) = (ISEMPTY list) acc (f f (TAIL list) mapper (CONS (mapper (HEAD list)) acc))
+    def MAP_HELPER2 f list mapper = (ISEMPTY list) NIL (CONS (mapper (HEAD list))(f f (TAIL list) mapper))
     def MAP = MAP_HELPER2 MAP_HELPER2 // the good version
+
+  in the codebase, look at MAP_HELPER3, lazy implementation for the browser.
+  
+  REDUCE: TBC
 
 ## strings, the third object type (see [07-strings.es6](/es6/07-strings.es6))
 
   TBC
-
