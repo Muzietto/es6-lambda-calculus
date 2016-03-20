@@ -266,7 +266,7 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
     def RECURSIVE f = (λs.(f (s s)) λs.(f (s s)))
 
-  unfortunately `RECURSIVE` is practically a carbon copy of `(SELF_APPLY SELF_APPLY)` and causes an infinite loop at the very first moment we present it to the browser.
+  unfortunately `RECURSIVE` (also known as the _fixed-point combinator_ or also the _Y-combinator_) is practically a carbon copy of `(SELF_APPLY SELF_APPLY)` and causes an infinite loop at the very first moment we present it to the browser.
 
   the codebase shows a little cheat about `MULT1` (called `MULT2`) that allows to run multiplication also in an eager interpreter.
 
@@ -394,21 +394,30 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
     def LIST_ERROR = MAKE_ERROR list_type
     def MAKE_LIST = MAKE_OBJ list_type
 
-  using these concepts, this time we can try a more ambitious constructor and getters:
+  using these concepts, this time we can try a more ambitious `CONS`tructor and getters:
 
     def CONS H T = (ISLIST T) (MAKE_LIST (PAIR H T)) LIST_ERROR
     def HEAD list = (ISLIST list) (VALUE list FIRST) LIST_ERROR
     def TAIL list = (ISLIST list) (VALUE list SECOND) LIST_ERROR
 
-  then we need some atomic operations on lists:
+  then we need some further basic operations on lists, all based on recursion:
 
     def LENGTH list = (ISEMPTY list) ZERO (SUCC (LENGTH TAIL list) // recursive definition, no way...
-    def APPEND element list = (ISEMPTY list) (CONS element NIL) (CONS (HEAD list) (APPEND element (TAIL list)))
+    def APPEND element list = (ISEMPTY list) (CONS element NIL) (CONS (HEAD list) (APPEND element (TAIL list))) // also recursive
 
-  and we proceed thinking about some more sophisticated stuff:
+  which we realize implicitly using the `SELF_APPLY` trick:
+
+    def LEN1 f list = (ISEMPTY list) ZERO (SUCC (f f (TAIL list)))
+    def LENGTH LEN1 LEN1
+    def APP1 f element list = (ISEMPTY list) (CONS element NIL) (CONS (HEAD list) (f f element (TAIL list)))
+    def APPEND = APP1 APP1
+
+  and we end thinking about some more sophisticated stuff:
 
     def MAP list mapper = MAP_HELPER list mapper NIL // won't be possible
     def MAP_HELPER list mapper acc = COND acc (MAP_HELPER (TAIL list) mapper (CONS (mapper (HEAD list)) acc)) (ISEMPTY list) // recursive, no way!
+
+  we realize `MAP` once more with the implicit recursion of the `SELF_APPLY` method:
 
     def MAP_HELPER2 f list mapper acc = COND (CONS acc NIL) (f (TAIL list) (CONS (mapper (HEAD list)) acc)) (ISEMPTY list) = (ISEMPTY list) (CONS acc NIL) (f (TAIL list) (CONS (mapper (HEAD list)) acc))
     def MAP = MAP_HELPER2 MAP_HELPER2 // the good version
