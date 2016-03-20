@@ -15,6 +15,8 @@ var SUCC = n => PAIR(FALSE)(n);
 var ONE = SUCC(ZERO);
 var TWO = SUCC(ONE);
 var THREE = SUCC(TWO);
+var FOUR = SUCC(THREE);
+var FIVE = SUCC(FOUR);
 var PRED = n => (ISZERO(n))(ZERO)(n(SECOND));
 var ADD3 = f => x => y => {if (ISZERO(y) === TRUE) {return x;} else {return f(f)(SUCC(x))(PRED(y));}};
 var ADD = ADD3(ADD3);
@@ -25,8 +27,6 @@ var MULT = MULT2(MULT2);
 var MAKE_OBJ = type => value => PAIR(type)(value);
 var TYPE = obj => obj(FIRST);
 var VALUE = obj => obj(SECOND);
-// strict JS equality check, so to avoid infinite recursive loops
-var EQUAL = a => b => { if (a === b) { return TRUE; } else { return FALSE; } };
 var ISTYPE = t => obj => EQUAL(TYPE(obj))(t);
 
 // --> type = ZERO -> error stuff
