@@ -93,7 +93,18 @@ var ISNIL = ISEMPTY;
 // EQUAL(VALUE(CONS(ONE)(NIL))(FIRST))(ONE) // TRUE
 // EQUAL(TYPE(CONS(ONE)(NIL)))(THREE) // TRUE
 
-var LENGTH = list => (ISEMPTY(list))(ZERO)(SUCC(LENGTH(TAIL)(list))); // recursive definition, no way...
+var LEN1 = f => list => (ISEMPTY(list))(ZERO)(SUCC(f(f)(TAIL(list))));
+var LEN2 = f => list => { if (ISEMPTY(list) === TRUE) {
+    return ZERO;
+  } else {
+    return SUCC(f(f)(TAIL(list)));
+  }
+};
+var LENGTH = LEN2(LEN2);
+
+// EQUAL(LENGTH(CONS(TWO)(NIL)))(ONE) //TRUE
+// EQUAL(LENGTH(CONS(TWO)(CONS(ONE)(NIL))))(TWO) // TRUE
+
 var APPEND = element => list => (ISEMPTY(list))(CONS(element)(NIL))(CONS(HEAD(list))(APPEND(element)(TAIL(list)))); // another recursive definition
 
 var MAP_HELPER2 = f => list => mapper => acc = (ISEMPTY(list))(PAIR(acc)(NIL))(f(TAIL(list))(PAIR(mapper(HEAD(list)))(acc)));
