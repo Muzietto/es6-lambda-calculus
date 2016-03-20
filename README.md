@@ -385,6 +385,7 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
   - it is a list (`EQUAL(TYPE(NIL))(list_type)`)
   - it has value `PAIR LIST_ERROR LIST_ERROR`, so that whoever tries to read it, will get an error
 
+
     def NIL = MAKE_LIST (PAIR LIST_ERROR LIST_ERROR)
 
   once we have NIL, we may start building real lists; the process is, for example:
