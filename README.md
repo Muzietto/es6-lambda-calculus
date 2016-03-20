@@ -20,9 +20,9 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
     e.g. IDENTITY, pippo, c3b0
 
-  the keyword 'def' binds names to expressions
+  keyword `def` binds names to expressions
 
-    def TWELVE = 12
+    def TWELVE = (SUCCESSOR ELEVEN)
     def IDENTITY = λx.x
 
 ### functions
