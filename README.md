@@ -435,7 +435,7 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
     def MAP_HELPER2 f list mapper = (ISEMPTY list) NIL (CONS (mapper (HEAD list))(f f (TAIL list) mapper))
     def MAP = MAP_HELPER2 MAP_HELPER2 // the good version
 
-  in the codebase, look at MAP_HELPER3, lazy implementation for the browser.
+  in the codebase, look at `MAP_HELPER3`, lazy implementation for the browser.
   
   REDUCE: TBC
 
