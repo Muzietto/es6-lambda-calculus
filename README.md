@@ -140,31 +140,31 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
 ### NOT operator
 
-  Definition using the ternary operator is straightforward:
+  definition using the ternary operator is straightforward:
 
     !x = x ? false : true
 
-  Expressing NOT in terms of λ-calculus is also straightforward:
+  expressing NOT in terms of λ-calculus is also straightforward:
 
     def NOT x = COND FALSE TRUE x
 
 ### AND operator
 
-  Definition using the ternary operator is the following:
+  definition using the ternary operator is the following:
 
     x && y = x ? y : false
 
-  Expressing AND in terms of λ-calculus derives immediately:
+  expressing AND in terms of λ-calculus derives immediately:
 
     def AND x y = COND y FALSE x = x y FALSE (try it with paper and pen...)
 
 ### OR operator
 
-  Definition using the ternary operator is the following:
+  definition using the ternary operator is the following:
 
     x || y = x ? true : y
 
-  Expressing OR in terms of λ-calculus derives immediately:
+  expressing OR in terms of λ-calculus derives immediately:
 
     def OR x = COND TRUE y x = x TRUE y (try it with paper and pen...)
 
@@ -178,19 +178,19 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
     def ONE = SUCC ZERO
     def TWO = SUCC ONE = SUCC (SUCC ZERO)
-    
+
   we need to define SUCC; we just decide to pick
 
     SUCC n = PAIR FALSE n
-  
+
   these picks for `ZERO` and `SUCC` are just one of the infinite possibilities; they just happen to be simple and powerful enough to start our conversation. Actually Church ended up with less simple yet (a lot) more powerful definitions.
-  
+
     def ONE = SUCC ZERO = PAIR FALSE IDENTITY
     def TWO = SUCC ONE = PAIR FALSE (PAIR FALSE IDENTITY)
     def THREE = SUCC TWO = PAIR FALSE (PAIR FALSE (PAIR FALSE IDENTITY))
-    
+
   let's start to slowly build something really useful; first step is to become able to tell whether a number is `ZERO` or not:
-  
+
     ISZERO = COND TRUE FALSE ZERO 
     ISZERO IDENTITY = TRUE
     ISZERO λx.x = λx.λy.x
@@ -202,16 +202,16 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
     ISZERO ZERO = ZERO FIRST = IDENTITY FIRST = FIRST = TRUE
     ISZERO ONE = PAIR FALSE ZERO FIRST = FALSE
     ISZERO TWO = PAIR FALSE (PAIR FALSE ZERO) FIRST = FALSE
-    
- now we define the `PRED`ecessor function, such that:
- 
+
+  now we define the `PRED`ecessor function, such that:
+
     PRED ONE = PRED (PAIR FALSE ZERO) = ZERO
     PRED TWO = PRED (PAIR FALSE (PAIR FALSE ZERO)) = ONE = PAIR FALSE ZERO 
- 
- therefore we could initially say that `SIMPLE_PRED n = n SECOND`, but we need to guard against `n = ZERO`
- 
+
+  therefore we could initially say that `SIMPLE_PRED n = n SECOND`, but we need to guard against `n = ZERO`
+
     SIMPLE_PRED ZERO = ZERO SECOND = SECOND = FALSE // not a number anymore
-   
+
   we define then that `PRED ZERO = ZERO` and we get:
 
     predecessor(n) = isZero(n) ? 0 : simplePredecessor(n)  // using the ternary operator
