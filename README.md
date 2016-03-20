@@ -242,7 +242,7 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
   
   **unfortunately, this truly interesting bit cannot be verified in ES6**, because its eager interpreter tries to calculate both branches of the `COND` at all times, causing a stack overflow even if we know that only one of them should be evalued at a time
 
-  the codebase shows a little cheat that makes use of the real JavaScript `if then else` (which evaluates the `FALSE` branch only when needed) to create a recursive addition helper that performs some crude and simple calculations
+  the codebase shows a little cheat about `ADD2` (called `ADD3`) that makes use of the real JavaScript `if then else` (which evaluates the `FALSE` branch only when needed) to create a recursive addition helper that performs some crude and simple calculations
 
 ### multiplication
 
@@ -251,21 +251,24 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
     var mult = x => y => (y === 0) ? 0 : x + mult(x)(y-1)
     def MULT x y = COND ZERO (ADD x (MULT (SUCC x) (PRED y))) (ISZERO y)
 
-  which leads to a helper function
+  which leads to a helper function which behaves like `ADD2`, and it also __not runnable__ inside a browser:
 
-    def MULT1 f x y = COND ZERO (ADD x (f x (PRED y))) (ISZERO y)
+    def MULT1 f x y = COND ZERO (ADD x (f f x (PRED y))) (ISZERO y)
+    def MULT = MULT1 MULT1
+    var MULT = MULT1(MULT1) // 'Internal Error: too much recursion'
 
-  and a recursive multiplication
+  this second time we can try to abstract a bit the whole business and come up with a new way to define recursive functions like `ADD` and `MULT`:
 
+    def ADD = RECURSIVE ADD2
     def MULT = RECURSIVE MULT1
 
   where `RECURSIVE` is an abstraction upon which every helper function can be applied:
 
     def RECURSIVE f = (λs.(f (s s)) λs.(f (s s)))
 
-  unfortunately `RECURSIVE` is very much akin to `SELF_APPLY` and causes an infinite loop at the very first moment we present it to the browser.
+  unfortunately `RECURSIVE` is practically a carbon copy of `(SELF_APPLY SELF_APPLY)` and causes an infinite loop at the very first moment we present it to the browser.
 
-  the codebase shows a little cheat that allows to run multiplication also in an eager interpreter.
+  the codebase shows a little cheat about `MULT1` (called `MULT2`) that allows to run multiplication also in an eager interpreter.
 
 ### other operations
 
