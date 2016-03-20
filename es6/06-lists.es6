@@ -105,7 +105,18 @@ var LENGTH = LEN2(LEN2);
 // EQUAL(LENGTH(CONS(TWO)(NIL)))(ONE) //TRUE
 // EQUAL(LENGTH(CONS(TWO)(CONS(ONE)(NIL))))(TWO) // TRUE
 
-var APPEND = element => list => (ISEMPTY(list))(CONS(element)(NIL))(CONS(HEAD(list))(APPEND(element)(TAIL(list)))); // another recursive definition
+var APP2 = f => element => list => { if (ISEMPTY(list) === TRUE) {
+    return CONS(element)(NIL);
+  } else {
+    return CONS(HEAD(list))(f(f)(element)(TAIL(list)));
+  }
+};
+var APPEND = APP2(APP2);
+
+// EQUAL(LENGTH(APPEND(THREE)(CONS(ONE)(CONS(TWO)(NIL)))))(THREE) // TRUE
+// EQUAL(HEAD(APPEND(THREE)(CONS(ONE)(CONS(TWO)(NIL)))))(ONE)
+// EQUAL(HEAD(TAIL(APPEND(THREE)(CONS(ONE)(CONS(TWO)(NIL))))))(TWO)
+// EQUAL(HEAD(TAIL(TAIL(APPEND(THREE)(CONS(ONE)(CONS(TWO)(NIL)))))))(THREE)
 
 var MAP_HELPER2 = f => list => mapper => acc = (ISEMPTY(list))(PAIR(acc)(NIL))(f(TAIL(list))(PAIR(mapper(HEAD(list)))(acc)));
 var MAP = MAP_HELPER2(MAP_HELPER2); // MAP list mapper
