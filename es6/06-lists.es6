@@ -44,7 +44,6 @@ var MULT = MULT2(MULT2);
 var MAKE_OBJ = type => value => PAIR(type)(value);
 var TYPE = obj => obj(FIRST);
 var VALUE = obj => obj(SECOND);
-var EQUAL = a => b => { if (a === b) { return TRUE; } else { return FALSE; } }
 var ISTYPE = t => obj => EQUAL(TYPE(obj))(t);
 // --> type = ZERO -> error stuff
 var error_type = ZERO;
@@ -73,10 +72,7 @@ var NUM_ERROR = MAKE_ERROR(num_type);
 var TYPED_ADD = X => Y => (AND(ISNUM(X))(ISNUM(Y)))(MAKE_NUM(ADD(VALUE(X))(VALUE(Y))))(NUM_ERROR);
 var TYPED_MULT = X => Y => (AND(ISNUM(X))(ISNUM(Y)))(MAKE_NUM(MULT(VALUE(X))(VALUE(Y))))(NUM_ERROR);
 
-// var HEAD = list => list(FIRST);
-// var TAIL = list => list(SECOND);
-// var NIL = ZERO;
-// var ISEMPTY = list => (ISZERO(list))(TRUE)(FALSE);
+
 var list_type = THREE;
 var ISLIST = ISTYPE(list_type);
 var LIST_ERROR = MAKE_ERROR(list_type);
@@ -84,9 +80,19 @@ var MAKE_LIST = MAKE_OBJ(list_type);
 var CONS = H => T => (ISLIST(T))(MAKE_LIST(PAIR(H)(T)))(LIST_ERROR);
 var HEAD = list => (ISLIST(list))(VALUE(list)(FIRST))(LIST_ERROR);
 var TAIL = list => (ISLIST(list))(VALUE(list)(SECOND))(LIST_ERROR);
-var NIL = CONS(LIST_ERROR)(LIST_ERROR); // a very strange NIL, indeed...
+var NIL = MAKE_LIST(PAIR(LIST_ERROR)(LIST_ERROR)); // a very strange NIL, indeed...
 var ISEMPTY = list => (ISLIST(list))(ISERROR(HEAD(list)))(FALSE);
 var ISNIL = ISEMPTY;
+
+// ISLIST(NIL) // FIRST
+// ISEMPTY(NIL) // FIRST
+
+// EQUAL(TYPE(CONS(ONE)(TWO)))(ZERO) // ERROR
+// EQUAL(VALUE(CONS(ONE)(TWO)))(THREE) // list_type
+
+// EQUAL(VALUE(CONS(ONE)(NIL))(FIRST))(ONE) // TRUE
+// EQUAL(TYPE(CONS(ONE)(NIL)))(THREE) // TRUE
+
 var LENGTH = list => (ISEMPTY(list))(ZERO)(SUCC(LENGTH(TAIL)(list))); // recursive definition, no way...
 var APPEND = element => list => (ISEMPTY(list))(CONS(element)(NIL))(CONS(HEAD(list))(APPEND(element)(TAIL(list)))); // another recursive definition
 
