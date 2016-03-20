@@ -80,7 +80,7 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
   function `SELF_APPLY` is a quirky thing; it applies whatever function to _itself_. It is customary to call `s` the argument of `SELF_APPLY`:
 
-    def APPLY = λs.(s s)
+    def SELF_APPLY = λs.(s s)
     var SELF_APPLY = s => s(s)
 
   this function has a very strange, rather unique characteristic: if you try with paper and pencil the next equation, you will verify that:
