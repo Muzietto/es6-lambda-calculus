@@ -424,7 +424,7 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
   in the codeabase there are two venial tricks, called `LEN2` and `APP2` which allow to express `LENGTH` and `APPEND` in eager EcmaScript.
 
-### advanced list operations
+### advanced list operations: `MAP` and `REDUCE`
 
   we end up thinking about some more sophisticated stuff:
 
@@ -433,7 +433,7 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
   we realize `MAP` once more with the implicit recursion of the `SELF_APPLY` method:
 
-    def MAP_HELPER2 f list mapper acc = COND (CONS acc NIL) (f (TAIL list) (CONS (mapper (HEAD list)) acc)) (ISEMPTY list) = (ISEMPTY list) (CONS acc NIL) (f (TAIL list) (CONS (mapper (HEAD list)) acc))
+    def MAP_HELPER2 f list mapper acc = COND acc (f f (TAIL list) mapper (CONS (mapper (HEAD list)) acc)) (ISEMPTY list) = (ISEMPTY list) acc (f f (TAIL list) mapper (CONS (mapper (HEAD list)) acc))
     def MAP = MAP_HELPER2 MAP_HELPER2 // the good version
 
 ## strings, the third object type (see [07-strings.es6](/es6/07-strings.es6))

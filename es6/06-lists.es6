@@ -118,9 +118,14 @@ var APPEND = APP2(APP2);
 // EQUAL(HEAD(TAIL(APPEND(THREE)(CONS(ONE)(CONS(TWO)(NIL))))))(TWO)
 // EQUAL(HEAD(TAIL(TAIL(APPEND(THREE)(CONS(ONE)(CONS(TWO)(NIL)))))))(THREE)
 
-var MAP_HELPER2 = f => list => mapper => acc = (ISEMPTY(list))(PAIR(acc)(NIL))(f(TAIL(list))(PAIR(mapper(HEAD(list)))(acc)));
-var MAP = MAP_HELPER2(MAP_HELPER2); // MAP list mapper
+var MAP_HELPER3 = f => list => mapper => acc => { if (ISEMPTY(list) === TRUE) {
+    return acc;
+  } else {
+    return f(f)(TAIL(list))(mapper)(CONS(mapper(HEAD(list)))(acc));
+  }
+};
+var MAP = MAP_HELPER3(MAP_HELPER3); // MAP list mapper
 
-// MAP(PAIR(ZERO)(PAIR(TWO)(PAIR(TWO)(NIL))))(ADD(ONE)) // PAIR(ONE)(PAIR(THREE)(PAIR(THREE)(NIL)))
-
+// MAP(CONS(ZERO)(CONS(TWO)(CONS(TWO)(NIL))))(ADD(ONE))(NIL) // CONS(ONE)(CONS(THREE)(CONS(THREE)(NIL)))
+// EQUAL(HEAD(MAP(CONS(ZERO)(CONS(TWO)(CONS(TWO)(NIL))))(ADD(ONE))(NIL)))(THREE)
 
