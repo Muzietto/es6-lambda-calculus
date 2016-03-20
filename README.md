@@ -374,9 +374,20 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
 ## lists (see [06-lists.es6](/es6/06-lists.es6))
 
-  a list is implemented by chaining pairs one inside the other (guess where LISP got the idea from, in the first place...); we start from the empty list, which we chose to represent with `IDENTITY` (aka `ZERO`); but we'll rename `PAIR` into `CONS` and `IDENTITY` into `NIL`
+  a list is implemented by chaining pairs one inside the other (guess where LISP got the idea from, in the first place...); first of all we define the type for lists and the basic type error and operators:
 
-  for example:
+    def list_type = THREE
+    def ISLIST = ISTYPE list_type
+    def LIST_ERROR = MAKE_ERROR list_type
+    def MAKE_LIST = MAKE_OBJ list_type
+
+  we start building lists from the empty list `NIL`, which will have a few characteristics:
+  - it is a list (`EQUAL(TYPE(NIL))(list_type)`)
+  - it has value `PAIR LIST_ERROR LIST_ERROR`, so that whoever tries to read it, will get an error
+
+    def NIL = MAKE_LIST (PAIR LIST_ERROR LIST_ERROR)
+
+  once we have NIL, we may start building real lists; the process is, for example:
 
     [1, 2, 5] --> CONS ONE (CONS TWO (CONS FIVE NIL))
 
@@ -387,14 +398,7 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
     def TAIL list = list SECOND  // CDR
     def ISEMPTY list = COND TRUE FALSE (ISZERO list) = (ISZERO list) TRUE FALSE
 
-  but then we define the type for lists and the basic operators:
-
-    def list_type = THREE
-    def ISLIST = ISTYPE list_type
-    def LIST_ERROR = MAKE_ERROR list_type
-    def MAKE_LIST = MAKE_OBJ list_type
-
-  using these concepts, this time we can try a more ambitious `CONS`tructor and getters:
+  but we want to keep track of type, so this time we try a more ambitious `CONS`tructor and getters:
 
     def CONS H T = (ISLIST T) (MAKE_LIST (PAIR H T)) LIST_ERROR
     def HEAD list = (ISLIST list) (VALUE list FIRST) LIST_ERROR
