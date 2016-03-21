@@ -15,6 +15,9 @@ var SUCC = n => PAIR(FALSE)(n);
 var ONE = SUCC(ZERO);
 var TWO = SUCC(ONE);
 var THREE = SUCC(TWO);
+var FOUR = SUCC(THREE);
+var FIVE = SUCC(FOUR);
+var SIX = SUCC(FIVE);
 var PRED = n => (ISZERO(n))(ZERO)(n(SECOND));
 // helper stuff for experimenting with Church numerals
 var numerically_equal = (numeral, int) => {
@@ -58,8 +61,8 @@ var TRUE_OBJ = MAKE_BOOL(TRUE);
 var FALSE_OBJ = MAKE_BOOL(FALSE);
 var BOOL_ERROR = MAKE_ERROR(bool_type);
 var TYPED_NOT = X => (ISBOOL(X))(MAKE_BOOL(NOT(VALUE(X))))(BOOL_ERROR)
-var TYPED_AND = X => Y => (AND(ISBOOL(X)(ISBOOL(Y))))(MAKE_BOOL(AND(VALUE(X))(VALUE(Y))))(BOOL_ERROR);
-var TYPED_OR = X => Y => (OR(ISBOOL(X)(ISBOOL(Y))))(MAKE_BOOL(OR(VALUE(X))(VALUE(Y))))(BOOL_ERROR);
+var TYPED_AND = X => Y => (AND(ISBOOL(X))(ISBOOL(Y)))(MAKE_BOOL(AND(VALUE(X))(VALUE(Y))))(BOOL_ERROR);
+var TYPED_OR = X => Y => (OR(ISBOOL(X))(ISBOOL(Y)))(MAKE_BOOL(OR(VALUE(X))(VALUE(Y))))(BOOL_ERROR);
 // --> type = TWO -> numeral stuff
 var num_type = TWO;
 var MAKE_NUM = MAKE_OBJ(num_type);
@@ -68,6 +71,9 @@ var ZERO_OBJ = MAKE_NUM(ZERO);
 var ONE_OBJ = MAKE_NUM(ONE);
 var TWO_OBJ = MAKE_NUM(TWO);
 var THREE_OBJ = MAKE_NUM(THREE);
+var FOUR_OBJ = MAKE_NUM(FOUR);
+var FIVE_OBJ = MAKE_NUM(FIVE);
+var SIX_OBJ = MAKE_NUM(SIX);
 var NUM_ERROR = MAKE_ERROR(num_type);
 var TYPED_ADD = X => Y => (AND(ISNUM(X))(ISNUM(Y)))(MAKE_NUM(ADD(VALUE(X))(VALUE(Y))))(NUM_ERROR);
 var TYPED_MULT = X => Y => (AND(ISNUM(X))(ISNUM(Y)))(MAKE_NUM(MULT(VALUE(X))(VALUE(Y))))(NUM_ERROR);
@@ -139,3 +145,9 @@ var RED2 = f => fun => acc => list => { if (ISEMPTY(list) === TRUE) {
   }
 };
 var REDUCE = RED2(RED2); // REDUCE fun acc list
+
+// EQUAL(VALUE(REDUCE(TYPED_ADD)(ZERO_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(CONS(THREE_OBJ)(NIL))))))(SIX)
+// EQUAL(TYPE(REDUCE(TYPED_ADD)(ZERO_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(CONS(THREE_OBJ)(NIL))))))(TWO) // it's a numeral...
+
+// VALUE(REDUCE(TYPED_AND)(TRUE_OBJ)(CONS(TRUE_OBJ)(CONS(TRUE_OBJ)(CONS(TYPED_NOT(FALSE_OBJ))(NIL))))) // TRUE
+// EQUAL(TYPE(REDUCE(TYPED_AND)(TRUE_OBJ)(CONS(TRUE_OBJ)(CONS(TRUE_OBJ)(CONS(TYPED_NOT(FALSE_OBJ))(NIL))))))(ONE) // it's a BOOLEAN...
