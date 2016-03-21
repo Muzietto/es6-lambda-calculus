@@ -225,10 +225,12 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
   an intuitive definition of `add` is possible using recursion, first in ES6, then in λ-calculus notation:
 
     var add = x => y => (y === 0) ? x : add(x+1)(y-1)
-    def ADD x y = COND x (ADD (SUCC x) (PRED y)) (ISZERO y)
+    rec ADD x y = COND x (ADD (SUCC x) (PRED y)) (ISZERO y)
 
-  the big problem here is that we have the function referred to in its own body, and this is not allowed;  
-  therefore we do some juggling remembering `SELF_APPLY = λs.(s s)`, for which we know that an infinite loop `(SELF_APPLY SELF_APPLY) = ... = (SELF_APPLY SELF_APPLY)` exists;
+  the big problem here is that __we have the function name mentioned in its own body__, and this normally speaking is not allowed by the rules of λ-calculus;
+  __keyword `rec` is used in λ-calculus__ (as well as in SCHEME, by the way) __to mean that a function is being defined recursively__; it can be used freely to express the concept (and this is done a few times further down this text), but implementing `rec` is a quite complex matter.
+
+  in order to implement recursion, we do some juggling remembering `SELF_APPLY = λs.(s s)`, for which we know that an infinite loop `(SELF_APPLY SELF_APPLY) = ... = (SELF_APPLY SELF_APPLY)` exists;
   we create a helper function `add2` that carries an additional function `f` in its signature __and applies it to itself__:
 
     var add2 = x => y => (y === 0) ? x : f(f)(x+1)(y-1)
@@ -249,7 +251,7 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
   an even intuitive, recursive definition exists for multiplication:
 
     var mult = x => y => (y === 0) ? 0 : x + mult(x)(y-1)
-    def MULT x y = COND ZERO (ADD x (MULT (SUCC x) (PRED y))) (ISZERO y)
+    rec MULT x y = COND ZERO (ADD x (MULT (SUCC x) (PRED y))) (ISZERO y)
 
   which leads to a helper function which behaves like `ADD2`, and it also __not runnable__ inside a browser:
 
@@ -412,8 +414,8 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
   then we need some further basic operations on lists, all based on recursion:
 
-    def LENGTH list = (ISEMPTY list) ZERO (SUCC (LENGTH TAIL list) // recursive definition, no way...
-    def APPEND element list = (ISEMPTY list) (CONS element NIL) (CONS (HEAD list) (APPEND element (TAIL list))) // also recursive
+    rec LENGTH list = (ISEMPTY list) ZERO (SUCC (LENGTH TAIL list) // recursive definition, no way...
+    rec APPEND element list = (ISEMPTY list) (CONS element NIL) (CONS (HEAD list) (APPEND element (TAIL list))) // also recursive
 
   which we realize implicitly using the `SELF_APPLY` trick:
 
@@ -428,7 +430,7 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
   we end up thinking about some more sophisticated stuff:
 
-    def MAP list mapper = COND NIL (CONS (mapper (HEAD list))(MAP (TAIL list) mapper) (ISEMPTY list) // recursive, no way!
+    rec MAP list mapper = COND NIL (CONS (mapper (HEAD list))(MAP (TAIL list) mapper) (ISEMPTY list) // recursive, no way!
 
   we realize `MAP` once more with the implicit recursion of the `SELF_APPLY` method:
 
@@ -437,7 +439,16 @@ At each paragraph you can load the related ES6 code by doubleclicking the HTML f
 
   in the codebase, look at `MAP_HELPER3`, lazy implementation for the browser.
   
-  REDUCE: TBC
+  the recursive definition for reduce (fold left) is:
+
+    rec REDUCE fun acc list = (ISEMPTY list) acc (REDUCE fun (fun acc HEAD(list)) (TAIL list))
+
+  the version with implicit recursion (not runnable in the browser) is:
+
+    def RED1 f fun acc list = (ISEMPTY list) acc (f f fun (fun acc HEAD(list)) (TAIL list))
+    def REDUCE = RED1 RED1
+
+  the codebase contains a JavaScript implementation named RED2.
 
 ## strings, the third object type (see [07-strings.es6](/es6/07-strings.es6))
 
