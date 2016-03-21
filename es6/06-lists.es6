@@ -131,3 +131,11 @@ var MAP = MAP_HELPER3(MAP_HELPER3); // MAP list mapper
 // EQUAL(HEAD(MAP(CONS(ZERO)(CONS(ONE)(CONS(TWO)(NIL))))(ADD(ONE))))(ONE) // TRUE
 // EQUAL(HEAD(TAIL(MAP(CONS(ZERO)(CONS(ONE)(CONS(TWO)(NIL))))(ADD(ONE)))))(TWO) // TRUE
 // EQUAL(HEAD(TAIL(TAIL(MAP(CONS(ZERO)(CONS(ONE)(CONS(TWO)(NIL))))(ADD(ONE))))))(THREE)
+
+var RED2 = f => fun => acc => list => { if (ISEMPTY(list) === TRUE) {
+    return acc;
+  } else {
+    return f(f)(fun)(fun(acc)(HEAD(list)))(TAIL(list));
+  }
+};
+var REDUCE = RED2(RED2); // REDUCE fun acc list
