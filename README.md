@@ -51,7 +51,9 @@ At each paragraph you can:
 
 #### why use ES6?
 
-  λ-calculus is generally done with paper and pencil or in esoteric niche languages; ES6 is a good-enough trade-off, because it runs in (almost) every browser and it allows a good approximation of functions using its brand new [__arrow functions__](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions); NB - as of 160322, arrow functions are implemented only in Firefox, IE11, Edge and upcoming Chromes, but widespread adoption seems underway.
+  λ-calculus is generally done with paper and pencil or in esoteric niche languages; ES6 is a good-enough trade-off, because it runs in (almost) every browser and it allows a good approximation of functions using its brand new [__arrow functions__](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions).
+  
+  NB - as of 160322, arrow functions are implemented in released versions of Firefox, IE11 and Edge only, but widespread adoption seems underway.
 
     var IDENTITY = x => x;
     var SUM = x => y => x + y;
