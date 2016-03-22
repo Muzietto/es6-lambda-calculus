@@ -15,7 +15,7 @@ At each paragraph you can:
 ## definitions  
 ###### ES6 code in [01-definitions-first-examples.es6](/es6/01-definitions-first-examples.es6)
 ###### HTML is [01-definitions-first-examples.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/01-definitions-first-examples.html)
-
+<br/><br/>
 
 #####  lambda-expression := name  |  function  |  function-application
 
