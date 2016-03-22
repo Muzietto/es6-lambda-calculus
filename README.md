@@ -7,12 +7,14 @@ Made possible only by the mind-blowing work of Alonzo Church.
 
 ![Alonzo Church](/img/church.jpg)
 
-At each paragraph you can load the related ES6 code by doubleclicking the HTML file with the same name.
+At each paragraph you can:
+  - view the related ES6 code
+  - run and exercise the ES6 code (open in new tab the HTML file and start the browser console).
 
 
 ## definitions  
-#### HTML is [01-definitions-first-examples.html](/01-definitions-first-examples.html)
 #### ES6 code in [01-definitions-first-examples.es6](/es6/01-definitions-first-examples.es6)
+#### HTML is [01-definitions-first-examples.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/01-definitions-first-examples.html)
 
 #####  lambda-expression := name  |  function  |  function-application
 
