@@ -1,5 +1,5 @@
 # es6-lambda-calculus
-Describing lambda-calculus using EcmaScript 6 arrow notation (currently only on FF).
+Describing lambda-calculus using EcmaScript 6 arrow notation (currently only on FF, IE11 and Edge).
 
 Wholly inspired by the study of "Functional Programming through Lambda Calculus" (G. Michaelson)
 
