@@ -12,7 +12,7 @@ At each paragraph you can:
   - run and exercise the ES6 code (open in new tab the HTML file and start the browser console).
 
 
-## definitions  
+## definitions
 ###### ES6 code in [01-definitions-first-examples.es6](/es6/01-definitions-first-examples.es6)
 ###### HTML is [01-definitions-first-examples.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/01-definitions-first-examples.html)
 <br/>
@@ -123,7 +123,10 @@ At each paragraph you can:
     PAIR 1 2 FIRST = 1 => def FIRST = λx.λy.x
     PAIR 1 2 SECOND = 2 => def SECOND = λx.λy.y
 
-## booleans (see [02-booleans.es6](/es6/02-booleans.es6))
+## booleans
+###### ES6 code in [02-booleans.es6](/es6/02-booleans.es6)
+###### HTML is [02-booleans.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/02-booleans.html)
+<br/>
 
   ternary operator = condition ? exp_true : exp_false
 
@@ -173,7 +176,10 @@ At each paragraph you can:
 
     def OR x = COND TRUE y x = x TRUE y (try it with paper and pen...)
 
-## natural numbers (see [03-natural-numbers.es6](/es6/03-natural-numbers.es6))
+## natural numbers
+###### ES6 code in [03-natural-numbers.es6](/es6/03-natural-numbers.es6)
+###### HTML is [03-natural-numbers.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/03-natural-numbers.html)
+<br/>
 
   we just decide to express number 0 with the identity function:
 
@@ -223,7 +229,10 @@ At each paragraph you can:
 
     PRED n = COND ZERO (SIMPLE_PRED n) (ISZERO n) = (ISZERO n) ZERO (SIMPLE_PRED n)
 
-## recursion and arithmetics (see [04-recursion-arithmetics.es6](/es6/04-recursion-arithmetics.es6))
+## recursion and arithmetics
+###### ES6 code in [04-recursion-arithmetics.es6](/es6/04-recursion-arithmetics.es6)
+###### HTML is [04-recursion-arithmetics.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/04-recursion-arithmetics.html)
+<br/>
 
 ### addition
 
@@ -281,7 +290,10 @@ At each paragraph you can:
 
   Alonzo Church managed to define also subtraction, power, absolute value and integer division; the [numerals he designed eventually](https://en.wikipedia.org/wiki/Church_encoding) are different from the ones shown here.
 
-## types (see [05-types.es6](/es6/05-types.es6))
+## types
+###### ES6 code in [05-types.es6](/es6/05-types.es6)
+###### HTML is [05-types.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/05-types.html)
+<br/>
 
   types ensure that operations are used on the objects they are supposed to handle;
 
@@ -379,7 +391,10 @@ At each paragraph you can:
 ###### before talking about strings (the third object type) here is a little detour about _lists_; after talking about that, we will be able to represent strings as lists of characters
 
 
-## lists (see [06-lists.es6](/es6/06-lists.es6))
+## lists
+###### ES6 code in [06-lists.es6](/es6/06-lists.es6)
+###### HTML is [06-lists.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/06-lists.html)
+<br/>
 
   a list is implemented by chaining pairs one inside the other (guess where LISP got the idea from, in the first place...); first of all we define the type for lists and the basic type error and operators:
 
@@ -455,6 +470,9 @@ At each paragraph you can:
 
   the codebase contains a JavaScript implementation named RED2.
 
-## strings, the third object type (see [07-strings.es6](/es6/07-strings.es6))
+## strings, the third object type
+###### ES6 code in [07-strings.es6](/es6/07-strings.es6)
+###### HTML is [07-strings.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/07-strings.html)
+<br/>
 
   TBC
