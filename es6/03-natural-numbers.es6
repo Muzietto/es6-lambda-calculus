@@ -7,7 +7,6 @@ var TRUE = FIRST;
 var FALSE = SECOND;
 var COND = PAIR;
 
-
 var ZERO = IDENTITY;
 
 var ISZERO = n => n(FIRST);
