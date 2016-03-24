@@ -298,15 +298,32 @@ At each paragraph you can:
 <br/>
 
   at the previous paragraph we saw that recursion implemented through `SELF_APPLY` requires lazy evaluation of `COND`; this can be done putting a `LAZY_COND` in place, which operates on lazy expressions instead of evaluating them straight away
-  
+
   a lazy expression is a function that returns the actual expression when applied:
 
     def LAZY_EXP = λ_.ACTUAL_EXP
     var LAZY_EXP = _ => ACTUAL_EXP;  // example in JavaScript syntax
 
-  a `LAZY_COND` can be expressed as:
+  a `LAZY_COND` can be expressed in λ-calculus as:
 
-    def LAZY_COND true_lazy_exp false_lazy_exp condition = condition(LAZY_TRUE)(LAZY_FALSE)(true_lazy_exp)(false_lazy_exp)
+    def LAZY_COND true_lazy_exp false_lazy_exp condition = (condition LAZY_TRUE LAZY_FALSE) true_lazy_exp false_lazy_exp
+
+  in other words, a plain `condition` is evaluated; if it is `TRUE`, a `LAZY_TRUE` operator will be used to process the lazy expressions; if it is `FALSE`, then we'll use a `LAZY_FALSE` operator; here they go (also in Javascript):
+
+    def LAZY_TRUE x y = (x)
+    def LAZY_FALSE x y = (y)
+
+    var LAZY_TRUE = x => y => x();
+    var LAZY_TRUE = x => y => y();
+
+  as first simple example of how to put `LAZY_COND` at work, we prepare a `BIGGER_X_THAN_Y` evaluator; its very first naive recursive (and forbidden) expression is as follows:
+
+    rec BIGGER_X_THAN_Y x y = (AND (ISZERO y) (NOT (ISZERO x))) TRUE (BIGGER_X_THAN_Y (PRED x) (PRED y)) // forbidden syntax
+
+  we can express it through a helper function, using `LAZY_COND` and the `SELF_APPLY` trick already presented in the previous paragraph:
+
+    def BIGGER_X_THAN_Y1 f x y = (AND (ISZERO y) (NOT (ISZERO x))) TRUE (f f (PRED x) (PRED y))
+    def BIGGER_X_THAN_Y = BIGGER_X_THAN_Y1 BIGGER_X_THAN_Y1
 
 
 
