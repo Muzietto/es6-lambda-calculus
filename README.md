@@ -361,8 +361,20 @@ At each paragraph you can:
     BIGGER_X_THAN_Y(THREE)(FOUR); // FALSE
     BIGGER_X_THAN_Y(THREE)(THREE); // FALSE
 
-  a variation on the same lazy method can be used to define a much useful EQUAL N M function:
+  a variation on the same lazy method can be used to define a much useful `EQUAL N M` function:
 
+    def EQUAL1 f x y = LAZY_COND λ_.TRUE λ_.(LAZY_COND λ_.FALSE λ_.(f f (PRED x) (PRED y)) (OR (AND (NOT (ISZERO x)) (ISZERO y)) (AND (ISZERO x) (NOT (ISZERO y))))) (AND (ISZERO y) (ISZERO x))
+    def EQUAL = BIGGER_X_THAN_Y3 BIGGER_X_THAN_Y3
+
+    var EQUAL1 = f => x => y => LAZY_COND(_ => TRUE)(_ => LAZY_COND(_ => FALSE)(_ => f(f)(PRED(x))(PRED(y)))(OR(AND(NOT(ISZERO(x)))(ISZERO(y)))(AND(ISZERO(x))(NOT(ISZERO(y))))))(AND(ISZERO(y))(ISZERO(x)));
+    var EQUAL = EQUAL1(EQUAL1);
+
+    EQUAL(THREE)(TWO); // FALSE
+    EQUAL(THREE)(FOUR); // FALSE
+    EQUAL(THREE)(THREE); // TRUE
+
+  all the recursive function that in the previous paragraph have been created by cheating with JavaScript lazy `if then else` can now be implemented in pure λ-calculus notation.
+  
 ## types
 ###### ES6 code in [06-types.es6](/es6/06-types.es6)
 ###### HTML is [06-types.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/06-types.html)
