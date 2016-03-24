@@ -267,7 +267,7 @@ At each paragraph you can:
   an even intuitive, recursive definition exists for multiplication:
 
     var mult = x => y => (y === 0) ? 0 : x + mult(x)(y-1)
-    rec MULT x y = COND ZERO (ADD x (MULT (SUCC x) (PRED y))) (ISZERO y)
+    rec MULT x y = COND ZERO (ADD x (MULT x (PRED y))) (ISZERO y)
 
   which leads to a helper function which behaves like `ADD2`, and it also __not runnable__ inside a browser:
 
