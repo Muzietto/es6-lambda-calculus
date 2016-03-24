@@ -364,7 +364,7 @@ At each paragraph you can:
   a variation on the same lazy method can be used to define a much useful `EQUAL N M` function:
 
     def EQUAL1 f x y = LAZY_COND λ_.TRUE λ_.(LAZY_COND λ_.FALSE λ_.(f f (PRED x) (PRED y)) (OR (AND (NOT (ISZERO x)) (ISZERO y)) (AND (ISZERO x) (NOT (ISZERO y))))) (AND (ISZERO y) (ISZERO x))
-    def EQUAL = BIGGER_X_THAN_Y3 BIGGER_X_THAN_Y3
+    def EQUAL = EQUAL1 EQUAL1
 
     var EQUAL1 = f => x => y => LAZY_COND(_ => TRUE)(_ => LAZY_COND(_ => FALSE)(_ => f(f)(PRED(x))(PRED(y)))(OR(AND(NOT(ISZERO(x)))(ISZERO(y)))(AND(ISZERO(x))(NOT(ISZERO(y))))))(AND(ISZERO(y))(ISZERO(x)));
     var EQUAL = EQUAL1(EQUAL1);
