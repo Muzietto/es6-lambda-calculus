@@ -130,11 +130,11 @@ At each paragraph you can:
 ###### HTML is [02-booleans.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/02-booleans.html)
 <br/>
 
-  ternary operator = condition ? exp_true : exp_false
+  ternary operator = condition ? true_exp : false_exp
 
   we want to define it in terms of λ-calculus. One possibility is:
 
-    def COND = λexp_true.λexp_false.λcondition.(condition exp_true exp_false)
+    def COND = λtrue_exp.λfalse_exp.λcondition.(condition true_exp false_exp)
 
     def COND = PAIR
 
@@ -146,7 +146,7 @@ At each paragraph you can:
 
   substituting the function body once all the variables have been fulfilled, we come to __a form that will be used a lot__ in the following paragraphs:
 
-    COND exp_true exp_false condition = condition exp_true exp_false
+    COND true_exp false_exp condition = condition true_exp false_exp
 
 ### NOT operator
 
@@ -284,7 +284,7 @@ At each paragraph you can:
 
     def RECURSIVE f = (λs.(f (s s)) λs.(f (s s)))
 
-  unfortunately `RECURSIVE` (also known as the _fixed-point combinator_ or also the _Y-combinator_) is practically a carbon copy of `(SELF_APPLY SELF_APPLY)` and causes an infinite loop at the very first moment we present it to the browser.
+  unfortunately `RECURSIVE` (also known as the _fixed-point combinator_ or the _Y-combinator_) is practically a carbon copy of `(SELF_APPLY SELF_APPLY)` and causes an infinite loop at the very first moment we present it to the browser.
 
   the codebase shows a little cheat about `MULT1` (called `MULT2`) that allows to run multiplication also in an eager interpreter.
 
@@ -297,7 +297,18 @@ At each paragraph you can:
 ###### HTML is [05-laziness.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/05-laziness.html)
 <br/>
 
-### addition
+  at the previous paragraph we saw that recursion implemented through `SELF_APPLY` requires lazy evaluation of `COND`; this can be done putting a `LAZY_COND` in place, which operates on lazy expressions instead of evaluating them straight away
+  
+  a lazy expression is a function that returns the actual expression when applied:
+
+    def LAZY_EXP = λ_.ACTUAL_EXP
+    var LAZY_EXP = _ => ACTUAL_EXP;  // example in JavaScript syntax
+
+  a `LAZY_COND` can be expressed as:
+
+    def LAZY_COND true_lazy_exp false_lazy_exp condition = condition(LAZY_TRUE)(LAZY_FALSE)(true_lazy_exp)(false_lazy_exp)
+
+
 
 ## types
 ###### ES6 code in [06-types.es6](/es6/06-types.es6)
