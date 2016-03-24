@@ -292,9 +292,16 @@ At each paragraph you can:
 
   Alonzo Church managed to define also subtraction, power, absolute value and integer division; the [numerals he designed eventually](https://en.wikipedia.org/wiki/Church_encoding) are different from the ones shown here.
 
+## introducing laziness
+###### ES6 code in [05-laziness.es6](/es6/05-laziness.es6)
+###### HTML is [05-laziness.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/05-laziness.html)
+<br/>
+
+### addition
+
 ## types
-###### ES6 code in [05-types.es6](/es6/05-types.es6)
-###### HTML is [05-types.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/05-types.html)
+###### ES6 code in [06-types.es6](/es6/06-types.es6)
+###### HTML is [06-types.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/06-types.html)
 <br/>
 
   types ensure that operations are used on the objects they are supposed to handle;
@@ -394,8 +401,8 @@ At each paragraph you can:
 
 
 ## lists
-###### ES6 code in [06-lists.es6](/es6/06-lists.es6)
-###### HTML is [06-lists.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/06-lists.html)
+###### ES6 code in [07-lists.es6](/es6/07-lists.es6)
+###### HTML is [07-lists.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/07-lists.html)
 <br/>
 
   a list is implemented by chaining pairs one inside the other (guess where LISP got the idea from, in the first place...); first of all we define the type for lists and the basic type error and operators:
@@ -473,8 +480,8 @@ At each paragraph you can:
   the codebase contains a JavaScript implementation named RED2.
 
 ## strings, the third object type
-###### ES6 code in [07-strings.es6](/es6/07-strings.es6)
-###### HTML is [07-strings.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/07-strings.html)
+###### ES6 code in [08-strings.es6](/es6/08-strings.es6)
+###### HTML is [08-strings.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/08-strings.html)
 <br/>
 
   TBC
