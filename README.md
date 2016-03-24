@@ -399,11 +399,7 @@ At each paragraph you can:
 
     def ISTYPE t obj = EQUAL (TYPE obj) t
 
-  because `EQUAL` will have a recursive definition, we must come up with some clever trick if we want to be able to actually perform type comparison in ES6; here's what we will do:
-
-    var EQUAL = a => b => { if a === b) { return TRUE; } else { return FALSE; }
-
-  but this function can only compare numerals, and therefore types. Nothing else.
+  where `EQUAL` is graciously provided by the previous paragraph about laziness; please note that this `EQUAL` can only compare numerals, and therefore types. Nothing else.
 
 ### zeroeth object type: errors
 
