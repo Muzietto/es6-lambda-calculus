@@ -125,6 +125,7 @@ At each paragraph you can:
     PAIR 1 2 FIRST = 1 => def FIRST = λx.λy.x
     PAIR 1 2 SECOND = 2 => def SECOND = λx.λy.y
 
+---
 ## booleans
 ###### ES6 code in [02-booleans.es6](/es6/02-booleans.es6)
 ###### HTML is [02-booleans.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/02-booleans.html)
