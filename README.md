@@ -11,7 +11,7 @@ At each paragraph you can:
   - view the related ES6 code
   - run and exercise the ES6 code (open in new tab the HTML file and start the browser console).
 
-
+---
 ## definitions
 ###### ES6 code in [01-definitions-first-examples.es6](/es6/01-definitions-first-examples.es6)
 ###### HTML is [01-definitions-first-examples.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/01-definitions-first-examples.html)
@@ -179,6 +179,7 @@ At each paragraph you can:
 
     def OR x = COND TRUE y x = x TRUE y (try it with paper and pen...)
 
+---
 ## natural numbers
 ###### ES6 code in [03-natural-numbers.es6](/es6/03-natural-numbers.es6)
 ###### HTML is [03-natural-numbers.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/03-natural-numbers.html)
@@ -232,6 +233,7 @@ At each paragraph you can:
 
     PRED n = COND ZERO (SIMPLE_PRED n) (ISZERO n) = (ISZERO n) ZERO (SIMPLE_PRED n)
 
+---
 ## recursion and arithmetics
 ###### ES6 code in [04-recursion-arithmetics.es6](/es6/04-recursion-arithmetics.es6)
 ###### HTML is [04-recursion-arithmetics.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/04-recursion-arithmetics.html)
@@ -293,6 +295,7 @@ At each paragraph you can:
 
   Alonzo Church managed to define also subtraction, power, absolute value and integer division; the [numerals he designed eventually](https://en.wikipedia.org/wiki/Church_encoding) are different from the ones shown here.
 
+---
 ## introducing laziness
 ###### ES6 code in [05-laziness.es6](/es6/05-laziness.es6)
 ###### HTML is [05-laziness.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/05-laziness.html)
@@ -378,6 +381,7 @@ At each paragraph you can:
 
   NB: this paragraph about laziness is not coming from the Michaelson book; it is instead an original contribution (with a big credit due to @MirkoBonadei)
   
+---
 ## types
 ###### ES6 code in [06-types.es6](/es6/06-types.es6)
 ###### HTML is [06-types.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/06-types.html)
@@ -474,7 +478,7 @@ At each paragraph you can:
 
 ###### before talking about strings (the third object type) here is a little detour about _lists_; after talking about that, we will be able to represent strings as lists of characters
 
-
+---
 ## lists
 ###### ES6 code in [07-lists.es6](/es6/07-lists.es6)
 ###### HTML is [07-lists.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/07-lists.html)
@@ -554,6 +558,7 @@ At each paragraph you can:
 
   the codebase contains a JavaScript implementation named RED2.
 
+---
 ## strings, the third object type
 ###### ES6 code in [08-strings.es6](/es6/08-strings.es6)
 ###### HTML is [08-strings.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/08-strings.html)
