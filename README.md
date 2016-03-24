@@ -322,7 +322,7 @@ At each paragraph you can:
 
   we can express it through a helper function, using `LAZY_COND` and the `SELF_APPLY` trick already presented in the previous paragraph, also in JavaScript:
 
-    def BIGGER_X_THAN_Y1 f x y = LAZY_COND LAZY_TRUE λ_.(f f (PRED x) (PRED y)) (AND (ISZERO y) (NOT (ISZERO x)))
+    def BIGGER_X_THAN_Y1 f x y = LAZY_COND λ_.TRUE λ_.(f f (PRED x) (PRED y)) (AND (ISZERO y) (NOT (ISZERO x)))
     def BIGGER_X_THAN_Y = BIGGER_X_THAN_Y1 BIGGER_X_THAN_Y1
 
     var BIGGER_X_THAN_Y1 = f => x => y => LAZY_COND(_ => TRUE)(_ => f(f)(PRED(x))(PRED(y)))(AND(ISZERO(y))(NOT(ISZERO(x))));
@@ -334,15 +334,34 @@ At each paragraph you can:
     BIGGER_X_THAN_Y(THREE)(FOUR); // Error - Too much recursion
     BIGGER_X_THAN_Y(THREE)(THREE); // Error - Too much recursion
 
-  basically, this implementation is unable to respond `FALSE`; in order to allow input where the larger number is the second, we have to bring complexity in the `LAZY_FALSE` branch; this leads to the helper function `BIGGER_X_THAN_Y2`:
+  basically, this implementation is unable to respond `FALSE`; in order to allow input where the larger number is the second, we have to bring complexity in the `NOT(TRUE)` branch; this leads to the helper function `BIGGER_X_THAN_Y2`:
 
-    def BIGGER_X_THAN_Y2 f x y = LAZY_COND LAZY_TRUE λ_.(f f (PRED x) (PRED y)) (AND (ISZERO y) (NOT (ISZERO x)))
+    def BIGGER_X_THAN_Y2 f x y = LAZY_COND λ_.TRUE λ_.(LAZY_COND λ_.FALSE λ_.(f f (PRED x) (PRED y)) (AND (ISZERO x) (NOT (ISZERO y)))) (AND (ISZERO y) (NOT (ISZERO x)))
     def BIGGER_X_THAN_Y = BIGGER_X_THAN_Y2 BIGGER_X_THAN_Y2
 
     var BIGGER_X_THAN_Y2 = f => x => y => LAZY_COND(_ => TRUE)(_ => LAZY_COND(_ => FALSE)(_ => f(f)(PRED(x))(PRED(y)))(AND(ISZERO(x))(NOT(ISZERO(y)))))(AND(ISZERO(y))(NOT(ISZERO(x))));
     var BIGGER_X_THAN_Y = BIGGER_X_THAN_Y2(BIGGER_X_THAN_Y2);
 
-    
+  this second implementation is able to compute correctly 2/3 of the possible cases:
+
+    BIGGER_X_THAN_Y(THREE)(TWO); // TRUE
+    BIGGER_X_THAN_Y(THREE)(FOUR); // FALSE
+    BIGGER_X_THAN_Y(THREE)(THREE); // Error - Too much recursion
+
+  in order to allow input where the arguments are equal, we `OR` one more check in the `NOT(TRUE)` branch; this leads to the final helper function `BIGGER_X_THAN_Y3`:
+
+    def BIGGER_X_THAN_Y3 f x y = LAZY_COND λ_.TRUE λ_.(LAZY_COND λ_.FALSE λ_.(f f (PRED x) (PRED y)) (OR (AND (ISZERO x) (ISZERO y)) (AND (ISZERO x) (NOT (ISZERO y))))) (AND (ISZERO y) (NOT (ISZERO x)))
+    def BIGGER_X_THAN_Y = BIGGER_X_THAN_Y3 BIGGER_X_THAN_Y3
+
+    // the good one!
+    var BIGGER_X_THAN_Y3 = f => x => y => LAZY_COND(_ => TRUE)(_ => LAZY_COND(_ => FALSE)(_ => f(f)(PRED(x))(PRED(y)))(OR(AND(ISZERO(x))(ISZERO(y)))(AND(ISZERO(x))(NOT(ISZERO(y))))))(AND(ISZERO(y))(NOT(ISZERO(x))));
+    BIGGER_X_THAN_Y = BIGGER_X_THAN_Y3(BIGGER_X_THAN_Y3);
+
+    BIGGER_X_THAN_Y(THREE)(TWO); // TRUE
+    BIGGER_X_THAN_Y(THREE)(FOUR); // FALSE
+    BIGGER_X_THAN_Y(THREE)(THREE); // FALSE
+
+  a variation on the same lazy method can be used to define a much useful EQUAL N M function:
 
 ## types
 ###### ES6 code in [06-types.es6](/es6/06-types.es6)
