@@ -28,18 +28,9 @@ var numerically_equal = (numeral, int) => {
     else return FALSE;
   }
   else return numerically_equal(PRED(numeral), int - 1);
-};  
-var EQUAL = a => b => {
-  if (ISZERO(b) === TRUE) { 
-    if (ISZERO(a) === TRUE) return TRUE;
-    else return FALSE;
-  }
-  if (ISZERO(a) === TRUE) { 
-    if (ISZERO(b) === TRUE) return TRUE;
-    else return FALSE;
-  }
-  else return EQUAL(PRED(a))(PRED(b));
 };
+var EQUAL1 = f => x => y => LAZY_COND(_ => TRUE)(_ => LAZY_COND(_ => FALSE)(_ => f(f)(PRED(x))(PRED(y)))(OR(AND(NOT(ISZERO(x)))(ISZERO(y)))(AND(ISZERO(x))(NOT(ISZERO(y))))))(AND(ISZERO(y))(ISZERO(x)));
+var EQUAL = EQUAL1(EQUAL1);
 var ADD3 = f => x => y => {if (ISZERO(y) === TRUE) {return x;} else {return f(f)(SUCC(x))(PRED(y));}};
 var ADD = ADD3(ADD3)
 var MULT2 = f => x => y => {if (ISZERO(y) === TRUE) {return ZERO;} else {return ADD(x)(f(f)(x)(PRED(y)));}};
