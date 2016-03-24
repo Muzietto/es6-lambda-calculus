@@ -1,7 +1,7 @@
 # es6-lambda-calculus
 Describing lambda-calculus using EcmaScript 6 arrow notation (currently only on FF, IE11 and Edge).
 
-Wholly inspired by the study of "Functional Programming through Lambda Calculus" (G. Michaelson)
+Inspired by the study of "Functional Programming through Lambda Calculus" (G. Michaelson)
 
 Made possible only by the mind-blowing work of Alonzo Church.
 
@@ -308,7 +308,7 @@ At each paragraph you can:
 
     def LAZY_COND true_lazy_exp false_lazy_exp condition = (condition LAZY_TRUE LAZY_FALSE) true_lazy_exp false_lazy_exp
 
-  in other words, a plain `condition` is evaluated; if it is `TRUE`, a `LAZY_TRUE` operator will be used to process the lazy expressions; if it is `FALSE`, then we'll use a `LAZY_FALSE` operator; here they go (also in Javascript):
+  in other words, a plain `condition` is evaluated; if it is `TRUE`, a `LAZY_TRUE` operator will be used to process the lazy expressions; if it is `FALSE`, then we'll use a `LAZY_FALSE` operator; here they go (also in JavaScript):
 
     def LAZY_TRUE x y = (x)
     def LAZY_FALSE x y = (y)
@@ -374,6 +374,8 @@ At each paragraph you can:
     EQUAL(THREE)(THREE); // TRUE
 
   all the recursive function that in the previous paragraph have been created by cheating with JavaScript lazy `if then else` can now be implemented in pure λ-calculus notation.
+
+  NB: this paragraph is not coming from the Michaelson book; it is instead an original contribution (with a big credit due to @MirkoBonadei)
   
 ## types
 ###### ES6 code in [06-types.es6](/es6/06-types.es6)
