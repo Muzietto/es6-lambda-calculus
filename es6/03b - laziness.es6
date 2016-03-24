@@ -42,12 +42,21 @@ var EQUAL = a => b => {
 var LAZY_TRUE = x => y => x();
 var LAZY_FALSE = x => y => y();
 
-var LAZY_COND = true_exp => false_exp => pred => (pred(LAZY_TRUE)(LAZY_FALSE))(_ => true_exp)(_ => false_exp);
+var LAZY_COND = true_exp => false_exp => pred => (pred(LAZY_TRUE)(LAZY_FALSE))(true_exp)(false_exp);
 
 var MAX = x => y => {if (x>y) {return x;} else {return y;}};
 
 // BIGGER_X_THAN_Y = x => y => (AND(ISZERO(y))(NOT(ISZERO(x))))(TRUE)(BIGGER_X_THAN_Y(PRED(x))(PRED(y)));
 BIGGER_X_THAN_Y1 = f => x => y => LAZY_COND(TRUE)(f(f)(PRED(x))(PRED(y)))(AND(ISZERO(y))(NOT(ISZERO(x))));
-BIGGER_X_THAN_Y = BIGGER_X_THAN_Y1(BIGGER_X_THAN_Y1);
+//BIGGER_X_THAN_Y = BIGGER_X_THAN_Y1(BIGGER_X_THAN_Y1);
 
 // BIGGER_X_THAN_Y(THREE)(TWO);
+
+
+BIGGER_X_THAN_Y2 = f => x => y => LAZY_COND(_ => TRUE)(_ => f(f)(PRED(x))(PRED(y)))(AND(ISZERO(y))(NOT(ISZERO(x))));
+//BIGGER_X_THAN_Y = BIGGER_X_THAN_Y2(BIGGER_X_THAN_Y2);
+
+BIGGER_X_THAN_Y3 = f => x => y => LAZY_COND(_ => TRUE)(_ => LAZY_COND(_ => FALSE)(_ => f(f)(PRED(x))(PRED(y)))(AND(ISZERO(x))(NOT(ISZERO(y))))) (AND(ISZERO(y))(NOT(ISZERO(x))));
+BIGGER_X_THAN_Y = BIGGER_X_THAN_Y3(BIGGER_X_THAN_Y3);
+
+
