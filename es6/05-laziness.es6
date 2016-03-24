@@ -1,3 +1,4 @@
+// needed building blocks
 var IDENTITY = x => x;
 var PAIR = x => y => f => f(x)(y);
 var FIRST = x => y => x;
@@ -19,26 +20,14 @@ var FOUR = SUCC(THREE);
 var FIVE = SUCC(FOUR);
 var SIX = SUCC(FIVE);
 
-var EQUAL = a => b => {
-  if (ISZERO(b) === TRUE) { 
-    if (ISZERO(a) === TRUE) return TRUE;
-    else return FALSE;
-  }
-  if (ISZERO(a) === TRUE) { 
-    if (ISZERO(b) === TRUE) return TRUE;
-    else return FALSE;
-  }
-  else return EQUAL(PRED(a))(PRED(b));
-};
-
 var LAZY_TRUE = x => y => x();
 var LAZY_FALSE = x => y => y();
-var LAZY_COND = true_fun => false_fun => condition => (condition(LAZY_TRUE)(LAZY_FALSE))(true_fun)(false_fun);
+var LAZY_COND = true_lazy_exp => false_lazy_exp => condition => (condition(LAZY_TRUE)(LAZY_FALSE))(true_lazy_exp)(false_lazy_exp);
 
-// BIGGER_X_THAN_Y = x => y => (AND(ISZERO(y))(NOT(ISZERO(x))))(TRUE)(BIGGER_X_THAN_Y(PRED(x))(PRED(y))); // forbidden syntax
+// var BIGGER_X_THAN_Y = x => y => (AND(ISZERO(y))(NOT(ISZERO(x))))(TRUE)(BIGGER_X_THAN_Y(PRED(x))(PRED(y))); // forbidden syntax
 
 var BIGGER_X_THAN_Y1 = f => x => y => LAZY_COND(_ => TRUE)(_ => f(f)(PRED(x))(PRED(y)))(AND(ISZERO(y))(NOT(ISZERO(x))));
-//BIGGER_X_THAN_Y = BIGGER_X_THAN_Y1(BIGGER_X_THAN_Y1);
+// BIGGER_X_THAN_Y = BIGGER_X_THAN_Y1(BIGGER_X_THAN_Y1);
 // BIGGER_X_THAN_Y(THREE)(TWO); // TRUE
 // BIGGER_X_THAN_Y(THREE)(FOUR); // Error - Too much recursion
 // BIGGER_X_THAN_Y(THREE)(THREE); // Error - Too much recursion
