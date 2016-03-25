@@ -81,11 +81,16 @@ var CONS = H => T => (ISLIST(T))(MAKE_LIST(PAIR(H)(T)))(LIST_ERROR);
 var HEAD = list => (ISLIST(list))(VALUE(list)(FIRST))(LIST_ERROR);
 var TAIL = list => (ISLIST(list))(VALUE(list)(SECOND))(LIST_ERROR);
 var NIL = MAKE_LIST(PAIR(LIST_ERROR)(LIST_ERROR)); // a very strange NIL, indeed...
+// NB - this ISEMPTY works correctly only when the list contains typed objects!!
 var ISEMPTY = list => (ISLIST(list))(ISERROR(HEAD(list)))(FALSE);
 var ISNIL = ISEMPTY;
 
-// ISLIST(NIL) // FIRST
-// ISEMPTY(NIL) // FIRST
+// ISLIST(NIL) // TRUE
+// ISEMPTY(NIL) // TRUE
+// ISEMPTY(CONS(ONE)(NIL)) // TRUE <-- WRONG!!!!
+// ISEMPTY(CONS(ONE_OBJ)(NIL)) // FALSE <-- CORRECT!
+// ISNIL(TAIL(CONS(ONE_OBJ)(NIL))) // TRUE
+// numerically_equal(HEAD(CONS(ONE)(NIL)),1) // TRUE
 
 // EQUAL(TYPE(CONS(ONE_OBJ)(TWO)))(ZERO) // ERROR
 // EQUAL(VALUE(CONS(ONE_OBJ)(TWO)))(THREE) // list_type
@@ -127,4 +132,14 @@ var REDUCE = RED2(RED2); // REDUCE fun acc list
 // VALUE(REDUCE(TYPED_AND)(TRUE_OBJ)(CONS(TRUE_OBJ)(CONS(TRUE_OBJ)(CONS(TYPED_NOT(FALSE_OBJ))(NIL))))) // TRUE
 // EQUAL(TYPE(REDUCE(TYPED_AND)(TRUE_OBJ)(CONS(TRUE_OBJ)(CONS(TRUE_OBJ)(CONS(TYPED_NOT(FALSE_OBJ))(NIL))))))(ONE) // it's a BOOLEAN...
 
-//var LIST2ARRAY = list => 
+var LIST2ARRAY = REDUCE(arra => head_list => [head_list].concat(arra))([]);
+
+// EQUAL(VALUE(LIST2ARRAY(CONS(ONE_OBJ)(NIL))[0]))(ONE); // TRUE
+// LIST2ARRAY(CONS(ONE_OBJ)(CONS(TWO_OBJ)(NIL))).length // 2
+
+// why on earth do we need that reverse?
+var ARRAY2LIST = array => array.reverse().reduce((acc, curr) => CONS(curr)(acc), NIL);
+
+// EQUAL(VALUE(HEAD(ARRAY2LIST([ONE_OBJ,TWO_OBJ,THREE_OBJ]))))(ONE) // TRUE
+// EQUAL(TYPE(ARRAY2LIST([ONE_OBJ,TWO_OBJ,THREE_OBJ])))(THREE) // it's a list
+// EQUAL(LENGTH(ARRAY2LIST([ONE_OBJ,TWO_OBJ,THREE_OBJ])))(THREE) // TRUE
