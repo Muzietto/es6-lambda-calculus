@@ -628,7 +628,7 @@ At each paragraph you can:
 
     def MAKE_STRING string = (AND (ISLIST string) (ISCHAR (HEAD string))) (MAKE_OBJ string_type string) STRING_ERROR;
 
-  a conversion function from JavaScript strings to -calculus `STRING`'s builds upon the conversion functions for JS arrays and `LIST`s:
+  a conversion function from JavaScript strings to λ-calculus `STRING`'s builds upon the conversion functions for JS arrays and `LIST`s:
 
     var string2STRING = string => MAKE_STRING(ARRAY2LIST(string.split('').map(char2CHAR)));
 
