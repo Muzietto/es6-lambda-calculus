@@ -600,7 +600,7 @@ At each paragraph you can:
     var _0 = MAKE_CHAR(PAIR(forty_eight)('0'));
     var _1 = MAKE_CHAR(PAIR(SUCC(VALUE(_0)(FIRST)))('1'));
 
-  we may make good use of a JavaScript mapper e.g. from `"a"` to `a`:
+  we may make good use of a JavaScript mapper e.g. from `"a"` to `var a`:
   
     function char2CHAR(char) {
       return {
