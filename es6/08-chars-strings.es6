@@ -151,7 +151,7 @@ var MAKE_STRING = list => (AND(ISLIST(list))(ISCHAR(HEAD(list))))(MAKE_OBJ(strin
 var ISSTRING = ISTYPE(string_type);
 var STRING_ERROR = MAKE_ERROR(string_type);
 
-var string2STRING = string => MAKE_STRING(ARRAY2LIST(string.split('').map(char2CHAR)));
+var string2STRING = string => MAKE_STRING(array2LIST(string.split('').map(char2CHAR)));
 
 // EQUAL(TYPE(string2STRING('abc'))(FIVE) // TRUE
 // EQUAL(TYPE(string2STRING('abc')))(FIVE) // TRUE

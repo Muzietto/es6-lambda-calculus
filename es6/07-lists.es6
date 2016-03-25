@@ -26,14 +26,14 @@ var ISNIL = ISEMPTY;
 
 var LEN1 = f => list => (ISEMPTY(list))(ZERO)(SUCC(f(f)(TAIL(list)))); // eager - won't work
 var LEN2 = f => list => LAZY_COND(_ => ZERO)(_ => SUCC(f(f)(TAIL(list))))(ISEMPTY(list)) // lazy - will do
-var LENGTH = LEN2(LEN2);
+var LENGTH = SELF_APPLY(LEN2);
 
 // EQUAL(LENGTH(CONS(TWO_OBJ)(NIL)))(ONE) //TRUE
 // EQUAL(LENGTH(CONS(TWO_OBJ)(CONS(ONE_OBJ)(NIL))))(TWO) // TRUE
 
 var APP1 = f => list => (ISEMPTY(list))(CONS(element)(NIL))(CONS(HEAD(list))(f(f)(element)(TAIL(list)))); // eager - won't work
 var APP2 = f => element => list => LAZY_COND(_ => CONS(element)(NIL))(_ => CONS(HEAD(list))(f(f)(element)(TAIL(list))))(ISEMPTY(list)) // lazy - will do
-var APPEND = APP2(APP2);
+var APPEND = SELF_APPLY(APP2);
 
 // EQUAL(LENGTH(APPEND(THREE_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(NIL)))))(THREE) // TRUE
 // EQUAL(VALUE(HEAD(APPEND(THREE_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(NIL))))))(ONE)
@@ -41,7 +41,7 @@ var APPEND = APP2(APP2);
 // EQUAL(VALUE(HEAD(TAIL(TAIL(APPEND(THREE_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(NIL))))))))(THREE)
 
 var MAP2 = f => mapper => list => LAZY_COND(_ => NIL)(_ => CONS(mapper(HEAD(list)))(f(f)(mapper)(TAIL(list))))(ISEMPTY(list)) // lazy - will do
-var MAP = MAP2(MAP2); // MAP list mapper
+var MAP = SELF_APPLY(MAP2); // MAP list mapper
 
 // MAP(TYPED_ADD(ONE_OBJ))(CONS(ZERO_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(NIL)))) // CONS(ONE_OBJ)(CONS(TWO_OBJ)(CONS(THREE_OBJ)(NIL)))
 // EQUAL(LENGTH(MAP(TYPED_ADD(ONE_OBJ))(CONS(ZERO_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(NIL))))))(THREE) // TRUE
@@ -50,7 +50,7 @@ var MAP = MAP2(MAP2); // MAP list mapper
 // EQUAL(VALUE(HEAD(TAIL(TAIL(MAP(TYPED_ADD(ONE_OBJ))(CONS(ZERO_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(NIL)))))))))(THREE) // TRUE
 
 var RED2 = f => fun => acc => list => LAZY_COND(_ => acc)(_ => f(f)(fun)(fun(acc)(HEAD(list)))(TAIL(list)))(ISEMPTY(list)) // lazy - will do
-var REDUCE = RED2(RED2); // REDUCE fun acc list
+var REDUCE = SELF_APPLY(RED2); // REDUCE fun acc list
 
 // EQUAL(VALUE(REDUCE(TYPED_ADD)(ZERO_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(CONS(THREE_OBJ)(NIL))))))(SIX)
 // EQUAL(TYPE(REDUCE(TYPED_ADD)(ZERO_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(CONS(THREE_OBJ)(NIL))))))(TWO) // it's a numeral...
@@ -63,9 +63,9 @@ var LIST2ARRAY = REDUCE(arra => head_list => [head_list].concat(arra))([]);
 // EQUAL(VALUE(LIST2ARRAY(CONS(ONE_OBJ)(NIL))[0]))(ONE); // TRUE
 // LIST2ARRAY(CONS(ONE_OBJ)(CONS(TWO_OBJ)(NIL))).length // 2
 
-// why on earth do we need that reverse?
-var ARRAY2LIST = array => array.reverse().reduce((acc, curr) => CONS(curr)(acc), NIL);
+// pay attention to that reverse
+var array2LIST = array => array.reverse().reduce((acc, curr) => CONS(curr)(acc), NIL);
 
-// EQUAL(VALUE(HEAD(ARRAY2LIST([ONE_OBJ,TWO_OBJ,THREE_OBJ]))))(ONE) // TRUE
-// EQUAL(TYPE(ARRAY2LIST([ONE_OBJ,TWO_OBJ,THREE_OBJ])))(THREE) // it's a list
-// EQUAL(LENGTH(ARRAY2LIST([ONE_OBJ,TWO_OBJ,THREE_OBJ])))(THREE) // TRUE
+// EQUAL(VALUE(HEAD(array2LIST([ONE_OBJ,TWO_OBJ,THREE_OBJ]))))(ONE) // TRUE
+// EQUAL(TYPE(array2LIST([ONE_OBJ,TWO_OBJ,THREE_OBJ])))(THREE) // it's a list
+// EQUAL(LENGTH(array2LIST([ONE_OBJ,TWO_OBJ,THREE_OBJ])))(THREE) // TRUE

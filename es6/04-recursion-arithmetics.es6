@@ -9,10 +9,10 @@ var ADD3 = f => x => y => { if (ISZERO(y) === TRUE) {
 };
 
 // recursive addition
-// var ADD = ADD2(ADD2)
+// var ADD = SELF_APPLY(ADD2)
 // ADD(ZERO)(ONE) // 'Internal Error: too much recursion'
 
-var ADD = ADD3(ADD3);
+var ADD = SELF_APPLY(ADD3);
 
 // PRED(ADD(ONE)(ONE))===PRED(ADD(TWO)(ZERO)) // TRUE
 // EQUAL(ADD(ONE)(TWO))(ADD(TWO)(ONE)) // TRUE
@@ -26,8 +26,8 @@ var MULT2 = f => x => y => { if (ISZERO(y) === TRUE) {
   }
 };
 
-// var MULT = MULT1(MULT1) // 'Internal Error: too much recursion'
-var MULT = MULT2(MULT2);
+// var MULT = SELF_APPLY(MULT1) // 'Internal Error: too much recursion'
+var MULT = SELF_APPLY(MULT2);
 
 // MULT(TWO)(TWO)  // check it with numerically_equal(MULT(TWO)(TWO), 4)
 // numerically_equal(MULT(FIVE)(THREE),15) // TRUE
