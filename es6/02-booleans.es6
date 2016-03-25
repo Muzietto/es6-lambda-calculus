@@ -6,9 +6,9 @@ var MAX = x => y => {if (x>y) {return x;} else {return y;}};
 // COND(1)(2)(MAX) --> 2
 // COND(11)(2)(MAX) --> 11
 
-var TRUE = x => y => x; // TRUE === FIRST
+var TRUE = FIRST; //x => y => x
 
-var FALSE = x => y => y; // FALSE === SECOND
+var FALSE = SECOND // x => y => y
 
 // COND(1)(2)(TRUE) --> 1
 // COND(1)(2)(FALSE) --> 2
