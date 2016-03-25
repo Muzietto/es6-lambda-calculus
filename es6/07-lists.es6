@@ -58,6 +58,28 @@ var REDUCE = SELF_APPLY(RED2); // REDUCE fun acc list
 // VALUE(REDUCE(TYPED_AND)(TRUE_OBJ)(CONS(TRUE_OBJ)(CONS(TRUE_OBJ)(CONS(TYPED_NOT(FALSE_OBJ))(NIL))))) // TRUE
 // EQUAL(TYPE(REDUCE(TYPED_AND)(TRUE_OBJ)(CONS(TRUE_OBJ)(CONS(TRUE_OBJ)(CONS(TYPED_NOT(FALSE_OBJ))(NIL))))))(ONE) // it's a BOOLEAN...
 
+var ALL = predicate => list => REDUCE(TYPED_AND)(TRUE_OBJ)(MAP(predicate)(list));
+var EVERY = ALL;
+
+// ISBOOL(ALL(x => MAKE_BOOL(ISNUM(x)))(CONS(ONE_OBJ)(CONS(TWO_OBJ)(CONS(THREE_OBJ)(NIL))))) // TRUE
+// VALUE(ALL(x => MAKE_BOOL(ISNUM(x)))(CONS(ONE_OBJ)(CONS(TWO_OBJ)(CONS(THREE_OBJ)(NIL))))) // TRUE
+// VALUE(ALL(x => MAKE_BOOL(ISNUM(x)))(CONS(ONE_OBJ)(CONS(TRUE_OBJ)(CONS(THREE_OBJ)(NIL))))) // FALSE
+
+// these produce UNTYPED booleans
+var ALL_ERRORS  = errorlist  => VALUE(ALL(x => MAKE_BOOL(ISERROR(x)))(charlist));
+var ALL_BOOLS   = boollist   => VALUE(ALL(x => MAKE_BOOL(ISBOOL(x)))(charlist));
+var ALL_NUMS    = numlist    => VALUE(ALL(x => MAKE_BOOL(ISNUM(x)))(charlist));
+var ALL_LISTS   = listlist   => VALUE(ALL(x => MAKE_BOOL(ISLIST(x)))(charlist));
+var ALL_CHARS   = charlist   => VALUE(ALL(x => MAKE_BOOL(ISCHAR(x)))(charlist));
+var ALL_STRINGS = stringlist => VALUE(ALL(x => MAKE_BOOL(ISSTRING(x)))(charlist));
+
+var ANY = predicate => list => REDUCE(TYPED_OR)(FALSE_OBJ)(MAP(predicate)(list));
+var SOME = ANY;
+
+// ISBOOL(ANY(x => MAKE_BOOL(ISBOOL(x)))(CONS(ONE_OBJ)(CONS(TWO_OBJ)(CONS(THREE_OBJ)(NIL))))) // TRUE
+// VALUE(ANY(x => MAKE_BOOL(ISBOOL(x)))(CONS(ONE_OBJ)(CONS(TWO_OBJ)(CONS(THREE_OBJ)(NIL))))) // FALSE
+// VALUE(ANY(x => MAKE_BOOL(ISBOOL(x)))(CONS(ONE_OBJ)(CONS(TRUE_OBJ)(CONS(THREE_OBJ)(NIL))))) // TRUE
+
 var LIST2ARRAY = REDUCE(arra => head_list => [head_list].concat(arra))([]);
 
 // EQUAL(VALUE(LIST2ARRAY(CONS(ONE_OBJ)(NIL))[0]))(ONE); // TRUE

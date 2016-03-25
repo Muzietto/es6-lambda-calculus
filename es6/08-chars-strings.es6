@@ -147,13 +147,13 @@ function char2CHAR(char) {
 // EQUAL(VALUE(char2CHAR('a'))(FIRST))(ninety_seven) // TRUE
 
 var string_type = FIVE;
-var MAKE_STRING = list => (AND(ISLIST(list))(ISCHAR(HEAD(list))))(MAKE_OBJ(string_type)(list))(STRING_ERROR);
+var MAKE_STRING = charlist => (AND(ISLIST(charlist))(ALL_CHARS(charlist)))(MAKE_OBJ(string_type)(charlist))(STRING_ERROR);
 var ISSTRING = ISTYPE(string_type);
 var STRING_ERROR = MAKE_ERROR(string_type);
 
 var string2STRING = string => MAKE_STRING(array2LIST(string.split('').map(char2CHAR)));
 
-// EQUAL(TYPE(string2STRING('abc'))(FIVE) // TRUE
+// EQUAL(TYPE(string2STRING('abc')))(FIVE) // TRUE
 // EQUAL(TYPE(string2STRING('abc')))(FIVE) // TRUE
 // EQUAL(TYPE(HEAD(VALUE(string2STRING('abc')))))(FOUR) // it's a CHAR
 // EQUAL(LENGTH(VALUE(string2STRING('abc'))))(THREE) // 3 chars

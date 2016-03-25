@@ -564,6 +564,17 @@ At each paragraph you can:
 
   the codebase contains a few examples of usage of these functions.
 
+### functions for analyzing the content of lists
+
+  the two most typical applications are `ALL`/`EVERY` (a chain of `AND`'s) and `ANY`/`SOME` (a chain of `OR`'s):
+
+    ALL predicate list = REDUCE TYPED_AND TRUE_OBJ (MAP predicate list)
+    ANY predicate list = REDUCE TYPED_OR FALSE_OBJ (MAP predicate list)
+
+  from `ALL` we derive helper functions that check whether a list contains only homogeneous elements, for example a `STRING` may be built only using a list of `CHAR`'s:
+
+    ALL_CHARS charlist = VALUE (ALL (λx.MAKE_BOOL (ISCHAR x )) charlist) // produces UNTYPED booleans
+
 ---
 ## characters and strings, the last object types
 ###### ES6 code in [08-chars-strings.es6](/es6/08-chars-strings.es6)
@@ -623,9 +634,9 @@ At each paragraph you can:
     def ISSTRING = ISTYPE string_type
     def STRING_ERROR = MAKE_ERROR string_type
 
-  in this case `MAKE_STRING`, the basic operation for strings, needs to check both the type of the list and of its elements:
+  in this case `MAKE_STRING`, the basic operation for strings, needs to check both the type of the list and all of its elements:
 
-    def MAKE_STRING string = (AND (ISLIST string) (ISCHAR (HEAD string))) (MAKE_OBJ string_type string) STRING_ERROR;
+    def MAKE_STRING string = (AND (ISLIST string) (ALLCHARS string)) (MAKE_OBJ string_type string) STRING_ERROR;
 
   a conversion function from JavaScript strings to λ-calculus `STRING`'s builds upon the conversion functions for JS arrays and `LIST`s:
 
