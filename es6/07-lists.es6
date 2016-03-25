@@ -87,38 +87,27 @@ var ISNIL = ISEMPTY;
 // ISLIST(NIL) // FIRST
 // ISEMPTY(NIL) // FIRST
 
-// EQUAL(TYPE(CONS(ONE)(TWO)))(ZERO) // ERROR
-// EQUAL(VALUE(CONS(ONE)(TWO)))(THREE) // list_type
+// EQUAL(TYPE(CONS(ONE_OBJ)(TWO)))(ZERO) // ERROR
+// EQUAL(VALUE(CONS(ONE_OBJ)(TWO)))(THREE) // list_type
 
-// EQUAL(VALUE(CONS(ONE)(NIL))(FIRST))(ONE) // TRUE
-// EQUAL(TYPE(CONS(ONE)(NIL)))(THREE) // TRUE
+// EQUAL(VALUE(CONS(ONE_OBJ)(NIL))(FIRST))(ONE) // TRUE
+// EQUAL(TYPE(CONS(ONE_OBJ)(NIL)))(THREE) // TRUE
 
-var LEN1 = f => list => (ISEMPTY(list))(ZERO)(SUCC(f(f)(TAIL(list))));
-//var BIGGER_X_THAN_Y1 = f => x => y => LAZY_COND(_ => TRUE)(_ => f(f)(PRED(x))(PRED(y)))(AND(ISZERO(y))(NOT(ISZERO(x))));
-var LEN2 = f => list => LAZY_COND(_ => ZERO)(_ => SUCC(f(f)(TAIL(list))))(ISEMPTY(list))
-var LEN22 = f => list => { if (ISEMPTY(list) === TRUE) {
-    return ZERO;
-  } else {
-    return SUCC(f(f)(TAIL(list)));
-  }
-};
+var LEN1 = f => list => (ISEMPTY(list))(ZERO)(SUCC(f(f)(TAIL(list)))); // eager - won't work
+var LEN2 = f => list => LAZY_COND(_ => ZERO)(_ => SUCC(f(f)(TAIL(list))))(ISEMPTY(list)) // lazy - will do
 var LENGTH = LEN2(LEN2);
 
-// EQUAL(LENGTH(CONS(TWO)(NIL)))(ONE) //TRUE
-// EQUAL(LENGTH(CONS(TWO)(CONS(ONE)(NIL))))(TWO) // TRUE
+// EQUAL(LENGTH(CONS(TWO_OBJ)(NIL)))(ONE) //TRUE
+// EQUAL(LENGTH(CONS(TWO_OBJ)(CONS(ONE_OBJ)(NIL))))(TWO) // TRUE
 
-var APP2 = f => element => list => { if (ISEMPTY(list) === TRUE) {
-    return CONS(element)(NIL);
-  } else {
-    return CONS(HEAD(list))(f(f)(element)(TAIL(list)));
-  }
-};
+var APP1 = f => list => (ISEMPTY(list))(CONS(element)(NIL))(CONS(HEAD(list))(f(f)(element)(TAIL(list)))); // eager - won't work
+var APP2 = f => element => list => LAZY_COND(_ => CONS(element)(NIL))(_ => CONS(HEAD(list))(f(f)(element)(TAIL(list))))(ISEMPTY(list)) // lazy - will do
 var APPEND = APP2(APP2);
 
-// EQUAL(LENGTH(APPEND(THREE)(CONS(ONE)(CONS(TWO)(NIL)))))(THREE) // TRUE
-// EQUAL(HEAD(APPEND(THREE)(CONS(ONE)(CONS(TWO)(NIL)))))(ONE)
-// EQUAL(HEAD(TAIL(APPEND(THREE)(CONS(ONE)(CONS(TWO)(NIL))))))(TWO)
-// EQUAL(HEAD(TAIL(TAIL(APPEND(THREE)(CONS(ONE)(CONS(TWO)(NIL)))))))(THREE)
+// EQUAL(LENGTH(APPEND(THREE_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(NIL)))))(THREE) // TRUE
+// EQUAL(VALUE(HEAD(APPEND(THREE_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(NIL))))))(ONE)
+// EQUAL(VALUE(HEAD(TAIL(APPEND(THREE_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(NIL)))))))(TWO)
+// EQUAL(VALUE(HEAD(TAIL(TAIL(APPEND(THREE_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(NIL))))))))(THREE)
 
 var MAP_HELPER3 = f => list => mapper => { if (ISEMPTY(list) === TRUE) {
     return NIL;
