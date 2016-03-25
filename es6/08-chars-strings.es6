@@ -157,7 +157,6 @@ var y = MAKE_CHAR(PAIR(SUCC(VALUE(x)(FIRST)))('y'));
 var z = MAKE_CHAR(PAIR(SUCC(VALUE(y)(FIRST)))('z'));
 
 // a few checks...
-
-// EQUAL(VALUE(B)(FIRST))(SUCC(sixty_five))
-// numerically_equal(VALUE(V)(FIRST),86)
+// EQUAL(VALUE(B)(FIRST))(SUCC(sixty_five)) // TRUE
+// numerically_equal(VALUE(V)(FIRST),86) // TRUE
 // VALUE(V)(FIRST) // "V"
