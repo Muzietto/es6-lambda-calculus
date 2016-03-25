@@ -204,15 +204,14 @@ At each paragraph you can:
     def TWO = SUCC ONE = PAIR FALSE (PAIR FALSE IDENTITY)
     def THREE = SUCC TWO = PAIR FALSE (PAIR FALSE (PAIR FALSE IDENTITY))
 
-  let's start to slowly build something really useful; first step is to become able to tell whether a number is `ZERO` or not:
+  let's start to slowly build something really useful; first step is to become able to tell whether a number is `ZERO` or not; these are the specs:
 
-    ISZERO = COND TRUE FALSE ZERO 
-    ISZERO IDENTITY = TRUE
-    ISZERO λx.x = λx.λy.x
+    ISZERO = COND TRUE FALSE ZERO = ZERO TRUE FALSE
+    ISZERO IDENTITY = TRUE --> ISZERO λx.x = λx.λy.x
     ISZERO ONE = FALSE
     ISZERO (PAIR FALSE ZERO) = FALSE
 
-  a function that satisfies these requirements is `ISZERO n = n FIRST`; here's why:
+  a function that satisfies **all** these requirements is `ISZERO n = n FIRST`; let's verify:
 
     ISZERO ZERO = ZERO FIRST = IDENTITY FIRST = FIRST = TRUE
     ISZERO ONE = PAIR FALSE ZERO FIRST = FALSE
