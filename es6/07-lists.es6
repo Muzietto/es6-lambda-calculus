@@ -118,12 +118,7 @@ var MAP = MAP2(MAP2); // MAP list mapper
 // EQUAL(VALUE(HEAD(TAIL(MAP(CONS(ZERO_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(NIL))))(TYPED_ADD(ONE_OBJ))))))(TWO) // TRUE
 // EQUAL(VALUE(HEAD(TAIL(TAIL(MAP(CONS(ZERO_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(NIL))))(TYPED_ADD(ONE_OBJ)))))))(THREE) // TRUE
 
-var RED2 = f => fun => acc => list => { if (ISEMPTY(list) === TRUE) {
-    return acc;
-  } else {
-    return f(f)(fun)(fun(acc)(HEAD(list)))(TAIL(list));
-  }
-};
+var RED2 = f => fun => acc => list => LAZY_COND(_ => acc)(_ => f(f)(fun)(fun(acc)(HEAD(list)))(TAIL(list)))(ISEMPTY(list)) // lazy - will do
 var REDUCE = RED2(RED2); // REDUCE fun acc list
 
 // EQUAL(VALUE(REDUCE(TYPED_ADD)(ZERO_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(CONS(THREE_OBJ)(NIL))))))(SIX)
