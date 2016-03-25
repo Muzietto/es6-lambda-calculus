@@ -1,89 +1,3 @@
-// needed building blocks
-var IDENTITY = x => x;
-var PAIR = x => y => f => f(x)(y);
-var FIRST = x => y => x;
-var SECOND = x => y => y;
-var TRUE = FIRST;
-var FALSE = SECOND;
-var COND = PAIR;
-var NOT = x => x(FALSE)(TRUE); // COND(FALSE)(TRUE)(x)
-var AND = x => y => x(y)(FALSE);
-var OR = x => y => x(TRUE)(y);
-var ZERO = IDENTITY;
-var ISZERO = n => n(FIRST);
-var SUCC = n => PAIR(FALSE)(n);
-var ONE = SUCC(ZERO);
-var TWO = SUCC(ONE);
-var THREE = SUCC(TWO);
-var FOUR = SUCC(THREE);
-var FIVE = SUCC(FOUR);
-var SIX = SUCC(FIVE);
-var SEVEN = SUCC(SIX);
-var EIGHT = SUCC(SEVEN);
-var NINE = SUCC(EIGHT);
-var TEN = SUCC(NINE);
-var PRED = n => (ISZERO(n))(ZERO)(n(SECOND));
-// helper stuff for experimenting with Church numerals
-var numerically_equal = (numeral, int) => {
-  if (int < 0) throw 'numerically_equal: natural numbers are always positive';
-  if (numeral === ZERO && int > 0) return FALSE;
-  if (int === 0) {
-    if (numeral === ZERO) return TRUE;
-    else return FALSE;
-  }
-  else return numerically_equal(PRED(numeral), int - 1);
-};  
-var EQUAL = a => b => {
-  if (ISZERO(b) === TRUE) { 
-    if (ISZERO(a) === TRUE) return TRUE;
-    else return FALSE;
-  }
-  if (ISZERO(a) === TRUE) { 
-    if (ISZERO(b) === TRUE) return TRUE;
-    else return FALSE;
-  }
-  else return EQUAL(PRED(a))(PRED(b));
-};
-var LAZY_TRUE = x => y => x();
-var LAZY_FALSE = x => y => y();
-var LAZY_COND = true_lazy_exp => false_lazy_exp => condition => (condition(LAZY_TRUE)(LAZY_FALSE))(true_lazy_exp)(false_lazy_exp);
-var EQUAL1 = f => x => y => LAZY_COND(_ => TRUE)(_ => LAZY_COND(_ => FALSE)(_ => f(f)(PRED(x))(PRED(y)))(OR(AND(NOT(ISZERO(x)))(ISZERO(y)))(AND(ISZERO(x))(NOT(ISZERO(y))))))(AND(ISZERO(y))(ISZERO(x)));
-var EQUAL = EQUAL1(EQUAL1);
-var ADD3 = f => x => y => {if (ISZERO(y) === TRUE) {return x;} else {return f(f)(SUCC(x))(PRED(y));}};
-var ADD = ADD3(ADD3);
-var MULT2 = f => x => y => {if (ISZERO(y) === TRUE) {return ZERO;} else {return ADD(x)(f(f)(x)(PRED(y)));}};
-var MULT = MULT2(MULT2);
-var MAKE_OBJ = type => value => PAIR(type)(value)
-var TYPE = obj => obj(FIRST);
-var VALUE = obj => obj(SECOND);
-var ISTYPE = t => obj => EQUAL(TYPE(obj))(t);
-// --> type = ZERO -> error stuff
-var error_type = ZERO;
-var MAKE_ERROR = e => MAKE_OBJ(error_type)(e);
-var ISERROR = e => ISTYPE(error_type)(e);
-var ERROR = MAKE_ERROR(error_type);
-// --> type = ONE -> boolean stuff
-var bool_type = ONE;
-var MAKE_BOOL = MAKE_OBJ(bool_type);
-var ISBOOL = ISTYPE(bool_type);
-var TRUE_OBJ = MAKE_BOOL(TRUE);
-var FALSE_OBJ = MAKE_BOOL(FALSE);
-var BOOL_ERROR = MAKE_ERROR(bool_type);
-var TYPED_NOT = X => (ISBOOL(X))(MAKE_BOOL(NOT(VALUE(X))))(BOOL_ERROR);
-var TYPED_AND = X => Y => (AND(ISBOOL(X)(ISBOOL(Y))))(MAKE_BOOL(AND(VALUE(X))(VALUE(Y))))(BOOL_ERROR);
-var TYPED_OR = X => Y => (OR(ISBOOL(X)(ISBOOL(Y))))(MAKE_BOOL(OR(VALUE(X))(VALUE(Y))))(BOOL_ERROR);
-// --> type = TWO -> numeral stuff
-var num_type = TWO;
-var MAKE_NUM = MAKE_OBJ(num_type);
-var ISNUM = ISTYPE(num_type);
-var ZERO_OBJ = MAKE_NUM(ZERO);
-var ONE_OBJ = MAKE_NUM(ONE);
-var TWO_OBJ = MAKE_NUM(TWO);
-var THREE_OBJ = MAKE_NUM(THREE);
-var NUM_ERROR = MAKE_ERROR(num_type);
-var TYPED_ADD = X => Y => (AND(ISNUM(X))(ISNUM(Y)))(MAKE_NUM(ADD(VALUE(X))(VALUE(Y))))(NUM_ERROR);
-var TYPED_MULT = X => Y => (AND(ISNUM(X))(ISNUM(Y)))(MAKE_NUM(MULT(VALUE(X))(VALUE(Y))))(NUM_ERROR);
-
 
 var char_type = FOUR;
 var MAKE_CHAR = MAKE_OBJ(char_type);
@@ -161,7 +75,7 @@ var z = MAKE_CHAR(PAIR(SUCC(VALUE(y)(FIRST)))('z'));
 // numerically_equal(VALUE(V)(FIRST),86) // TRUE
 // VALUE(V)(FIRST) // "V"
 
-function CHAR2VAR(char) {
+function char2CHAR(char) {
   return {
     '0': _0,
     '1': _1,
@@ -228,8 +142,20 @@ function CHAR2VAR(char) {
   }[char];
 }
 
-// EQUAL(TYPE(CHAR2VAR('a')))(FOUR) // TRUE
-// VALUE(CHAR2VAR('a'))(SECOND) // "a"
-// EQUAL(VALUE(CHAR2VAR('a'))(FIRST))(ninety_seven) // TRUE
+// EQUAL(TYPE(char2CHAR('a')))(FOUR) // TRUE
+// VALUE(char2CHAR('a'))(SECOND) // "a"
+// EQUAL(VALUE(char2CHAR('a'))(FIRST))(ninety_seven) // TRUE
 
+var string_type = FIVE;
+var MAKE_STRING = list => (AND(ISLIST(list))(ISCHAR(HEAD(list))))(MAKE_OBJ(string_type)(list))(STRING_ERROR);
+var ISSTRING = ISTYPE(string_type);
+var STRING_ERROR = MAKE_ERROR(string_type);
 
+var string2STRING = string => MAKE_STRING(ARRAY2LIST(string.split('').map(char2CHAR)));
+
+// EQUAL(TYPE(string2STRING('abc'))(FIVE) // TRUE
+// EQUAL(TYPE(string2STRING('abc')))(FIVE) // TRUE
+// EQUAL(TYPE(HEAD(VALUE(string2STRING('abc')))))(FOUR) // it's a CHAR
+// EQUAL(LENGTH(VALUE(string2STRING('abc'))))(THREE) // 3 chars
+// VALUE(HEAD(VALUE(string2STRING('abc'))))(SECOND) // "a"
+// EQUAL(VALUE(HEAD(VALUE(string2STRING('abc'))))(FIRST))(ninety_seven) // ASCII 97
