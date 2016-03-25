@@ -562,7 +562,7 @@ At each paragraph you can:
 ###### HTML is [08-chars-strings.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/08-chars-strings.html)
 <br/>
 
-  ### characters (type FOUR)
+### characters (type FOUR)
 
   we start by creating the usual basic definitions:
 
@@ -593,7 +593,7 @@ At each paragraph you can:
 
   now the whole basic alphanumeric charset is at our disposal, with everything numerically ordered.
 
-  ### strings (type FIVE)
+### strings (type FIVE)
 
   strings are lists of `CHAR`'s:
 
