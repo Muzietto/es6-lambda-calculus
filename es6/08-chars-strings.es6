@@ -160,3 +160,76 @@ var z = MAKE_CHAR(PAIR(SUCC(VALUE(y)(FIRST)))('z'));
 // EQUAL(VALUE(B)(FIRST))(SUCC(sixty_five)) // TRUE
 // numerically_equal(VALUE(V)(FIRST),86) // TRUE
 // VALUE(V)(FIRST) // "V"
+
+function CHAR2VAR(char) {
+  return {
+    '0': _0,
+    '1': _1,
+    '2': _2,
+    '3': _3,
+    '4': _4,
+    '5': _5,
+    '6': _6,
+    '7': _7,
+    '8': _8,
+    '9': _9,
+    'a': a,
+    'b': b,
+    'c': c,
+    'd': d,
+    'e': e,
+    'f': f,
+    'g': g,
+    'h': h,
+    'i': i,
+    'j': j,
+    'k': k,
+    'l': l,
+    'm': m,
+    'n': n,
+    'o': o,
+    'p': p,
+    'q': q,
+    'r': r,
+    's': s,
+    't': t,
+    'u': u,
+    'v': v,
+    'w': w,
+    'x': x,
+    'y': y,
+    'z': z,
+    'A': A,
+    'B': B,
+    'C': C,
+    'D': D,
+    'E': E,
+    'F': F,
+    'G': G,
+    'H': H,
+    'I': I,
+    'J': J,
+    'K': K,
+    'L': L,
+    'M': M,
+    'N': N,
+    'O': O,
+    'P': P,
+    'Q': Q,
+    'R': R,
+    'S': S,
+    'T': T,
+    'U': U,
+    'V': V,
+    'W': W,
+    'X': X,
+    'Y': Y,
+    'Z': Z
+  }[char];
+}
+
+// EQUAL(TYPE(CHAR2VAR('a')))(FOUR) // TRUE
+// VALUE(CHAR2VAR('a'))(SECOND) // "a"
+// EQUAL(VALUE(CHAR2VAR('a'))(FIRST))(ninety_seven) // TRUE
+
+
