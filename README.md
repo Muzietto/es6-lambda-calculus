@@ -593,12 +593,26 @@ At each paragraph you can:
     VALUE('a') // --> 'a'
     TYPE('a') // --> FOUR
 
-  in JavaScript we can use the relevant character as var name (for numbers we need to prepend an '_'), but if we want to receive its representation as a value, we need to store it first by defining `VALUE(char)` as a `PAIR`; for example:
+  in JavaScript we can use the relevant character as var name (for numbers we need to prepend an `_`), but if we want to receive its representation as a value, we need to store it first by defining `VALUE(char)` as a `PAIR`; for example:
 
     var A = MAKE_CHAR(PAIR(sixty_five)('A'));
     var B = MAKE_CHAR(PAIR(SUCC(VALUE(A)(FIRST)))('B'));
     var _0 = MAKE_CHAR(PAIR(forty_eight)('0'));
     var _1 = MAKE_CHAR(PAIR(SUCC(VALUE(_0)(FIRST)))('1'));
+
+  we may make good use of a JavaScript mapper e.g. from `"a"` to `a`:
+  
+    function char2CHAR(char) {
+      return {
+        '0': _0,
+        ...
+        'a': a,
+        ...
+        'A': A,
+        ...
+        'Z': Z
+      }[char];
+    }
 
   now the whole basic alphanumeric charset is at our disposal, with everything numerically ordered.
 
@@ -607,12 +621,15 @@ At each paragraph you can:
   strings are lists of `CHAR`'s:
 
     def string_type = FIVE
-    def MAKE_STRING = MAKE_OBJ string_type
     def ISSTRING = ISTYPE string_type
     def STRING_ERROR = MAKE_ERROR string_type
 
-  basic operation for strings is `CONS` operating on `CHAR`'s:
+  in this case `MAKE_STRING`, the basic operation for strings, needs to check both the type of the list and of its elements:
 
-    def CHAR_CONS char string = (AND (ISLIST string) (AND (ISCHAR (HEAD list) (ISCHAR char)))) (CONS char string) (STRING_ERROR)
+    def MAKE_STRING string = (AND (ISLIST string) (ISCHAR (HEAD string))) (MAKE_OBJ string_type string) STRING_ERROR;
 
-  TBC
+  a conversion function from JavaScript strings to -calculus `STRING`'s builds upon the conversion functions for JS arrays and `LIST`s:
+
+    var string2STRING = string => MAKE_STRING(ARRAY2LIST(string.split('').map(char2CHAR)));
+
+  the codebase shows various examples of all these functions.
