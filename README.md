@@ -557,9 +557,53 @@ At each paragraph you can:
   the codebase contains a JavaScript implementation for both MAP1 and RED1.
 
 ---
-## strings, the third object type
-###### ES6 code in [08-strings.es6](/es6/08-strings.es6)
-###### HTML is [08-strings.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/08-strings.html)
+## characters and strings, the last object types
+###### ES6 code in [08-chars-strings.es6](/es6/08-strings.es6)
+###### HTML is [08-chars-strings.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/08-chars-strings.html)
 <br/>
+
+  ### characters (type FOUR)
+
+  we start by creating the usual basic definitions:
+
+    def char_type = FOUR
+    def MAKE_CHAR = MAKE_OBJ char_type
+    def ISCHAR = ISTYPE char_type
+    def CHAR_ERROR = MAKE_ERROR char_type
+
+  then we need a few numerals that we will use to indicate ASCII codes:
+
+    def forty_eight = MULT SIX (MULT FOUR TWO);
+    def sixty_five = MULT FIVE (ADD FIVE (ADD FIVE THREE));
+    def ninety_seven = ADD ONE (MULT TWO forty_eight);
+
+  in λ-calculus we may easily use a function name as its representation:
+
+    def 'a' = MAKE_CHAR(ninety_seven)
+    def 'b' = MAKE_CHAR(SUCC(VALUE 'a'))
+    VALUE('a') // --> 'a'
+    TYPE('a') // --> FOUR
+
+  in JavaScript we can use the relevant character as var name (for numbers we need to prepend an '_'), but if we want to receive its representation as a value, we need to store it first by defining `VALUE(char)` as a `PAIR`; for example:
+
+    var A = MAKE_CHAR(PAIR(sixty_five)('A'));
+    var B = MAKE_CHAR(PAIR(SUCC(VALUE(A)(FIRST)))('B'));
+    var _0 = MAKE_CHAR(PAIR(forty_eight)('0'));
+    var _1 = MAKE_CHAR(PAIR(SUCC(VALUE(_0)(FIRST)))('1'));
+
+  now the whole basic alphanumeric charset is at our disposal, with everything numerically ordered.
+
+  ### strings (type FIVE)
+
+  strings are lists of `CHAR`'s:
+
+    def string_type = FIVE
+    def MAKE_STRING = MAKE_OBJ string_type
+    def ISSTRING = ISTYPE string_type
+    def STRING_ERROR = MAKE_ERROR string_type
+
+  basic operation for strings is `CONS` operating on `CHAR`'s:
+
+    def CHAR_CONS char string = (AND (ISLIST string) (AND (ISCHAR (HEAD list) (ISCHAR char)))) (CONS char string) (STRING_ERROR)
 
   TBC
