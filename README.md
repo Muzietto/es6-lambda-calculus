@@ -558,7 +558,7 @@ At each paragraph you can:
 
 ---
 ## characters and strings, the last object types
-###### ES6 code in [08-chars-strings.es6](/es6/08-strings.es6)
+###### ES6 code in [08-chars-strings.es6](/es6/08-chars-strings.es6)
 ###### HTML is [08-chars-strings.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/08-chars-strings.html)
 <br/>
 
