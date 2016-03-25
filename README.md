@@ -379,7 +379,7 @@ At each paragraph you can:
 
   all the recursive function that in the previous paragraph have been created by cheating with JavaScript's lazy `if then else` operator can now be implemented in pure λ-calculus notation.
 
-  NB: this paragraph about laziness is not coming from the Michaelson book; it is instead an original contribution (with a big credit due to @MirkoBonadei)
+###### NB: this paragraph about laziness is not coming from the Michaelson book; it is instead an original contribution (with a big credit due to @MirkoBonadei)
   
 ---
 ## types
@@ -522,17 +522,17 @@ At each paragraph you can:
 
   then we need some further basic operations on lists, all based on recursion:
 
-    rec LENGTH list = (ISEMPTY list) ZERO (SUCC (LENGTH TAIL list) // recursive definition, no way...
+    rec LENGTH list = (ISEMPTY list) ZERO (SUCC (LENGTH TAIL list)) // recursive definition, no way...
     rec APPEND element list = (ISEMPTY list) (CONS element NIL) (CONS (HEAD list) (APPEND element (TAIL list))) // also recursive
 
-  which we realize implicitly using the `SELF_APPLY` trick:
+  we are now able to obtain recursion implicitly by using the lazy version of the `SELF_APPLY` trick:
 
-    def LEN1 f list = (ISEMPTY list) ZERO (SUCC (f f (TAIL list)))
+    def LEN1 f list = LAZY_COND λ_.ZERO λ_.(SUCC (f f (TAIL list))) (ISEMPTY list)
     def LENGTH LEN1 LEN1
-    def APP1 f element list = (ISEMPTY list) (CONS element NIL) (CONS (HEAD list) (f f element (TAIL list)))
+    def APP1 f element list = LAZY_COND λ_.(CONS element NIL) λ_.(CONS (HEAD list) (f f element (TAIL list))) (ISEMPTY list)
     def APPEND = APP1 APP1
 
-  in the codeabase there are two venial tricks, called `LEN2` and `APP2` which allow to express `LENGTH` and `APPEND` in eager EcmaScript.
+  in the codeabase you will find the EcmaScript 6 version of the helper functions `LEN1` and `APP1`.
 
 ### advanced list operations: `MAP` and `REDUCE`
 
@@ -540,23 +540,21 @@ At each paragraph you can:
 
     rec MAP list mapper = COND NIL (CONS (mapper (HEAD list))(MAP (TAIL list) mapper) (ISEMPTY list) // recursive, no way!
 
-  we realize `MAP` once more with the implicit recursion of the `SELF_APPLY` method:
+  we realize `MAP` once more with the implicit recursion of the lazy `SELF_APPLY` method:
 
-    def MAP_HELPER2 f list mapper = (ISEMPTY list) NIL (CONS (mapper (HEAD list))(f f (TAIL list) mapper))
-    def MAP = MAP_HELPER2 MAP_HELPER2 // the good version
+    def MAP1 f list mapper = LAZY_COND λ_.NIL λ_.(CONS (mapper (HEAD list))(f f (TAIL list) mapper)) (ISEMPTY list)
+    def MAP = MAP1 MAP1 // the good version
 
-  in the codebase, look at `MAP_HELPER3`, lazy implementation for the browser.
-  
   the recursive definition for reduce (fold left) is:
 
     rec REDUCE fun acc list = (ISEMPTY list) acc (REDUCE fun (fun acc HEAD(list)) (TAIL list))
 
-  the version with implicit recursion (not runnable in the browser) is:
+  the version with implicit recursion is:
 
-    def RED1 f fun acc list = (ISEMPTY list) acc (f f fun (fun acc HEAD(list)) (TAIL list))
+    def RED1 f fun acc list = LAZY_COND λ_.acc λ_.(f f fun (fun acc HEAD(list)) (TAIL list)) (ISEMPTY list)
     def REDUCE = RED1 RED1
 
-  the codebase contains a JavaScript implementation named RED2.
+  the codebase contains a JavaScript implementation for both MAP1 and RED1.
 
 ---
 ## strings, the third object type
