@@ -157,7 +157,7 @@ At each paragraph you can:
 
   expressing NOT in terms of λ-calculus is also straightforward:
 
-    def NOT x = COND FALSE TRUE x
+    def NOT x = COND FALSE TRUE x = x FALSE TRUE
 
 ### AND operator
 
@@ -222,15 +222,15 @@ At each paragraph you can:
     PRED ONE = PRED (PAIR FALSE ZERO) = ZERO
     PRED TWO = PRED (PAIR FALSE (PAIR FALSE ZERO)) = ONE = PAIR FALSE ZERO 
 
-  therefore we could initially say that `SIMPLE_PRED n = n SECOND`, but we need to guard against `n = ZERO`
+  therefore we could initially say that `NAIVE_PRED n = n SECOND`, but we need to guard against `n = ZERO`
 
-    SIMPLE_PRED ZERO = ZERO SECOND = SECOND = FALSE // not a number anymore
+    NAIVE_PRED ZERO = ZERO SECOND = SECOND = FALSE // not a number anymore
 
   we define then that `PRED ZERO = ZERO` and we get:
 
     predecessor(n) = isZero(n) ? 0 : simplePredecessor(n)  // using the ternary operator
 
-    PRED n = COND ZERO (SIMPLE_PRED n) (ISZERO n) = (ISZERO n) ZERO (SIMPLE_PRED n)
+    PRED n = COND ZERO (NAIVE_PRED n) (ISZERO n) = (ISZERO n) ZERO (NAIVE_PRED n)
 
 ---
 ## recursion and arithmetics
@@ -256,7 +256,7 @@ At each paragraph you can:
 
   this magic function `ADD2` has the remarkable power that, when applied to itself, it behaves like we expected from ADD:
 
-    def ADD = ADD2 ADD2
+    def ADD = ADD2 ADD2 = SELF_APPLY ADD2
 
   the big gain is that nobody mentions itself inside its own body anymore; you can see in the definition of `ADD2` that the recursion is created implicitly by the self application of argument `f` and __not__ by an explicit invocation
   
@@ -274,8 +274,8 @@ At each paragraph you can:
   which leads to a helper function which behaves like `ADD2`, and it also __not runnable__ inside a browser:
 
     def MULT1 f x y = COND ZERO (ADD x (f f x (PRED y))) (ISZERO y)
-    def MULT = MULT1 MULT1
-    var MULT = MULT1(MULT1) // 'Internal Error: too much recursion'
+    def MULT = SELF_APPLY MULT1
+    var MULT = SELF_APPLY(MULT1) // 'Internal Error: too much recursion'
 
   this second time we can try to abstract a bit the whole business and come up with a new way to define recursive functions like `ADD` and `MULT`:
 
@@ -326,10 +326,10 @@ At each paragraph you can:
   we can express it through a helper function, using `LAZY_COND` and the `SELF_APPLY` trick already presented in the previous paragraph, also in JavaScript:
 
     def BIGGER_X_THAN_Y1 f x y = LAZY_COND λ_.TRUE λ_.(f f (PRED x) (PRED y)) (AND (ISZERO y) (NOT (ISZERO x)))
-    def BIGGER_X_THAN_Y = BIGGER_X_THAN_Y1 BIGGER_X_THAN_Y1
+    def BIGGER_X_THAN_Y = SELF_APPLY BIGGER_X_THAN_Y1
 
     var BIGGER_X_THAN_Y1 = f => x => y => LAZY_COND(_ => TRUE)(_ => f(f)(PRED(x))(PRED(y)))(AND(ISZERO(y))(NOT(ISZERO(x))));
-    var BIGGER_X_THAN_Y = BIGGER_X_THAN_Y1(BIGGER_X_THAN_Y1);
+    var BIGGER_X_THAN_Y = SELF_APPLY(BIGGER_X_THAN_Y1);
 
   this implementation is able to compute correctly only 1/3 of the possible cases:
 
@@ -340,10 +340,10 @@ At each paragraph you can:
   basically, this implementation is unable to respond `FALSE`; in order to allow input where the larger number is the second, we have to bring complexity in the `NOT(TRUE)` branch; this leads to the helper function `BIGGER_X_THAN_Y2`:
 
     def BIGGER_X_THAN_Y2 f x y = LAZY_COND λ_.TRUE λ_.(LAZY_COND λ_.FALSE λ_.(f f (PRED x) (PRED y)) (AND (ISZERO x) (NOT (ISZERO y)))) (AND (ISZERO y) (NOT (ISZERO x)))
-    def BIGGER_X_THAN_Y = BIGGER_X_THAN_Y2 BIGGER_X_THAN_Y2
+    def BIGGER_X_THAN_Y = SELF_APPLY BIGGER_X_THAN_Y2
 
     var BIGGER_X_THAN_Y2 = f => x => y => LAZY_COND(_ => TRUE)(_ => LAZY_COND(_ => FALSE)(_ => f(f)(PRED(x))(PRED(y)))(AND(ISZERO(x))(NOT(ISZERO(y)))))(AND(ISZERO(y))(NOT(ISZERO(x))));
-    var BIGGER_X_THAN_Y = BIGGER_X_THAN_Y2(BIGGER_X_THAN_Y2);
+    var BIGGER_X_THAN_Y = SELF_APPLY(BIGGER_X_THAN_Y2);
 
   this second implementation is able to compute correctly 2/3 of the possible cases:
 
@@ -354,11 +354,11 @@ At each paragraph you can:
   in order to allow input where the arguments are equal, we `OR` one more check in the `NOT(TRUE)` branch; this leads to the final helper function `BIGGER_X_THAN_Y3`:
 
     def BIGGER_X_THAN_Y3 f x y = LAZY_COND λ_.TRUE λ_.(LAZY_COND λ_.FALSE λ_.(f f (PRED x) (PRED y)) (OR (AND (ISZERO x) (ISZERO y)) (AND (ISZERO x) (NOT (ISZERO y))))) (AND (ISZERO y) (NOT (ISZERO x)))
-    def BIGGER_X_THAN_Y = BIGGER_X_THAN_Y3 BIGGER_X_THAN_Y3
+    def BIGGER_X_THAN_Y = SELF_APPLY BIGGER_X_THAN_Y3
 
     // the good one!
     var BIGGER_X_THAN_Y3 = f => x => y => LAZY_COND(_ => TRUE)(_ => LAZY_COND(_ => FALSE)(_ => f(f)(PRED(x))(PRED(y)))(OR(AND(ISZERO(x))(ISZERO(y)))(AND(ISZERO(x))(NOT(ISZERO(y))))))(AND(ISZERO(y))(NOT(ISZERO(x))));
-    BIGGER_X_THAN_Y = BIGGER_X_THAN_Y3(BIGGER_X_THAN_Y3);
+    BIGGER_X_THAN_Y = SELF_APPLY(BIGGER_X_THAN_Y3);
 
     BIGGER_X_THAN_Y(THREE)(TWO); // TRUE
     BIGGER_X_THAN_Y(THREE)(FOUR); // FALSE
@@ -367,10 +367,10 @@ At each paragraph you can:
   a variation on the same lazy method can be used to define a much useful `EQUAL N M` function:
 
     def EQUAL1 f x y = LAZY_COND λ_.TRUE λ_.(LAZY_COND λ_.FALSE λ_.(f f (PRED x) (PRED y)) (OR (AND (NOT (ISZERO x)) (ISZERO y)) (AND (ISZERO x) (NOT (ISZERO y))))) (AND (ISZERO y) (ISZERO x))
-    def EQUAL = EQUAL1 EQUAL1
+    def EQUAL = SELF_APPLY EQUAL1
 
     var EQUAL1 = f => x => y => LAZY_COND(_ => TRUE)(_ => LAZY_COND(_ => FALSE)(_ => f(f)(PRED(x))(PRED(y)))(OR(AND(NOT(ISZERO(x)))(ISZERO(y)))(AND(ISZERO(x))(NOT(ISZERO(y))))))(AND(ISZERO(y))(ISZERO(x)));
-    var EQUAL = EQUAL1(EQUAL1);
+    var EQUAL = SELF_APPLY(EQUAL1);
 
     EQUAL(THREE)(TWO); // FALSE
     EQUAL(THREE)(FOUR); // FALSE
@@ -529,7 +529,7 @@ At each paragraph you can:
     def LEN1 f list = LAZY_COND λ_.ZERO λ_.(SUCC (f f (TAIL list))) (ISEMPTY list)
     def LENGTH LEN1 LEN1
     def APP1 f element list = LAZY_COND λ_.(CONS element NIL) λ_.(CONS (HEAD list) (f f element (TAIL list))) (ISEMPTY list)
-    def APPEND = APP1 APP1
+    def APPEND = SELF_APPLY APP1
 
   in the codeabase you will find the EcmaScript 6 version of the helper functions `LEN1` and `APP1`.
 
@@ -542,7 +542,7 @@ At each paragraph you can:
   we realize `MAP` once more with the implicit recursion of the lazy `SELF_APPLY` method:
 
     def MAP1 f list mapper = LAZY_COND λ_.NIL λ_.(CONS (mapper (HEAD list))(f f (TAIL list) mapper)) (ISEMPTY list)
-    def MAP = MAP1 MAP1 // the good version
+    def MAP = SELF_APPLY MAP1 // the good version
 
   the recursive definition for reduce (fold left) is:
 
@@ -551,7 +551,7 @@ At each paragraph you can:
   the version with implicit recursion is:
 
     def RED1 f fun acc list = LAZY_COND λ_.acc λ_.(f f fun (fun acc HEAD(list)) (TAIL list)) (ISEMPTY list)
-    def REDUCE = RED1 RED1
+    def REDUCE = SELF_APPLY RED1
 
   the codebase contains a JavaScript implementation for both MAP1 and RED1.
 
