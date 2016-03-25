@@ -6,6 +6,9 @@ var SECOND = x => y => y;
 var TRUE = FIRST;
 var FALSE = SECOND;
 var COND = PAIR;
+var NOT = x => x(FALSE)(TRUE); // COND(FALSE)(TRUE)(x)
+var AND = x => y => x(y)(FALSE);
+var OR = x => y => x(TRUE)(y);
 var ZERO = IDENTITY;
 var ISZERO = n => n(FIRST);
 var SUCC = n => PAIR(FALSE)(n);
@@ -14,6 +17,7 @@ var TWO = SUCC(ONE);
 var THREE = SUCC(TWO);
 var FOUR = SUCC(THREE);
 var FIVE = SUCC(FOUR);
+var SIX = SUCC(FIVE);
 var PRED = n => (ISZERO(n))(ZERO)(n(SECOND));
 
 // helper stuff for experimenting with Church numerals
