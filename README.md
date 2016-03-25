@@ -556,6 +556,15 @@ At each paragraph you can:
 
   the codebase contains a JavaScript implementation for both MAP1 and RED1.
 
+### helper functions for managing JavaScript arrays
+
+  due to the similarity between these lists and JavaScript arrays, we can benefit from having a few helper functions to mediate between the two worlds. They are relatively straightforward to implement by mixing idioms from both realms:
+  
+    var LIST2ARRAY = REDUCE(array => head => [head].concat(array))([]);
+    var ARRAY2LIST = array => array.reverse().reduce((acc, curr) => CONS(curr)(acc), NIL);
+
+  the codebase contains a few examples of usage of these functions.
+
 ---
 ## characters and strings, the last object types
 ###### ES6 code in [08-chars-strings.es6](/es6/08-chars-strings.es6)
