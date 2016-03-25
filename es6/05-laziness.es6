@@ -1,24 +1,3 @@
-// needed building blocks
-var IDENTITY = x => x;
-var PAIR = x => y => f => f(x)(y);
-var FIRST = x => y => x;
-var SECOND = x => y => y;
-var COND = x => y => c => c(x)(y);
-var TRUE = x => y => x; // TRUE === FIRST
-var FALSE = x => y => y; // FALSE === SECOND
-var NOT = x => COND(FALSE)(TRUE)(x);
-var AND = x => y => COND(y)(FALSE)(x);
-var OR = x => y => COND(TRUE)(y)(x);
-var ZERO = IDENTITY;
-var ISZERO = n => n(FIRST);
-var SUCC = n => PAIR(FALSE)(n);
-var PRED = n => (ISZERO(n))(ZERO)(n(SECOND));
-var ONE = SUCC(ZERO);
-var TWO = SUCC(ONE);
-var THREE = SUCC(TWO);
-var FOUR = SUCC(THREE);
-var FIVE = SUCC(FOUR);
-var SIX = SUCC(FIVE);
 
 var LAZY_TRUE = x => y => x();
 var LAZY_FALSE = x => y => y();

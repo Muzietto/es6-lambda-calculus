@@ -1,11 +1,3 @@
-// needed building blocks
-var IDENTITY = x => x;
-var PAIR = x => y => f => f(x)(y);
-var FIRST = x => y => x;
-var SECOND = x => y => y;
-var TRUE = FIRST;
-var FALSE = SECOND;
-var COND = PAIR;
 
 var ZERO = IDENTITY;
 
@@ -13,9 +5,16 @@ var ISZERO = n => n(FIRST);
 
 var SUCC = n => PAIR(FALSE)(n);
 
-var ONE = SUCC(ZERO);
-var TWO = SUCC(ONE);
+var ONE   = SUCC(ZERO);
+var TWO   = SUCC(ONE);
 var THREE = SUCC(TWO);
+var FOUR  = SUCC(THREE);
+var FIVE  = SUCC(FOUR);
+var SIX   = SUCC(FIVE);
+var SEVEN = SUCC(SIX);
+var EIGHT = SUCC(SEVEN);
+var NINE  = SUCC(EIGHT);
+var TEN   = SUCC(NINE);
 
 // ISZERO(ONE)
 // ISZERO(SUCC(ZERO))
@@ -36,18 +35,6 @@ var numerically_equal = (numeral, int) => {
     else return FALSE;
   }
   else return numerically_equal(PRED(numeral), int - 1);
-};  
-var EQUAL = a => b => {
-  if (ISZERO(b) === TRUE) { 
-    if (ISZERO(a) === TRUE) return TRUE;
-    else return FALSE;
-  }
-  if (ISZERO(a) === TRUE) { 
-    if (ISZERO(b) === TRUE) return TRUE;
-    else return FALSE;
-  }
-  else return EQUAL(PRED(a))(PRED(b));
 };
 
 // numerically_equal(SUCC(SUCC(TWO)), 4); // FIRST
-// EQUAL(SUCC(ZERO))(PRED(TWO)); // SECOND
