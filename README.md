@@ -527,7 +527,8 @@ At each paragraph you can:
   we are now able to obtain recursion implicitly by using the lazy version of the `SELF_APPLY` trick:
 
     def LEN1 f list = LAZY_COND λ_.ZERO λ_.(SUCC (f f (TAIL list))) (ISEMPTY list)
-    def LENGTH LEN1 LEN1
+    def LENGTH SELF_APPLY LEN1
+
     def APP1 f element list = LAZY_COND λ_.(CONS element NIL) λ_.(CONS (HEAD list) (f f element (TAIL list))) (ISEMPTY list)
     def APPEND = SELF_APPLY APP1
 
@@ -546,7 +547,7 @@ At each paragraph you can:
 
   the recursive definition for reduce (fold left) is:
 
-    rec REDUCE fun acc list = (ISEMPTY list) acc (REDUCE fun (fun acc HEAD(list)) (TAIL list))
+    rec REDUCE fun acc list = (ISEMPTY list) acc (REDUCE fun (fun acc HEAD(list)) (TAIL list)) // explicit recursion, no way!
 
   the version with implicit recursion is:
 
