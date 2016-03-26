@@ -643,6 +643,6 @@ At each paragraph you can:
 
     var string2STRING = string => MAKE_STRING(array2LIST(string.split('').map(char2CHAR)));
 
-  the codebase shows various examples of all these functions.
+  the codebase shows various examples of utilisation of all these functions.
 
 ###### NB: again, this paragraph about chars and strings is mostly not coming from the Michaelson book; it is instead an original contribution.
