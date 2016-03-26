@@ -30,3 +30,10 @@ var EQUAL = SELF_APPLY(EQUAL1);
 // EQUAL(THREE)(FOUR); // FALSE
 // EQUAL(THREE)(THREE); // TRUE
 
+var jsinteger1 = n => f => N => LAZY_COND(_ => n)(_ => f(n + 1)(f)(PRED(N)))(ISZERO(N))
+var jsinteger = jsinteger1(0)(jsinteger1);
+
+// jsinteger(SIX) // 6
+// jsinteger(MULT(SIX)(SIX)) // 36
+// jsinteger(MULT(TEN)(MULT(TEN)(TEN)))
+// jsinteger(MULT(TEN)(MULT(TEN)(MULT(TEN)(FIVE)))) // 5000
