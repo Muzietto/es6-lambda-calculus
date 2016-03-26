@@ -378,6 +378,11 @@ At each paragraph you can:
 
   all the recursive functions that in the previous paragraph have been created by cheating with JavaScript's lazy `if then else` operator can now be implemented in pure λ-calculus notation.
 
+  a truly insightful function of this family is `jsinteger`, which takes a numeral and returns its value as a plain JavaScript integer; it gives a clear demonstration of the power given by the faculty of mixing JS with λ-notation:
+  
+    var jsinteger1 = n => f => N => LAZY_COND(_ => n)(_ => f(n + 1)(f)(PRED(N)))(ISZERO(N)) // first n will be the initial value
+    var jsinteger = jsinteger1(0)(jsinteger1); // sandwiched self-application
+
 ###### NB: this paragraph about laziness is not coming from the Michaelson book; it is instead an original contribution (with a big credit due to @MirkoBonadei)
   
 ---
