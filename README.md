@@ -637,11 +637,11 @@ At each paragraph you can:
 
   in this case `MAKE_STRING`, the basic operation for strings, needs to check both the type of the list and all of its elements:
 
-    def MAKE_STRING string = (AND (ISLIST string) (ALLCHARS string)) (MAKE_OBJ string_type string) STRING_ERROR;
+    def MAKE_STRING string = (AND (ISLIST string) (ALL_CHARS string)) (MAKE_OBJ string_type string) STRING_ERROR;
 
   a conversion function from JavaScript strings to λ-calculus `STRING`'s builds upon the conversion functions for JS arrays and `LIST`s:
 
-    var string2STRING = string => MAKE_STRING(ARRAY2LIST(string.split('').map(char2CHAR)));
+    var string2STRING = string => MAKE_STRING(array2LIST(string.split('').map(char2CHAR)));
 
   the codebase shows various examples of all these functions.
 
