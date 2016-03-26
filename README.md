@@ -246,7 +246,7 @@ At each paragraph you can:
     rec ADD x y = COND x (ADD (SUCC x) (PRED y)) (ISZERO y)
 
   the big problem here is that __we have the function name mentioned in its own body__, and this normally speaking is not allowed by the rules of λ-calculus;
-  __keyword `rec` is used in λ-calculus__ (as well as in Scheme, by the way) __to mean that a function is being defined recursively__; it can be used freely to express the concept (and this is done a few times further down this text), but implementing `rec` is a quite complex matter.
+  __keyword `rec` is used in λ-calculus__ (as well as in Scheme, by the way) __to mean that a function is being defined recursively__; it can be used freely to express the concept (and this is done a few times further down this text), but implementing `rec` is quite a complex matter, as we will see in the next paragraph.
 
   in order to implement recursion, we do some juggling remembering `SELF_APPLY = λs.(s s)`, for which we know that an infinite loop `(SELF_APPLY SELF_APPLY) = ... = (SELF_APPLY SELF_APPLY)` exists;
   we create a helper function `add2` that carries an additional function `f` in its signature __and applies it to itself__:
