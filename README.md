@@ -386,7 +386,7 @@ At each paragraph you can:
 ###### HTML is [06-types.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/06-types.html)
 <br/>
 
-  types ensure that operations are used on the objects they are supposed to handle;
+  types ensure that operators are applied on the objects they are supposed to handle;
 
   we want to be able to pass only `TRUE` and `FALSE` to functions like `NOT`, `AND`, `OR`; we want to be able to pass only `ZERO`, `ONE`, etc to functions like `PRED` and `SUCC`
   
