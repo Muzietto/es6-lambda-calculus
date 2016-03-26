@@ -466,7 +466,7 @@ At each paragraph you can:
     def TWO_OBJ = MAKE_NUM TWO
     def THREE_OBJ = MAKE_NUM THREE
 
-  plus a specific error troubles with numerals:
+  plus a specific error that will be returned in case of troubles with computations involving numerals:
 
     def NUM_ERROR = MAKE_ERROR num_type
 
