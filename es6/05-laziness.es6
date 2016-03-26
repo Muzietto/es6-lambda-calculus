@@ -35,5 +35,5 @@ var jsinteger = jsinteger1(0)(jsinteger1);
 
 // jsinteger(SIX) // 6
 // jsinteger(MULT(SIX)(SIX)) // 36
-// jsinteger(MULT(TEN)(MULT(TEN)(TEN)))
+// jsinteger(MULT(TEN)(MULT(TEN)(TEN))) // 1000
 // jsinteger(MULT(TEN)(MULT(TEN)(MULT(TEN)(FIVE)))) // 5000
