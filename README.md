@@ -376,7 +376,7 @@ At each paragraph you can:
     EQUAL(THREE)(FOUR); // FALSE
     EQUAL(THREE)(THREE); // TRUE
 
-  all the recursive function that in the previous paragraph have been created by cheating with JavaScript's lazy `if then else` operator can now be implemented in pure λ-calculus notation.
+  all the recursive functions that in the previous paragraph have been created by cheating with JavaScript's lazy `if then else` operator can now be implemented in pure λ-calculus notation.
 
 ###### NB: this paragraph about laziness is not coming from the Michaelson book; it is instead an original contribution (with a big credit due to @MirkoBonadei)
   
