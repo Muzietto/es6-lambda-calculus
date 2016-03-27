@@ -281,7 +281,7 @@ Table of Contents
     var mult = x => y => (y === 0) ? 0 : x + mult(x)(y-1)
     rec MULT x y = COND ZERO (ADD x (MULT x (PRED y))) (ISZERO y)
 
-  which leads to a helper function which behaves like `ADD2`, and it also __not runnable__ inside a browser:
+  which leads to a helper function which behaves like `ADD2`, and is also __not runnable__ inside a browser:
 
     def MULT1 f x y = COND ZERO (ADD x (f f x (PRED y))) (ISZERO y)
     def MULT = SELF_APPLY MULT1
