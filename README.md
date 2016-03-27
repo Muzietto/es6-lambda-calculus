@@ -13,13 +13,13 @@ At each paragraph you can:
 
 Table of Contents
  - [definitions](#definitions)
- - [booleans](booleans)
- - [natural numbers](natural-numbers)
- - [recursion and arithmetics](recursion-and-arithmetics)
- - [laziness](introducing-laziness)
- - [types](types)
- - [lists](lists)
- - [chars and strings](characters-and-strings)
+ - [booleans](#booleans)
+ - [natural numbers](#natural-numbers)
+ - [recursion and arithmetics](#recursion-and-arithmetics)
+ - [laziness](#introducing-laziness)
+ - [types](#types)
+ - [lists](#lists)
+ - [chars and strings](#characters-and-strings)
 
 ---
 ## definitions
