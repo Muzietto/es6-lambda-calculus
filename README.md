@@ -9,7 +9,10 @@ Made possible only by the mind-blowing work of Alonzo Church.
 
 At each paragraph you can:
   - view the related ES6 code
-  - run and exercise the ES6 code (open in new tab the HTML file and start the browser console).
+  - run and exercise the ES6 code (open in new tab the HTML file and start the browser console)
+
+Table of Contents
+ - [definitions](#definitions)
 
 ---
 ## definitions
