@@ -1,7 +1,7 @@
 # es6-lambda-calculus
-Describing lambda-calculus using EcmaScript 6 arrow notation (currently only on FF, IE11 and Edge).
+Implementing λ-calculus using EcmaScript 6 arrow notation (currently only on FF, IE11 and Edge).
 
-Inspired by the study of "Functional Programming through Lambda Calculus" (G. Michaelson)
+Inspired by the study of ["Functional Programming through Lambda Calculus"](http://www.amazon.com/Introduction-Functional-Programming-Calculus-Mathematics/dp/0486478831) (G. Michaelson)
 
 Made possible only by the mind-blowing work of Alonzo Church.
 
