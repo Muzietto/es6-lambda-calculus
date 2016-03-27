@@ -582,7 +582,7 @@ At each paragraph you can:
     ALL_CHARS charlist = VALUE (ALL (λx.MAKE_BOOL (ISCHAR x )) charlist) // NB - produces UNTYPED booleans
 
 ---
-## characters and strings, the last object types
+## characters and strings
 ###### ES6 code in [08-chars-strings.es6](/es6/08-chars-strings.es6)
 ###### HTML is [08-chars-strings.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/08-chars-strings.html)
 <br/>
