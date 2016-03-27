@@ -490,7 +490,7 @@ Table of Contents
     def TYPED_ADD X Y = (AND (ISNUM X) (ISNUM Y)) (MAKE_NUM (ADD (VALUE X) (VALUE Y))) (NUM_ERROR)
     def TYPED_MULT X Y = (AND (ISNUM X) (ISNUM Y)) (MAKE_NUM (MULT (VALUE X) (VALUE Y))) (NUM_ERROR)
 
-###### before talking about strings (the third object type) here is a little detour about _lists_; after talking about that, we will be able to represent strings as lists of characters
+###### before talking about chars and strings (the last object types presented) here is a little detour about _lists_; after talking about that, we will be able to represent strings as lists of characters
 
 ---
 ## lists
