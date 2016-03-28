@@ -54,7 +54,7 @@ when function body is a function => n-args function
 
     λx.(λy.x+y) = λx.λy.x+y
 
-when a function has a def, we can shift bound variables to the left
+when a function has a `def`, we can shift bound variables to the left side of the definition:
 
     def SUM = λx.λy.x+y => SUM x = λy.x+y
 
