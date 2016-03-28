@@ -190,6 +190,7 @@ At each paragraph you can:
 
     def OR x = COND TRUE y x = x TRUE y (try it with paper and pen...)
 
+###### [back to the top](#table-of-contents)
 ---
 ## natural numbers
 ###### ES6 code in [03-natural-numbers.es6](/es6/03-natural-numbers.es6)
@@ -243,6 +244,7 @@ At each paragraph you can:
 
     PRED n = COND ZERO (NAIVE_PRED n) (ISZERO n) = (ISZERO n) ZERO (NAIVE_PRED n)
 
+###### [back to the top](#table-of-contents)
 ---
 ## recursion and arithmetics
 ###### ES6 code in [04-recursion-arithmetics.es6](/es6/04-recursion-arithmetics.es6)
@@ -305,6 +307,7 @@ At each paragraph you can:
 
   Alonzo Church managed to define also subtraction, power, absolute value and integer division; the [numerals he designed eventually](https://en.wikipedia.org/wiki/Church_encoding) are different from the ones shown here.
 
+###### [back to the top](#table-of-contents)
 ---
 ## introducing laziness
 ###### ES6 code in [05-laziness.es6](/es6/05-laziness.es6)
@@ -396,6 +399,7 @@ At each paragraph you can:
 
 ###### NB: this paragraph about laziness is not coming from the Michaelson book; it is instead an original contribution (with a big credit due to @MirkoBonadei)
   
+###### [back to the top](#table-of-contents)
 ---
 ## types
 ###### ES6 code in [06-types.es6](/es6/06-types.es6)
@@ -493,6 +497,7 @@ At each paragraph you can:
 
 ###### before talking about chars and strings (the last object types presented) here is a little detour about _lists_; after talking about that, we will be able to represent strings as lists of characters
 
+###### [back to the top](#table-of-contents)
 ---
 ## lists
 ###### ES6 code in [07-lists.es6](/es6/07-lists.es6)
@@ -592,6 +597,7 @@ At each paragraph you can:
 
     ALL_CHARS charlist = VALUE (ALL (λx.MAKE_BOOL (ISCHAR x )) charlist) // NB - produces UNTYPED booleans
 
+###### [back to the top](#table-of-contents)
 ---
 ## characters and strings
 ###### ES6 code in [08-chars-strings.es6](/es6/08-chars-strings.es6)
@@ -662,3 +668,5 @@ At each paragraph you can:
   the codebase shows various examples of utilisation of all these functions.
 
 ###### NB: again, this paragraph about chars and strings is mostly not coming from the Michaelson book; it is instead an original contribution.
+
+###### [back to the top](#table-of-contents)
