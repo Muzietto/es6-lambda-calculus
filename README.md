@@ -29,13 +29,13 @@ At each paragraph you can:
 
 #####  lambda-expression := name  |  function  |  function-application
 
-  a "resolved" (or "evalued") λ-expression is called a _value_.
+a "resolved" (or "evalued") λ-expression is called a _value_.
 
 #####  name := character sequence
 
     e.g. IDENTITY, pippo, c3b0
 
-  keyword `def` binds names to expressions
+keyword `def` binds names to expressions
 
     def ID = IDENTITY
     def TWELVE = (SUCCESSOR ELEVEN)
