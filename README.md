@@ -612,7 +612,7 @@ Table of Contents
     def sixty_five = MULT FIVE (ADD FIVE (ADD FIVE THREE));
     def ninety_seven = ADD ONE (MULT TWO forty_eight);
 
-  in λ-calculus we may easily use a function name as its representation:
+  in λ-calculus we may easily use a function name as its own representation:
 
     def 'a' = MAKE_CHAR(ninety_seven)
     def 'b' = MAKE_CHAR(SUCC(VALUE 'a'))
