@@ -37,6 +37,7 @@ At each paragraph you can:
 
   keyword `def` binds names to expressions
 
+    def ID = IDENTITY
     def TWELVE = (SUCCESSOR ELEVEN)
     def IDENTITY = λx.x
 
