@@ -11,7 +11,7 @@ At each paragraph you can:
   - view the related ES6 code
   - run and exercise the ES6 code (open in new tab the HTML file and start the browser console)
 
-Table of Contents
+### Table of Contents
  - [definitions](#definitions)
  - [booleans](#booleans)
  - [natural numbers](#natural-numbers)
@@ -112,17 +112,17 @@ Table of Contents
 
   application to can be thought of in two ways:
 
-  - __call-by-value__ (or _applicative order reduction_): substitutions can be made only using values --> __eager__ languages
+  - __call-by-value__ (or _applicative order reduction_): substitutions can be made only using values ⟹__eager__ languages
 
     (x => x + 1)(12) --> 13
 
-  - __call-by-name__ (or _normal order reduction_): substitutions are made also using expressions --> __lazy__ languages
+  - __call-by-name__ (or _normal order reduction_): substitutions are made also using expressions ⟹ __lazy__ languages
 
     (x => x + 1)(y + z + 5) --> ((y + z + 5) => (y + z + 5) + 1) --> we will see...
 
-  NB: ES6 is an eager language, so the second example aint't real running code, and it is just for the show.
+  NB: ES6 is an eager language, so the second example aint't real running code, and it is just for the show;
 
-  trying to implement recursion using `SELF_APPLY` in an eager language is impossible.
+  trying to implement recursion using `SELF_APPLY` in an eager language is impossible, because the call-by-value nature will force the interpreter to evaluate the right side before anything else, and this implies another turn of the wheel, a new right side to interpret first, and then another, and the another... ad libitum before anything useful can be done with the expression.
 
 ### pairs
 
@@ -130,7 +130,7 @@ Table of Contents
 
     def PAIR = λx.λy.λf.(f x y)
 
-  the two simplest operations on pairs are the getters FIRST and SECOND
+  the two simplest operations on pairs are the getters `FIRST` and `SECOND`:
 
     PAIR 1 2 FIRST = 1 => def FIRST = λx.λy.x
     PAIR 1 2 SECOND = 2 => def SECOND = λx.λy.y
