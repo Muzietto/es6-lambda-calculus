@@ -504,7 +504,9 @@ At each paragraph you can:
 ###### HTML is [07-lists.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/07-lists.html)
 <br/>
 
-  a list is implemented by chaining pairs one inside the other (guess where LISP got the idea from, in the first place...); first of all we define the type for lists and the basic type error and operators:
+  __a list in λ-calculus is implemented as a binary tree__ by _chaining pairs one inside the other_ (guess where LISP got the idea from, in the first place...);
+
+  first of all we define the type for lists and the basic type error and operators:
 
     def list_type = THREE
     def ISLIST = ISTYPE list_type
@@ -513,32 +515,33 @@ At each paragraph you can:
 
 ### the building blocks
 
-  we start building lists from the empty list `NIL`, which will have a few characteristics:
+  we start building lists from the empty list `NIL`, which will need to have a few characteristics:
     - it is a list (`EQUAL(TYPE(NIL))(list_type)`)
-    - it has value `PAIR LIST_ERROR LIST_ERROR`, so that whoever tries to read it, will get an error
+    - it's gotta be a `PAIR`, so to fit inside the binary tree
+    - it has value such that whoever tries to read it, will get an error
 
   all this is satisfied by the following λ-expression
 
     def NIL = MAKE_LIST (PAIR LIST_ERROR LIST_ERROR)
 
-  once we have `NIL`, we may start building real lists; the process is, for example:
+  once we have `NIL`, we may start building the lists; the atomic list builder is called the `CONS`tructor and its working is shown here:
 
-    [1, 2, 5] --> CONS ONE (CONS TWO (CONS FIVE NIL))
+    [1, 2, 5] --> CONS ONE (CONS TWO (CONS FIVE NIL)) // from JS array to λ-calculus LIST
 
-  we seem to need just a few basic functions to start managing this stuff
+  we seem to have almost everything already at hand to start managing this stuff:
 
     def CONS = PAIR
-    def HEAD list = list FIRST  // CAR
-    def TAIL list = list SECOND  // CDR
+    def HEAD list = list FIRST  // also known as CAR
+    def TAIL list = list SECOND  // als known as CDR
     def ISEMPTY list = COND TRUE FALSE (ISZERO list) = (ISZERO list) TRUE FALSE
 
-  but we want to keep track of type, so this time we try a more ambitious `CONS`tructor and getters:
+  but we want to keep track of type, so this time we need the `CONS`tructor and the getters to be a bit more careful;
 
     def CONS H T = (ISLIST T) (MAKE_LIST (PAIR H T)) LIST_ERROR
     def HEAD list = (ISLIST list) (VALUE list FIRST) LIST_ERROR
     def TAIL list = (ISLIST list) (VALUE list SECOND) LIST_ERROR
 
-### basic list operations
+### basic list manipulation
 
   then we need some further basic operations on lists, all based on recursion:
 
@@ -555,7 +558,7 @@ At each paragraph you can:
 
   in the codeabase you will find the EcmaScript 6 version of the helper functions `LEN1` and `APP1`.
 
-### advanced list operations: `MAP` and `REDUCE`
+### advanced list manipulation: `MAP` and `REDUCE`
 
   we end up thinking about some more sophisticated stuff:
 
@@ -566,7 +569,7 @@ At each paragraph you can:
     def MAP1 f list mapper = LAZY_COND λ_.NIL λ_.(CONS (mapper (HEAD list))(f f (TAIL list) mapper)) (ISEMPTY list)
     def MAP = SELF_APPLY MAP1 // the good version
 
-  the recursive definition for reduce (fold left) is:
+  the recursive definition for `REDUCE` (fold left) is:
 
     rec REDUCE fun acc list = (ISEMPTY list) acc (REDUCE fun (fun acc HEAD(list)) (TAIL list)) // explicit recursion, no way!
 
@@ -579,7 +582,7 @@ At each paragraph you can:
 
 ### helper functions for managing JavaScript arrays
 
-  due to the similarity between these lists and JavaScript arrays, we can benefit from having a few helper functions to mediate between the two worlds. They are relatively straightforward to implement by mixing idioms from both realms:
+  due to the striking similarity between λ-calculus lists and JavaScript arrays, we can benefit from having a few helper functions to mediate between the two worlds. They are relatively straightforward to implement by mixing idioms from both realms:
   
     var LIST2array = REDUCE(array => head => [head].concat(array))([]);
     var array2LIST = array => array.reverse().reduce((acc, curr) => CONS(curr)(acc), NIL);
