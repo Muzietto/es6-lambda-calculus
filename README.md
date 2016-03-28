@@ -519,10 +519,9 @@ At each paragraph you can:
   we start building lists from the empty list `NIL`, which will need to have a few characteristics:
   
   - it is a list (`EQUAL(TYPE(NIL))(list_type)`)
-
   - it's gotta be a `PAIR`, so to fit inside the binary tree
-
   - it has value such that whoever tries to read it, will get an error
+
 
 
   all this is satisfied by the following λ-expression
