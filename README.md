@@ -558,7 +558,7 @@ we are now able to obtain recursion implicitly by using the lazy version of the 
     def APP1 f element list = LAZY_COND λ_.(CONS element NIL) λ_.(CONS (HEAD list) (f f element (TAIL list))) (ISEMPTY list)
     def APPEND = SELF_APPLY APP1
 
-in the codeabase you will find the EcmaScript 6 version of the helper functions `LEN1` and `APP1`.
+in the codebase you will find the EcmaScript 6 version of the helper functions `LEN1` and `APP1`.
 
 ### advanced list manipulation: `MAP` and `REDUCE`
 
