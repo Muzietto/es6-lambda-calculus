@@ -29,7 +29,7 @@ At each paragraph you can:
 
 #####  lambda-expression := name  |  function  |  function-application
 
-a "resolved" (or "evalued") λ-expression is called a _value_.
+a "resolved" (or "evalued") λ-expression is called a _value_
 
 #####  name := character sequence
 
