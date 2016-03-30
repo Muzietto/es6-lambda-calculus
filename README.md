@@ -518,8 +518,8 @@ first of all we define the type for lists and the basic type error and operators
 
 we start building lists from the empty list `NIL`, which will need to have a few characteristics:
   
-- it is a list (`EQUAL(TYPE(NIL))(list_type)`)
-- it has value such that whoever tries to read it, will get an error
+- it is a list; in other words: `EQUAL(TYPE(NIL))(list_type)`
+- it has value such that whoever tries to read it, will get a `LIST ERROR`
 - it's gotta be a `PAIR`, so to fit inside the binary tree
 
 all this is satisfied by the following λ-expression
