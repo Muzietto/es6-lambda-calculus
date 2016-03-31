@@ -60,7 +60,7 @@ when a function has a `def`, we can shift variables to the left side of the defi
 
 NB: things like `pippo*2` and `x+y` are used here just to give an idea of what function bodies are made for. Actually function bodies can host only precise λ-expressions. The most relevant function bodies contain __function applications__.
 
-#### why use ES6?
+#### why use EcmaScript 6?
 
 λ-calculus is generally done with paper and pencil or in esoteric niche languages; ES6 is a good-enough trade-off, because it runs in (almost) every browser and it allows a good approximation of λ-functions using its brand new [__arrow functions__](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions).
   
