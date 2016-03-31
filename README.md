@@ -45,7 +45,7 @@ keyword `def` binds names to expressions
 
 #####  function := λ name . lambda-expression
 
-    name --> "bound variable"
+    name --> "variable"
     lambda-expression --> "body" (contains one or more references to the bound variable)
 
     e.g. λx.x, λpippo.pippo*2,
@@ -54,7 +54,7 @@ when the function body is again a function, we are actually watching a curried n
 
     λx.(λy.x+y) = λx.λy.x+y
 
-when a function has a `def`, we can shift bound variables to the left side of the definition:
+when a function has a `def`, we can shift variables to the left side of the definition:
 
     def SUM = λx.λy.x+y => SUM x = λy.x+y => SUM x y = x+y
 
@@ -69,7 +69,7 @@ NB - as of 160322, arrow functions are implemented in released versions of Firef
     var IDENTITY = x => x;
     var SUM = x => y => x + y;
 
-alas, using ES6 we cannot shift bound variables to the left (use Haskell for that...)
+alas, using ES6 we cannot shift variables to the left (use Haskell for that...)
 
 ### function applications
 
@@ -77,11 +77,13 @@ alas, using ES6 we cannot shift bound variables to the left (use Haskell for tha
 
 when performing a function application, the λ-expression gets substituted to the function variable inside the function body; for example:
 
-    (λx.x+1 1) = 2  // variable x gets _bound_ to value 2
+    (λx.x+1 1) = 2  // variable x gets "bound" to value 2
     
     (λx.x λx.x) = λx.x  // variable x gets bound to function λx.x
     
     ((λx.λy.x+y 1) 2) = (λy.1+y 2) = 3  // variables x and y get bound respectively to value 1 and value 2
+
+after application the variable is _bound_, meaning that it has a given value inside the function body; bound variables cannot be further modified;
 
 convention is that function application associates to the left:
 
