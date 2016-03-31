@@ -71,6 +71,8 @@ NB - as of 160322, arrow functions are implemented in released versions of Firef
 
 alas, using ES6 we cannot shift variables to the left (use Haskell for that...)
 
+throughout this README we will mix expressions in lambda-calculus notation with other ones in JavaScript/EcmaScript; you gotta pay attention whether the line begins with `def` or no keyword at all (λ-calculus notation), as opposed to starting with `var` (that's JavaScript)
+
 ### function applications
 
 #####  function-application := (function lambda-expression)
@@ -81,7 +83,7 @@ after application the variable is _bound_, meaning that it has a given value ins
 
 for example:
 
-    (λx.x+1 1) = 2  // variable x gets "bound" to value 1; 1 plus 1 is 2
+    (λx.x+1 1) = 2  // variable x gets bound to value 1; 1 plus 1 is 2
     
     (λx.x λx.x) = λx.x  // variable x in the FIRST function gets bound to function λx.x (no relationship between the x's of the two functions!)
     
