@@ -125,7 +125,7 @@ application to can be thought of in two ways:
 
 - __call-by-value__ (or _applicative order reduction_): substitutions can be made only using values; if we are substituting a λ-expression, we must evaluate it first ⟹ __eager__ languages
 
-    (x => x + 1)((y => 2*y)(6)) = (x => x + 1)(12) = 12 + 1 = 13
+  ```  (x => x + 1)((y => 2*y)(6)) = (x => x + 1)(12) = 12 + 1 = 13 ```
 
 `y` gets bound straight away to 6; immediately after, `x` gets bound to 12 and immediately evaluated
 
