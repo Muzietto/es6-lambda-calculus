@@ -149,7 +149,7 @@ in the following paragraphs we will eventually __manage to implement recursion i
 
 ### pairs
 
-a pair is a way to freeze two expressions in order be able to operate on them later (i.e. to apply a function upon them):
+a pair is a mean to freeze two expressions in order be able to operate on them later (i.e. to apply a function upon them):
 
     def PAIR = λx.λy.λf.(f x y)
 
