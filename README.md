@@ -50,7 +50,7 @@ keyword `def` binds names to expressions
 
     e.g. λx.x, λpippo.pippo*2,
 
-when function body is a function => n-args function
+when function body is again a function, we are actually watching a curried n-args function as a whole:
 
     λx.(λy.x+y) = λx.λy.x+y
 
