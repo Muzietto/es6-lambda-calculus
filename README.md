@@ -79,7 +79,7 @@ when performing a function application, the λ-expression gets substituted to th
 
     (λx.x+1 1) = 2  // variable x gets "bound" to value 2
     
-    (λx.x λx.x) = λx.x  // variable x gets bound to function λx.x
+    (λx.x λx.x) = λx.x  // variable x in the FIRST function gets bound to function λx.x (no relationship between the x's in the two functions!)
     
     ((λx.λy.x+y 1) 2) = (λy.1+y 2) = 3  // variables x and y get bound respectively to value 1 and value 2
 
