@@ -141,7 +141,9 @@ application to can be thought of in two ways:
 
 NB: ES6 is an eager language, so the second example aint't real running code, and it is just for the show;
 
-trying to implement recursion using `SELF_APPLY` in an eager language is impossible, because the call-by-value nature will force the interpreter to evaluate the right side before anything else, and this implies another turn of the wheel, a new right side to interpret first, and then another, and the another... ad libitum before anything useful can be done with the expression.
+__trying to implement recursion using `SELF_APPLY` in an eager language is impossible__, because the call-by-value nature will force the interpreter to evaluate the right side before anything else, and this implies another turn of the wheel, a new right side to interpret first, and then another, and the another... ad libitum before anything useful can be done with the expression;
+
+in the following paragraphs we will eventually __manage to implement recursion in our λ-expressions__ by leaving `SELF_APPLY` aside and __putting in place a _lazy_ application mechanism__;
 
 ### pairs
 
