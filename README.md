@@ -46,7 +46,7 @@ keyword `def` binds names to expressions
 #####  function := λ name . lambda-expression
 
     name --> "variable"
-    lambda-expression --> "body" (contains one or more references to the bound variable)
+    lambda-expression --> "body" (contains one or more references to the variable)
 
     e.g. λx.x, λpippo.pippo*2,
 
@@ -81,11 +81,11 @@ after application the variable is _bound_, meaning that it has a given value ins
 
 for example:
 
-    (λx.x+1 1) = 2  // variable x gets "bound" to value 2
+    (λx.x+1 1) = 2  // variable x gets "bound" to value 1; 1 plus 1 is 2
     
     (λx.x λx.x) = λx.x  // variable x in the FIRST function gets bound to function λx.x (no relationship between the x's of the two functions!)
     
-    ((λx.λy.x+y 1) 2) = (λy.1+y 2) = 3  // variables x and y get bound respectively to value 1 and value 2
+    ((λx.λy.x+y 1) 2) = (λy.1+y 2) = 3  // variables x and y get bound stepwise to value 1 and value 2
 
 convention is that function application associates to the left:
 
