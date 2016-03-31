@@ -126,7 +126,7 @@ application to can be thought of in two ways:
 - __call-by-value__ (or _applicative order reduction_): substitutions can be made only using values; if we are substituting a λ-expression, we must evaluate it first ⟹ __eager__ languages
 
   ```
-  (x => x + 1)((y => 2*y)(6)) = (x => x + 1)(12) = 12 + 1 = 13
+  (x => x + 1)((y => 2*y)(6)) = (x => x + 1)(12) => x = 12 + 1 = 13
   ```
 
 `y` gets bound straight away to 6; immediately after, `x` gets bound to 12 and immediately evaluated
@@ -134,10 +134,10 @@ application to can be thought of in two ways:
 - __call-by-name__ (or _normal order reduction_): substitutions are made without evaluating the expressions first; actual values will get computed only when actually needed ⟹ __lazy__ languages
 
   ```
-    (x => x + 1)((y => 2*y)(6)) = (y => 2*y)(6) + 1
+    (x => x + 1)((y => 2*y)(6)) => x = (y => 2*y)(6) + 1
   ```
 
-`x` gets literally bound to the operation `(y => 2*y)(6)`; actual values will get computed only when explicitly requested, for example by `console.log(x)`
+`x` gets literally bound to the operation `(y => 2*y)(6)`; its actual value will get computed only when explicitly requested, for example by a `console.log(x)`
 
 NB: ES6 is an eager language, so the second example aint't real running code, and it is just for the show;
 
