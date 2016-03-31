@@ -141,7 +141,7 @@ application to can be thought of in two ways:
 
 `x` gets literally bound to the operation `(y => 2*y)(6)`; all actual values of `y`, `x` and `z` will get computed only when explicitly requested, for example by a `console.log(z)`;
 
-__NB: ES6 is an eager language, so the second example aint't real running code, and it is just for the show__
+__NB: ES6 is an eager language, so the second example ain't real running code, and it's here just for the show__
 
 __trying to implement recursion using `SELF_APPLY` in an eager language is impossible__, because the call-by-value nature will force the interpreter to evaluate the right side before anything else, and this implies another turn of the wheel, a new right side to interpret first, and then another, and the another... ad libitum before anything useful can be done with the expression;
 
