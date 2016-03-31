@@ -145,7 +145,7 @@ trying to implement recursion using `SELF_APPLY` in an eager language is impossi
 
 ### pairs
 
-a pair is a way to freeze two expressions to be able to operate on them later (i.e. to apply a function upon them):
+a pair is a way to freeze two expressions in order be able to operate on them later (i.e. to apply a function upon them):
 
     def PAIR = λx.λy.λf.(f x y)
 
