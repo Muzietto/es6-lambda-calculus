@@ -46,11 +46,11 @@ keyword `def` binds names to expressions
 #####  function := λ name . lambda-expression
 
     name --> "bound variable"
-    lambda-expression --> "body"
+    lambda-expression --> "body" (contains one or more references to the bound variable)
 
     e.g. λx.x, λpippo.pippo*2,
 
-when function body is again a function, we are actually watching a curried n-args function as a whole:
+when the function body is again a function, we are actually watching a curried n-args function as a whole:
 
     λx.(λy.x+y) = λx.λy.x+y
 
@@ -75,13 +75,19 @@ alas, using ES6 we cannot shift bound variables to the left (use Haskell for tha
 
 #####  function-application := (function lambda-expression)
 
-    e.g. (λx.x+1 1) = 2; (λx.x λx.x) = λx.x; ((λx.λy.x+y 1) 2) = (λy.1+y 2) = 3
+when performing a function application, the λ-expression gets substituted to the function variable inside the function body; for example:
+
+    (λx.x+1 1) = 2  // variable x gets _bound_ to value 2
+    
+    (λx.x λx.x) = λx.x  // variable x gets bound to function λx.x
+    
+    ((λx.λy.x+y 1) 2) = (λy.1+y 2) = 3  // variables x and y get bound respectively to value 1 and value 2
 
 convention is that function application associates to the left:
 
     (λx.λy.x+y 1 2) = ((λx.λy.x+y 1) 2)
 
-convention is also that function application can be omitted every time this does not bring ambiguities in the expression:
+convention is also that function application may be omitted every time this does not bring ambiguities in the expression:
 
     λx.λy.x+y 1 2 = (λx.λy.x+y 1 2)
 
