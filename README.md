@@ -75,15 +75,17 @@ alas, using ES6 we cannot shift variables to the left (use Haskell for that...)
 
 #####  function-application := (function lambda-expression)
 
-when performing a function application, the λ-expression gets substituted to the function variable inside the function body; for example:
+when performing a function application, the λ-expression gets substituted to the function variable inside the function body; 
+
+after application the variable is _bound_, meaning that it has a given value inside the function body; bound variables cannot be further modified;
+
+for example:
 
     (λx.x+1 1) = 2  // variable x gets "bound" to value 2
     
-    (λx.x λx.x) = λx.x  // variable x in the FIRST function gets bound to function λx.x (no relationship between the x's in the two functions!)
+    (λx.x λx.x) = λx.x  // variable x in the FIRST function gets bound to function λx.x (no relationship between the x's of the two functions!)
     
     ((λx.λy.x+y 1) 2) = (λy.1+y 2) = 3  // variables x and y get bound respectively to value 1 and value 2
-
-after application the variable is _bound_, meaning that it has a given value inside the function body; bound variables cannot be further modified;
 
 convention is that function application associates to the left:
 
