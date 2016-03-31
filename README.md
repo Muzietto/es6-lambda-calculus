@@ -128,7 +128,7 @@ application to can be thought of in two ways:
 - __call-by-value__ (or _applicative order reduction_): substitutions can be made only using values; if we are substituting a λ-expression, we must evaluate it first ⟹ __eager__ languages
 
   ```
-    z = (x => x + 1)((y => 2*y)(6)) = (x => x + 1)(12) = 12 + 1 = 13
+    var z = (x => x + 1)((y => 2*y)(6)) = (x => x + 1)(12) = 12 + 1 = 13
   ```
 
 `y` gets bound straight away to 6; immediately after, `x` gets bound to 12 and z is immediately evaluated
@@ -136,12 +136,12 @@ application to can be thought of in two ways:
 - __call-by-name__ (or _normal order reduction_): substitutions are made without evaluating the expressions first; actual values will get computed only when actually needed ⟹ __lazy__ languages
 
   ```
-    z = (x => x + 1)((y => 2*y)(6)) = (y => 2*y)(6) + 1
+    var z = (x => x + 1)((y => 2*y)(6)) = (y => 2*y)(6) + 1
   ```
 
 `x` gets literally bound to the operation `(y => 2*y)(6)`; all actual values of `y`, `x` and `z` will get computed only when explicitly requested, for example by a `console.log(z)`;
 
-NB: ES6 is an eager language, so the second example aint't real running code, and it is just for the show;
+__NB: ES6 is an eager language, so the second example aint't real running code, and it is just for the show__
 
 __trying to implement recursion using `SELF_APPLY` in an eager language is impossible__, because the call-by-value nature will force the interpreter to evaluate the right side before anything else, and this implies another turn of the wheel, a new right side to interpret first, and then another, and the another... ad libitum before anything useful can be done with the expression;
 
