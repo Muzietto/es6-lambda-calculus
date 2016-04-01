@@ -31,3 +31,7 @@ var MULT = SELF_APPLY(MULT2);
 
 // MULT(TWO)(TWO)  // check it with numerically_equal(MULT(TWO)(TWO), 4)
 // numerically_equal(MULT(FIVE)(THREE),15) // TRUE
+
+var RECURSIVE = f => (s => f(s(s)))(s => f(s(s)));
+var Y = RECURSIVE;
+var THETA = (x => y => y(x(y)(y)))(x => y => y(x(y)(y)));

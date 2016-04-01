@@ -37,3 +37,7 @@ var jsinteger = jsinteger1(0)(jsinteger1);
 // jsinteger(MULT(SIX)(SIX)) // --> 36
 // jsinteger(MULT(TEN)(MULT(TEN)(TEN))) // --> 1000
 // jsinteger(MULT(TEN)(MULT(TEN)(MULT(TEN)(FIVE)))) // --> 5000
+
+var MULT3 = f => x => y => LAZY_COND(_ => ZERO)(_ => ADD(x)(f(f)(x)(PRED(y))))(ISZERO(y));
+var ADDO = THETA(MULT3);
+
