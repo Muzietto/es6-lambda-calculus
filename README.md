@@ -201,7 +201,7 @@ definition using the ternary operator is the following:
 
 expressing AND in terms of λ-calculus derives immediately:
 
-    def AND x y = COND y FALSE x = x y FALSE (try it with paper and pen...)
+    def AND x y = COND y FALSE x = x y FALSE
 
 ### OR operator
 
@@ -211,7 +211,7 @@ definition using the ternary operator is the following:
 
 expressing OR in terms of λ-calculus derives immediately:
 
-    def OR x = COND TRUE y x = x TRUE y (try it with paper and pen...)
+    def OR x = COND TRUE y x = x TRUE y
 
 ###### [back to the top](#table-of-contents)
 ---
