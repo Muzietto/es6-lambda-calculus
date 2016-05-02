@@ -354,7 +354,7 @@ in other words, a plain `condition` is evaluated; if it is `TRUE`, a `LAZY_TRUE`
     def LAZY_FALSE x y = (y)
 
     var LAZY_TRUE = x => y => x();
-    var LAZY_TRUE = x => y => y();
+    var LAZY_FALSE = x => y => y();
 
 as first simple example of how to put `LAZY_COND` at work, we prepare a `BIGGER_X_THAN_Y` evaluator; its very first naive recursive (and forbidden) expression is as follows:
 
