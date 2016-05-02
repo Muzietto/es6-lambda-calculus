@@ -38,6 +38,8 @@ var jsinteger = jsinteger1(0)(jsinteger1);
 // jsinteger(MULT(TEN)(MULT(TEN)(TEN))) // --> 1000
 // jsinteger(MULT(TEN)(MULT(TEN)(MULT(TEN)(FIVE)))) // --> 5000
 
+// The following lines come from a failed attempt at implementing stackless recursion 
+// through the Turing combinator Theta.
+// They are not mentioned in the README. Please disregard.
 var MULT3 = f => x => y => LAZY_COND(_ => ZERO)(_ => ADD(x)(f(f)(x)(PRED(y))))(ISZERO(y));
 var ADDO = THETA(MULT3);
-
