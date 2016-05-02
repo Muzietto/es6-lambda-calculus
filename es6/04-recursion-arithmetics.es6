@@ -32,6 +32,9 @@ var MULT = SELF_APPLY(MULT2);
 // MULT(TWO)(TWO)  // check it with numerically_equal(MULT(TWO)(TWO), 4)
 // numerically_equal(MULT(FIVE)(THREE),15) // TRUE
 
+// The following lines come from a failed attempt at implementing stackless recursion 
+// through the Turing combinator Theta.
+// They are not mentioned in the README. Please disregard.
 var RECURSIVE = f => (s => f(s(s)))(s => f(s(s)));
 var Y = RECURSIVE;
 var THETA = (x => y => y(x(y)(y)))(x => y => y(x(y)(y)));
