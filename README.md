@@ -115,7 +115,7 @@ function `SELF_APPLY` is a quirky thing; it applies whatever function to _itself
 
 this function has a very strange, rather unique characteristic: if you try with paper and pencil the next equation, you will verify that:
 
-    (SELF_APPLY SELF_APPLY) = (SELF_APPLY SELF_APPLY)
+    (SELF_APPLY SELF_APPLY) = (λs.(s s) λs.(s s)) = ... = (SELF_APPLY SELF_APPLY)
 
 because of this peculiarity, `SELF_APPLY` takes a primary role in the λ-calculus definition and implementation of __recursion__.
 
