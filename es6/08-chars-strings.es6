@@ -153,9 +153,8 @@ var STRING_ERROR = MAKE_ERROR(string_type);
 
 var string2STRING = string => MAKE_STRING(array2LIST(string.split('').map(char2CHAR)));
 
-// EQUAL(TYPE(string2STRING('abc')))(FIVE) // TRUE
-// EQUAL(TYPE(string2STRING('abc')))(FIVE) // TRUE
-// EQUAL(TYPE(HEAD(VALUE(string2STRING('abc')))))(FOUR) // it's a CHAR
+// EQUAL(TYPE(string2STRING('abc')))(FIVE) // string2STRING('abc') is a STRING
+// EQUAL(TYPE(HEAD(VALUE(string2STRING('abc')))))(FOUR) // HEAD(VALUE(string)) is a CHAR
 // EQUAL(LENGTH(VALUE(string2STRING('abc'))))(THREE) // 3 chars
 // VALUE(HEAD(VALUE(string2STRING('abc'))))(SECOND) // "a"
-// EQUAL(VALUE(HEAD(VALUE(string2STRING('abc'))))(FIRST))(ninety_seven) // ASCII 97
+// EQUAL(VALUE(HEAD(VALUE(string2STRING('abc'))))(FIRST))(ninety_seven) // char "a" = ASCII 97
