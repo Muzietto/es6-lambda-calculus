@@ -65,13 +65,13 @@ var EVERY = ALL;
 // VALUE(ALL(x => MAKE_BOOL(ISNUM(x)))(CONS(ONE_OBJ)(CONS(TWO_OBJ)(CONS(THREE_OBJ)(NIL))))) // TRUE
 // VALUE(ALL(x => MAKE_BOOL(ISNUM(x)))(CONS(ONE_OBJ)(CONS(TRUE_OBJ)(CONS(THREE_OBJ)(NIL))))) // FALSE
 
-// these produce UNTYPED booleans
-var ALL_ERRORS  = errorlist  => VALUE(ALL(x => MAKE_BOOL(ISERROR(x)))(charlist));
-var ALL_BOOLS   = boollist   => VALUE(ALL(x => MAKE_BOOL(ISBOOL(x)))(charlist));
-var ALL_NUMS    = numlist    => VALUE(ALL(x => MAKE_BOOL(ISNUM(x)))(charlist));
-var ALL_LISTS   = listlist   => VALUE(ALL(x => MAKE_BOOL(ISLIST(x)))(charlist));
-var ALL_CHARS   = charlist   => VALUE(ALL(x => MAKE_BOOL(ISCHAR(x)))(charlist));
-var ALL_STRINGS = stringlist => VALUE(ALL(x => MAKE_BOOL(ISSTRING(x)))(charlist));
+// from now on we produce only TYPED booleans
+var ALL_ERRORS  = errorlist  => ALL(x => MAKE_BOOL(ISERROR(x)))(charlist);
+var ALL_BOOLS   = boollist   => ALL(x => MAKE_BOOL(ISBOOL(x)))(charlist);
+var ALL_NUMS    = numlist    => ALL(x => MAKE_BOOL(ISNUM(x)))(charlist);
+var ALL_LISTS   = listlist   => ALL(x => MAKE_BOOL(ISLIST(x)))(charlist);
+var ALL_CHARS   = charlist   => ALL(x => MAKE_BOOL(ISCHAR(x)))(charlist);
+var ALL_STRINGS = stringlist => ALL(x => MAKE_BOOL(ISSTRING(x)))(charlist);
 
 var ANY = predicate => list => REDUCE(TYPED_OR)(FALSE_OBJ)(MAP(predicate)(list));
 var SOME = ANY;
