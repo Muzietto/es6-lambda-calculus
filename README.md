@@ -623,7 +623,7 @@ the two most typical applications are `ALL`/`EVERY` (a chain of `AND`'s) and `AN
 
 from `ALL` we derive helper functions that check whether a list contains only homogeneous elements, for example a `STRING` may be built only using a list of `CHAR`'s:
 
-    ALL_CHARS charlist = VALUE (ALL (λx.MAKE_BOOL (ISCHAR x )) charlist) // NB - produces UNTYPED booleans
+    ALL_CHARS charlist = ALL (λx.MAKE_BOOL (ISCHAR x)) charlist // NB - produces TYPED booleans
 
 ###### [back to the top](#table-of-contents)
 ---
