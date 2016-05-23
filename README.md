@@ -361,7 +361,7 @@ as first simple example of how to put `LAZY_COND` at work, we prepare a `BIGGER_
 
     rec BIGGER_X_THAN_Y x y = (AND (ISZERO y) (NOT (ISZERO x))) TRUE (BIGGER_X_THAN_Y (PRED x) (PRED y)) // forbidden syntax
 
-we can express it through a helper function, using `LAZY_COND` and the `SELF_APPLY` trick already presented in the previous paragraph, also in JavaScript:
+this time we can express it through a helper function passed to `SELF_APPLY`; the helper function will exploit laziness. Here is its implementation in λ-calculus notation, as well as in JavaScript:
 
     def BIGGER_X_THAN_Y1 f x y = LAZY_COND λ_.TRUE λ_.(f f (PRED x) (PRED y)) (AND (ISZERO y) (NOT (ISZERO x)))
     def BIGGER_X_THAN_Y = SELF_APPLY BIGGER_X_THAN_Y1
