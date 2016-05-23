@@ -573,7 +573,7 @@ then we need some further basic operations on lists, all based on recursion:
     rec LENGTH list = (ISEMPTY list) ZERO (SUCC (LENGTH TAIL list)) // recursive definition, no way...
     rec APPEND element list = (ISEMPTY list) (CONS element NIL) (CONS (HEAD list) (APPEND element (TAIL list))) // also recursive
 
-we are now able to obtain recursion implicitly by using the lazy version of the `SELF_APPLY` trick:
+we are now able to obtain recursion implicitly by [using the lazy version of the `SELF_APPLY` trick](https://github.com/Muzietto/es6-lambda-calculus/blob/master/README.md#how-to-trick-self_apply-into-using-a-lazy_cond):
 
     def LEN1 f list = LAZY_COND λ_.ZERO λ_.(SUCC (f f (TAIL list))) (ISEMPTY list)
     def LENGTH SELF_APPLY LEN1
