@@ -356,6 +356,7 @@ in other words, a plain `condition` is evaluated; if it is `TRUE`, a `LAZY_TRUE`
     var LAZY_TRUE = x => y => x();
     var LAZY_FALSE = x => y => y();
 
+#### How to trick SELF_APPLY into using a LAZY_COND
 as first simple example of how to put `LAZY_COND` at work, we prepare a `BIGGER_X_THAN_Y` evaluator; its very first naive recursive (and forbidden) expression is as follows:
 
     rec BIGGER_X_THAN_Y x y = (AND (ISZERO y) (NOT (ISZERO x))) TRUE (BIGGER_X_THAN_Y (PRED x) (PRED y)) // forbidden syntax
