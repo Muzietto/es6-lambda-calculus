@@ -165,7 +165,9 @@ the two simplest operations on pairs are the getters `FIRST` and `SECOND`:
 ###### HTML is [02-booleans.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/02-booleans.html)
 <br/>
 
-ternary operator = condition ? true_exp : false_exp
+Let's start from the **ternary operator**:
+
+    condition ? true_exp : false_exp
 
 we want to define it in terms of λ-calculus. One possibility is:
 
