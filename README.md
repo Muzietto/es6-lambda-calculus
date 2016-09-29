@@ -214,7 +214,7 @@ definition using the ternary operator is the following:
 
 expressing OR in terms of λ-calculus derives immediately:
 
-    def OR x = COND TRUE y x = x TRUE y
+    def OR x y = COND TRUE y x = x TRUE y
 
 ###### [back to the top](#table-of-contents)
 ---
