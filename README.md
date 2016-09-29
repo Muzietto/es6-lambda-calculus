@@ -236,7 +236,7 @@ we need to define SUCC; we just decide to pick
 
     SUCC n = PAIR FALSE n
 
-these picks for `ZERO` and `SUCC` are just one of the infinite possibilities; they just happen to be simple and powerful enough to start our conversation. Actually Church ended up with less simple yet (a lot) more powerful definitions.
+these picks for `ZERO` and `SUCC` are just one of the infinite possibilities; they just happen to be simple and powerful enough to start our conversation. Actually Church ended up with [less simple yet (a lot) more powerful definitions](https://en.wikipedia.org/wiki/Church_encoding).
 
     def ONE = SUCC ZERO = PAIR FALSE IDENTITY
     def TWO = SUCC ONE = PAIR FALSE (PAIR FALSE IDENTITY)
