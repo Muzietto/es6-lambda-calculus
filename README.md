@@ -86,7 +86,7 @@ for example:
 
     (λx.x+1 1) = 2  // variable x gets bound to value 1; 1 plus 1 is 2
     
-    (λx.x λx.x) = λx.x  // variable x in the FIRST function gets bound to function λx.x (no relationship between the x's of the two functions!)
+    (λx.x λy.y) = λy.y  // variable x in the FIRST function gets bound to lambda-expression λy.y
     
     ((λx.λy.x+y 1) 2) = (λy.1+y 2) = 3  // variables x and y get bound stepwise to value 1 and value 2
 
