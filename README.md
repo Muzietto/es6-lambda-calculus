@@ -66,6 +66,7 @@ NB: things like `pippo*2` and `x+y` are used here just to give an idea of what f
   
 NB - as of 160322, arrow functions are implemented in released versions of Firefox, IE11 and Edge only, but widespread adoption seems underway.
 
+    // NB: this is valid ES6 syntax
     var IDENTITY = x => x;
     var SUM = x => y => x + y;
 
