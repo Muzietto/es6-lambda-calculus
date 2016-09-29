@@ -293,7 +293,7 @@ we create a helper function `add2` that carries an additional function `f` in it
     var add2 = x => y => (y === 0) ? x : f(f)(x+1)(y-1)
     def ADD2 f x y = COND x (f f (SUCC x) (PRED y)) (ISZERO y) = (ISZERO y) x (f f (SUCC x) (PRED y))
 
-you noticed that we wrote `def ADD2` and not `rec ADD2`, because (contrary to `ADD`) the `ADD2` function is not recursive, as it does not mentions itself inside the body
+you noticed that we wrote `def ADD2` and not `rec ADD2`, because (contrary to `ADD`) the `ADD2` function is not recursive, as it does not mention itself inside the body
 
 this magic function `ADD2` has the remarkable power that, when applied to itself, it behaves like we expected from `ADD`:
 
