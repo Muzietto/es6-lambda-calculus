@@ -285,7 +285,7 @@ an intuitive definition of `add` is possible using recursion, first in ES6, then
     rec ADD x y = COND x (ADD (SUCC x) (PRED y)) (ISZERO y)
 
 the big problem here is that __we have the function name mentioned in its own body__, and this normally speaking is not allowed by the rules of λ-calculus;
-  __keyword `rec` is used in λ-calculus__ (as well as in Scheme, by the way) __to mean that a function is being defined recursively__; it can be used freely to express the concept (and this is done a few times further down this text), but implementing `rec` is quite a complex matter, as we will see in the next paragraph.
+  __keyword `rec` is used in λ-calculus__ (as well as in Scheme, by the way) __to mean that a function is being defined recursively__; it can be used freely to express the concept (and this is done a few times further down this text), but implementing `rec` is quite a complex matter, as we will see in the next paragraph
 
 in order to implement recursion, we do some juggling remembering `SELF_APPLY = λs.(s s)`, for which we know that an infinite loop `(SELF_APPLY SELF_APPLY) = ... = (SELF_APPLY SELF_APPLY)` exists;
 we create a helper function `add2` that carries an additional function `f` in its signature __and applies it to itself__:
@@ -293,11 +293,13 @@ we create a helper function `add2` that carries an additional function `f` in it
     var add2 = x => y => (y === 0) ? x : f(f)(x+1)(y-1)
     def ADD2 f x y = COND x (f f (SUCC x) (PRED y)) (ISZERO y) = (ISZERO y) x (f f (SUCC x) (PRED y))
 
-this magic function `ADD2` has the remarkable power that, when applied to itself, it behaves like we expected from ADD:
+you noticed that we wrote `def ADD2` and not `rec ADD2`, because (contrary to `ADD`) the `ADD2` function is not recursive, as it does not mentions itself inside the body
+
+this magic function `ADD2` has the remarkable power that, when applied to itself, it behaves like we expected from `ADD`:
 
     def ADD = ADD2 ADD2 = SELF_APPLY ADD2
 
-the big gain is that nobody mentions itself inside its own body anymore; you can see in the definition of `ADD2` that the recursion is created implicitly by the self application of argument `f` and __not__ by an explicit invocation
+let's repeat: the big gain here is that nobody mentions itself inside its own body anymore; you can see in the definition of `ADD2` that the recursion is created __implicitly__ by the self application of argument `f` and __not__ by an explicit invocation
   
 **unfortunately, this truly interesting bit cannot be verified in ES6**, because its eager interpreter tries to calculate both branches of the `COND` at all times, causing a stack overflow even if we know that only one of them should be evalued at a time
 
