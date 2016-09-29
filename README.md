@@ -242,7 +242,7 @@ these picks for `ZERO` and `SUCC` are just one of the infinite possibilities; th
     def TWO = SUCC ONE = PAIR FALSE (PAIR FALSE IDENTITY)
     def THREE = SUCC TWO = PAIR FALSE (PAIR FALSE (PAIR FALSE IDENTITY))
 
-let's start to slowly build something really useful; first step is to become able to tell whether a number is `ZERO` or not; these are the specs:
+let's start to slowly build something really useful; first step is to become able to tell whether a number is `ZERO` or not; these are the specs for the function `ISZERO`:
 
     ISZERO = COND TRUE FALSE ZERO = ZERO TRUE FALSE
     ISZERO IDENTITY = TRUE --> ISZERO λx.x = λx.λy.x
