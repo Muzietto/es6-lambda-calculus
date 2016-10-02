@@ -54,7 +54,7 @@ when the function body is again a function, we are actually watching a [curried 
 
     λx.(λy.x+y) = λx.λy.x+y
 
-when a function has a `def`, we can shift variables to the left side of the definition:
+when a function is mentioned inside a `def`, we can shift variables to the left side of the definition:
 
     def SUM = λx.λy.x+y => SUM x = λy.x+y => SUM x y = x+y
 
