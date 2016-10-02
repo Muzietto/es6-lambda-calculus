@@ -156,7 +156,7 @@ a pair is a mean to freeze two expressions in order be able to operate on them l
 
     def PAIR = λx.λy.λf.(f x y)  // PAIR 1 2 = λf.(f 1 2)
 
-f must be a function accepting two arguments
+`f` must be a function accepting two arguments
 
     def f = λx.λy.whatever  // x will be bound to the original x's value; y will be bound to the original y's value
 
