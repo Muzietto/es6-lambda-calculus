@@ -86,10 +86,10 @@ for example:
 
     (λx.x+1 1) = 2  // variable x gets bound to value 1; 1 plus 1 is 2
 
-    (λx.x λy.y) = λy.y  // variable x gets bound to lambda-expression λy.y
+    (λx.x λy.y) = λy.y  // variable x gets bound to lambda-expression λy.y and returned as-is in the body of the first function
 
     (λx.x λx.x) = λx.x  // variable x in the FIRST function gets bound to lambda-expression λx.x (no relation whatsoever between the x's in the two functions)
-    
+
     ((λx.λy.x+y 1) 2) = (λy.1+y 2) = 3  // variables x and y get bound stepwise to value 1 and value 2
 
 convention is that function application associates to the left:
