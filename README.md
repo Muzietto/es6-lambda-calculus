@@ -56,7 +56,7 @@ when the function body is again a function, we are actually watching a [curried 
 
 when a function is mentioned inside a `def`, we can shift variables to the left side of the definition:
 
-    def SUM = λx.λy.x+y => SUM x = λy.x+y => SUM x y = x+y
+    def SUM = λx.λy.x+y --> SUM x = λy.x+y --> SUM x y = x+y // please note that DEF appears only in the first equation!!
 
 NB: things like `pippo*2` and `x+y` are used here just to give an idea of what function bodies are made for. Actually function bodies can host only precise λ-expressions. The most relevant function bodies contain __function applications__.
 
