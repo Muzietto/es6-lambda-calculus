@@ -62,7 +62,7 @@ NB: things like `pippo*2` and `x+y` are used here just to give an idea of what f
 
 #### why use EcmaScript 6?
 
-λ-calculus is generally done with paper and pencil or in esoteric niche languages; ES6 is a good-enough trade-off, because it runs in (almost) every browser and it allows a good approximation of λ-functions using its brand new [__arrow functions__](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions).
+λ-calculus is generally done with paper and pencil or in esoteric niche languages; ES6 is a good-enough trade-off, because it runs in (almost) every browser and it allows a good approximation of λ-functions using its brand new [__arrow function expressions__](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions).
   
 NB - as of 160322, arrow functions are implemented in released versions of Firefox, IE11 and Edge only, but widespread adoption seems underway.
 
