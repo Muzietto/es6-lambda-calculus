@@ -231,7 +231,7 @@ expressing OR in terms of λ-calculus derives immediately:
 
 so far we have been using symbols like `1` or `2` to express numbers; unfortunately, we've been cheating: this practice is not allowed in λ-calculus
 
-lambda-expressions are strictly limited to names, functions and applications; as we did in the previous paragraph with regards to booleans, we'll have to express numbers using only those three concepts; let's start...
+lambda-expressions are strictly limited to **names**, **functions** and **applications**; as we did in the previous paragraph with regards to booleans, we'll have to express numbers using only those three concepts; let's start...
 
 we plainly decide to express number 0 with the identity function:
 
@@ -242,13 +242,17 @@ we express every natural number as the `SUCC`essor of its preceding one:
     def ONE = SUCC ZERO
     def TWO = SUCC ONE = SUCC (SUCC ZERO)
 
-ok, now we need to define SUCC; we just decide to pick
+ok, now we need to define `SUCC`; we just decide to pick
+
+    def SUCC = λn.(PAIR FALSE n)
+
+or, in other words...
 
     SUCC n = PAIR FALSE n
 
 these picks for `ZERO` and `SUCC` are just two of the infinite possibilities; they just happen to be simple and powerful enough to start our conversation. Actually Church ended up with [less simple yet (a lot) more powerful definitions](https://en.wikipedia.org/wiki/Church_encoding).
 
-    def ONE = SUCC ZERO = PAIR FALSE IDENTITY
+    def ONE = SUCC ZERO = PAIR FALSE IDENTITY  // rem ZERO = IDENTITY
     def TWO = SUCC ONE = PAIR FALSE (PAIR FALSE IDENTITY)
     def THREE = SUCC TWO = PAIR FALSE (PAIR FALSE (PAIR FALSE IDENTITY))
 
@@ -262,6 +266,10 @@ let's begin to slowly build something really useful; first step is to become abl
 a function that satisfies **all** these requirements is
 
     def ISZERO = λn.(n FIRST)
+
+or, in other words...
+
+    ISZERO n = n FIRST
 
 let's verify:
 
@@ -328,7 +336,7 @@ an even intuitive, recursive definition exists for multiplication:
 
 which leads to a helper function which behaves like `ADD2`, and is also __not runnable__ inside a browser:
 
-    def MULT1 f x y = COND ZERO (ADD x (f f x (PRED y))) (ISZERO y)
+    MULT1 f x y = COND ZERO (ADD x (f f x (PRED y))) (ISZERO y)
     def MULT = SELF_APPLY MULT1
     var MULT = SELF_APPLY(MULT1) // 'Internal Error: too much recursion'
 
