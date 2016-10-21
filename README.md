@@ -172,23 +172,27 @@ the two simplest operations on pairs are the getters `FIRST` and `SECOND`:
 ###### HTML is [02-booleans.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/02-booleans.html)
 <br/>
 
-Let's start from the **ternary operator**:
+Let's start our exposition from the **ternary operator**, one of the most basic concepts in computer science:
 
     condition ? true_exp : false_exp
 
-we want to define it in terms of λ-calculus. One possibility is:
+we want to define it in terms of λ-calculus, where it is customary to call the ternary operator `COND`; one possibility is the following function:
 
     def COND = λtrue_exp.λfalse_exp.λcondition.(condition true_exp false_exp)
 
+we realize that we've already encountered a function with exactly the same behavior as `COND`:
+
     def COND = PAIR
 
-we attempt now to define TRUE and FALSE as functions:
+we attempt now to define `TRUE` and `FALSE` as functions; whatever they'll come out to be, let's pass them as third variable to `COND`:
 
-    COND 1 2 TRUE = 1 => def TRUE = FIRST
+    COND 1 2 TRUE = 1 => def TRUE = λx.λy.x = FIRST
 
-    COND 1 2 FALSE = 2 => def FALSE = SECOND
+    COND 1 2 FALSE = 2 => def FALSE = λx.λy.y = SECOND
 
-substituting the function body once all the variables have been fulfilled, we come to __a form that will be used a lot__ in the following paragraphs:
+so we see that also `TRUE` and `FALSE` are functions that we'd encountered before
+
+substituting in `COND` the function body as soon as all the variables have been bound, we come to __a form that will be used a lot__ in the following paragraphs:
 
     COND true_exp false_exp condition = condition true_exp false_exp
 
