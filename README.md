@@ -229,7 +229,11 @@ expressing OR in terms of λ-calculus derives immediately:
 ###### HTML is [03-natural-numbers.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/03-natural-numbers.html)
 <br/>
 
-we just decide to express number 0 with the identity function:
+so far we have been using symbols like `1` or `2` to express numbers; unfortunately, we've been cheating: this practice is not allowed in λ-calculus
+
+lambda-expressions are strictly limited to names, functions and applications; as we did in the previous paragraph with regards to booleans, we'll have to express numbers using only those three concepts; let's start...
+
+we plainly decide to express number 0 with the identity function:
 
     def ZERO = IDENTITY = λx.x
 
@@ -238,24 +242,28 @@ we express every natural number as the `SUCC`essor of its preceding one:
     def ONE = SUCC ZERO
     def TWO = SUCC ONE = SUCC (SUCC ZERO)
 
-we need to define SUCC; we just decide to pick
+ok, now we need to define SUCC; we just decide to pick
 
     SUCC n = PAIR FALSE n
 
-these picks for `ZERO` and `SUCC` are just one of the infinite possibilities; they just happen to be simple and powerful enough to start our conversation. Actually Church ended up with [less simple yet (a lot) more powerful definitions](https://en.wikipedia.org/wiki/Church_encoding).
+these picks for `ZERO` and `SUCC` are just two of the infinite possibilities; they just happen to be simple and powerful enough to start our conversation. Actually Church ended up with [less simple yet (a lot) more powerful definitions](https://en.wikipedia.org/wiki/Church_encoding).
 
     def ONE = SUCC ZERO = PAIR FALSE IDENTITY
     def TWO = SUCC ONE = PAIR FALSE (PAIR FALSE IDENTITY)
     def THREE = SUCC TWO = PAIR FALSE (PAIR FALSE (PAIR FALSE IDENTITY))
 
-let's start to slowly build something really useful; first step is to become able to tell whether a number is `ZERO` or not; these are the specs for the function `ISZERO`:
+let's begin to slowly build something really useful; first step is to become able to tell whether a number is `ZERO` or not; here are the specs for the function `ISZERO`:
 
     ISZERO = COND TRUE FALSE ZERO = ZERO TRUE FALSE
     ISZERO IDENTITY = TRUE --> ISZERO λx.x = λx.λy.x
     ISZERO ONE = FALSE
     ISZERO (PAIR FALSE ZERO) = FALSE
 
-a function that satisfies **all** these requirements is `ISZERO n = n FIRST`; let's verify:
+a function that satisfies **all** these requirements is
+
+    def ISZERO = λn.(n FIRST)
+
+let's verify:
 
     ISZERO ZERO = ZERO FIRST = IDENTITY FIRST = FIRST = TRUE
     ISZERO ONE = PAIR FALSE ZERO FIRST = FALSE
