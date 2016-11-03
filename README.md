@@ -192,6 +192,8 @@ we attempt now to define `TRUE` and `FALSE` as functions; whatever they'll come 
 
 so we see that also `TRUE` and `FALSE` are functions that we'd encountered before
 
+I hear your objection: "in language XYZ `FIRST` and `SECOND` are _functions_, while `TRUE` and `FALSE` are _values_"; well, as a matter of fact, __in λ-calculus functions are values__, so there's no contradiction
+
 substituting in `COND` the function body as soon as all the variables have been bound, we come to __a form that will be used a lot__ in the following paragraphs:
 
     COND true_exp false_exp condition = condition true_exp false_exp
