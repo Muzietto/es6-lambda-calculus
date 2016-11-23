@@ -447,7 +447,7 @@ a variation on the same lazy stuff can be used to define a much useful `EQUAL N 
     EQUAL(THREE)(FOUR); // FALSE
     EQUAL(THREE)(THREE); // TRUE
 
-all the recursive functions that in the previous paragraph have been created by cheating with JavaScript's lazy `if then else` operator can now be implemented in pure λ-calculus notation.
+all the recursive functions (`ADD3` and `MULT2`) that in the previous paragraph have been created by cheating with JavaScript's lazy `if then else` operator can now be implemented in pure λ-calculus notation.
 
 a truly insightful function of this family is `jsinteger`, which takes a numeral and returns its value as a plain JavaScript integer; it gives a clear demonstration of the power given by the faculty of mixing JS with λ-notation:
   
