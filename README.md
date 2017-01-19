@@ -82,7 +82,7 @@ when performing a function application, the λ-expression gets substituted to th
 
 after application the variable is _bound_, meaning that it has a given value inside the function body; bound variables cannot be further modified;
 
-for example:
+for example (still using illegitimate expressions ;-):
 
     (λx.x+1 1) = 2  // variable x gets bound to value 1; 1 plus 1 is 2
 
