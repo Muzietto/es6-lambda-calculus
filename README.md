@@ -186,9 +186,9 @@ we realize that we've already encountered a function with exactly the same behav
 
 we attempt now to define `TRUE` and `FALSE` as functions; whatever they'll come out to be, let's pass them as third variable to `COND`:
 
-    COND 1 2 TRUE = 1 => def TRUE = λx.λy.x = FIRST
+    COND a b TRUE = a => def TRUE = λx.λy.x = FIRST
 
-    COND 1 2 FALSE = 2 => def FALSE = λx.λy.y = SECOND
+    COND a b FALSE = b => def FALSE = λx.λy.y = SECOND
 
 so we see that also `TRUE` and `FALSE` are functions that we'd encountered before
 
