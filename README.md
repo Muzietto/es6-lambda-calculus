@@ -154,7 +154,7 @@ in the following paragraphs we will eventually __manage to implement recursion i
 
 a pair is a mean to freeze two expressions in order be able to operate on them later (i.e. to apply a function upon them):
 
-    def PAIR = λx.λy.λf.(f x y)  // PAIR 1 2 = λf.(f 1 2)
+    def PAIR = λx.λy.λf.(f x y)  // PAIR a b = λf.(f a b)
 
 `f` must be a function accepting two arguments
 
@@ -162,8 +162,8 @@ a pair is a mean to freeze two expressions in order be able to operate on them l
 
 the two simplest operations on pairs are the getters `FIRST` and `SECOND`:
 
-    PAIR 1 2 FIRST = 1  --> def FIRST = λx.λy.x
-    PAIR 1 2 SECOND = 2 --> def SECOND = λx.λy.y
+    PAIR a b FIRST = a  --> def FIRST = λx.λy.x
+    PAIR a b SECOND = b --> def SECOND = λx.λy.y
 
 ###### [back to the top](#table-of-contents)
 ---
