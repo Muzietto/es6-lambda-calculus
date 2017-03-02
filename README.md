@@ -23,7 +23,7 @@ At each paragraph you can:
 
 ---
 ## definitions
-###### ES6 code in [01-definitions-first-examples.es6](/es6/01-definitions-first-examples.es6)
+###### ES6 code in [01-definitions-first-examples.es6](/es6/01-definitions-first-examples-es6.js)
 ###### HTML is [01-definitions-first-examples.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/01-definitions-first-examples.html)
 <br/>
 
@@ -168,7 +168,7 @@ the two simplest operations on pairs are the getters `FIRST` and `SECOND`:
 ###### [back to the top](#table-of-contents)
 ---
 ## booleans
-###### ES6 code in [02-booleans.es6](/es6/02-booleans.es6)
+###### ES6 code in [02-booleans.es6](/es6/02-booleans-es6.js)
 ###### HTML is [02-booleans.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/02-booleans.html)
 <br/>
 
@@ -231,7 +231,7 @@ expressing OR in terms of λ-calculus derives immediately:
 ###### [back to the top](#table-of-contents)
 ---
 ## natural numbers
-###### ES6 code in [03-natural-numbers.es6](/es6/03-natural-numbers.es6)
+###### ES6 code in [03-natural-numbers.es6](/es6/03-natural-numbers-es6.js)
 ###### HTML is [03-natural-numbers.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/03-natural-numbers.html)
 <br/>
 
@@ -301,7 +301,7 @@ we define then that `PRED ZERO = ZERO` and we get:
 ###### [back to the top](#table-of-contents)
 ---
 ## recursion and arithmetics
-###### ES6 code in [04-recursion-arithmetics.es6](/es6/04-recursion-arithmetics.es6)
+###### ES6 code in [04-recursion-arithmetics.es6](/es6/04-recursion-arithmetics-es6.js)
 ###### HTML is [04-recursion-arithmetics.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/04-recursion-arithmetics.html)
 <br/>
 
@@ -366,7 +366,7 @@ Alonzo Church managed to define also subtraction, power, absolute value and inte
 ###### [back to the top](#table-of-contents)
 ---
 ## introducing laziness
-###### ES6 code in [05-laziness.es6](/es6/05-laziness.es6)
+###### ES6 code in [05-laziness.es6](/es6/05-laziness-es6.js)
 ###### HTML is [05-laziness.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/05-laziness.html)
 <br/>
 
@@ -459,7 +459,7 @@ a truly insightful function of this family is `jsinteger`, which takes a numeral
 ###### [back to the top](#table-of-contents)
 ---
 ## types
-###### ES6 code in [06-types.es6](/es6/06-types.es6)
+###### ES6 code in [06-types.es6](/es6/06-types-es6.js)
 ###### HTML is [06-types.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/06-types.html)
 <br/>
 
@@ -557,7 +557,7 @@ now we make sure that `TYPED_ADD` and `TYPED_MULT` will operate only on numerals
 ###### [back to the top](#table-of-contents)
 ---
 ## lists
-###### ES6 code in [07-lists.es6](/es6/07-lists.es6)
+###### ES6 code in [07-lists.es6](/es6/07-lists-es6.js)
 ###### HTML is [07-lists.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/07-lists.html)
 <br/>
 
@@ -661,7 +661,7 @@ from `ALL` we derive helper functions that check whether a list contains only ho
 ###### [back to the top](#table-of-contents)
 ---
 ## characters and strings
-###### ES6 code in [08-chars-strings.es6](/es6/08-chars-strings.es6)
+###### ES6 code in [08-chars-strings.es6](/es6/08-chars-strings-es6.js)
 ###### HTML is [08-chars-strings.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/08-chars-strings.html)
 <br/>
 
