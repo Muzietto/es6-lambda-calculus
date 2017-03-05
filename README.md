@@ -58,13 +58,13 @@ when a function is mentioned inside a `def`, we can shift variables to the left 
 
     def SUM = λx.λy.x+y --> SUM x = λy.x+y --> SUM x y = x+y // NB: "def" appears only in the first equation!!
 
-NB: things like `pippo*2` and `x+y` are used here just to give an idea of what function bodies are made for, but they are not legitimate. Actually, function bodies can host only precise λ-expressions. The most relevant function bodies contain __function applications__.
+NB: things like `pippo*2` and `x+y` are used here just to give an idea of what function bodies are made for, but they are not legitimate. Actually, function bodies can host only precise λ-expressions. The most relevant function bodies contain __function applications__
 
 #### why use EcmaScript 6?
 
-λ-calculus is generally done with paper and pencil or in esoteric niche languages; ES6 is a good-enough trade-off, because it runs in (almost) every browser and it allows a good approximation of λ-functions using its brand new [__arrow function expressions__](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions).
+λ-calculus is generally done with paper and pencil or in esoteric niche languages; ES6 is a good-enough trade-off, because it runs in (almost) every browser and it allows a good approximation of λ-functions using its brand new [__arrow function expressions__](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
   
-NB - as of 160322, arrow functions are implemented in released versions of Firefox, IE11 and Edge only, but widespread adoption seems underway.
+NB - as of 160322, arrow functions are implemented in released versions of Firefox, IE11 and Edge only, but widespread adoption seems underway
 
     // NB: this is valid ES6 syntax
     var IDENTITY = x => x;
@@ -120,7 +120,7 @@ this function has a very strange, rather unique characteristic: if you try with 
 
     (SELF_APPLY SELF_APPLY) = (λs.(s s) λs.(s s)) = ... = (SELF_APPLY SELF_APPLY)
 
-because of this peculiarity, `SELF_APPLY` takes a primary role in the λ-calculus definition and implementation of __recursion__.
+because of this peculiarity, `SELF_APPLY` takes a primary role in the λ-calculus definition and implementation of __recursion__
 
 #### two ways of looking at function application
 
@@ -142,7 +142,7 @@ application to can be thought of in two ways:
     var z = (x => x + 1)((y => 2*y)(6)) = (y => 2*y)(6) + 1
   ```
 
-`x` gets literally bound to the operation `(y => 2*y)(6)`; all actual values of `y`, `x` and `z` will get computed only when explicitly requested, for example by a `console.log(z)`;
+`x` gets literally bound to the operation `(y => 2*y)(6)`; all actual values of `y`, `x` and `z` will get computed only when explicitly requested, for example by a `console.log(z)`
 
 __NB: ES6 is an eager language, so the second example ain't real running code, and it's here just for the show__
 
@@ -250,7 +250,7 @@ we express every natural number as the `SUCC`essor of its preceding one:
     def ONE = SUCC ZERO
     def TWO = SUCC ONE = SUCC (SUCC ZERO)
 
-ok, now we need to define `SUCC`; we just decide to pick
+ok, now we need to define `SUCC`; we just decide to pick:
 
     def SUCC = λn.(PAIR FALSE n)
 
@@ -271,7 +271,7 @@ let's begin to slowly build something really useful; first step is to become abl
     ISZERO ONE = FALSE
     ISZERO (PAIR FALSE ZERO) = FALSE
 
-a function that satisfies **all** these requirements is
+a function that satisfies **all** these requirements is:
 
     def ISZERO = λn.(n FIRST)
 
@@ -357,13 +357,13 @@ where `RECURSIVE` is an abstraction upon which every helper function can be appl
 
     def RECURSIVE f = (λs.(f (s s)) λs.(f (s s)))
 
-unfortunately `RECURSIVE` (also known as the _fixed-point combinator_ or the _Y-combinator_) is practically a carbon copy of `(SELF_APPLY SELF_APPLY)` and causes an infinite loop at the very first moment we present it to the browser.
+unfortunately `RECURSIVE` (also known as the _fixed-point combinator_ or the _Y-combinator_) is practically a carbon copy of `(SELF_APPLY SELF_APPLY)` and causes an infinite loop at the very first moment we present it to the browser
 
-the codebase shows a little cheat about `MULT1` (called `MULT2`) that allows to run multiplication also in an eager interpreter.
+the codebase shows a little cheat about `MULT1` (called `MULT2`) that allows to run multiplication also in an eager interpreter
 
 ### other operations
 
-Alonzo Church managed to define also subtraction, power, absolute value and integer division; the [numerals he designed eventually](https://en.wikipedia.org/wiki/Church_encoding) are different from the ones shown here.
+Alonzo Church managed to define also subtraction, power, absolute value and integer division; the [numerals he designed eventually](https://en.wikipedia.org/wiki/Church_encoding) are different from the ones shown here
 
 ###### [back to the top](#table-of-contents)
 ---
@@ -563,7 +563,7 @@ now we make sure that `TYPED_ADD` and `TYPED_MULT` will operate only on numerals
 ###### HTML is [07-lists.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/07-lists.html)
 <br/>
 
-__a list in λ-calculus is implemented as a binary tree__ by _chaining pairs one inside the other_ (guess where LISP got the idea from, in the first place...);
+__a list in λ-calculus is implemented as a binary tree__ by _chaining pairs one inside the other_ (guess where LISP got the idea from, in the first place...)
 
 first of all we define the type for lists and the basic type error and operators:
 
@@ -595,7 +595,7 @@ we seem to have almost everything already at hand to start managing this stuff:
     def TAIL list = list SECOND  // als known as CDR
     def ISEMPTY list = COND TRUE FALSE (ISZERO list) = (ISZERO list) TRUE FALSE
 
-but we want to keep track of type, so this time we need the `CONS`tructor and the getters to be a bit more careful;
+but we want to keep track of type, so this time we need the `CONS`tructor and the getters to be a bit more careful:
 
     def CONS H T = (ISLIST T) (MAKE_LIST (PAIR H T)) LIST_ERROR
     def HEAD list = (ISLIST list) (VALUE list FIRST) LIST_ERROR
@@ -616,7 +616,7 @@ we are now able to obtain recursion implicitly by [using the lazy version of the
     def APP1 f element list = LAZY_COND λ_.(CONS element NIL) λ_.(CONS (HEAD list) (f f element (TAIL list))) (ISEMPTY list)
     def APPEND = SELF_APPLY APP1
 
-in the codebase you will find the EcmaScript 6 version of the helper functions `LEN1` and `APP1`.
+in the codebase you will find the EcmaScript 6 version of the helper functions `LEN1` and `APP1`
 
 ### advanced list manipulation: `MAP` and `REDUCE`
 
@@ -638,7 +638,7 @@ the version with implicit recursion is:
     def RED1 f fun acc list = LAZY_COND λ_.acc λ_.(f f fun (fun acc HEAD(list)) (TAIL list)) (ISEMPTY list)
     def REDUCE = SELF_APPLY RED1
 
-the codebase contains a JavaScript implementation for both `MAP1` and `RED1`.
+the codebase contains a JavaScript implementation for both `MAP1` and `RED1`
 
 ### helper functions for managing JavaScript arrays
 
@@ -710,7 +710,7 @@ we may make good use of a JavaScript mapper e.g. from `"a"` to `var a`:
       }[char];
     }
 
-now the whole basic alphanumeric charset is at our disposal, with everything numerically ordered.
+now the whole basic alphanumeric charset is at our disposal, with everything numerically ordered
 
 ### strings (type FIVE)
 
@@ -728,7 +728,7 @@ a conversion function from JavaScript strings to λ-calculus `STRING`'s builds u
 
     var string2STRING = string => MAKE_STRING(array2LIST(string.split('').map(char2CHAR)));
 
-the codebase shows various examples of utilisation of all these functions.
+the codebase shows various examples of utilisation of all these functions
 
 ###### NB: again, this paragraph about chars and strings is mostly not coming from the Michaelson book; it is instead an original contribution.
 
