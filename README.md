@@ -1,15 +1,15 @@
 # es6-lambda-calculus
-Implementing λ-calculus using EcmaScript 6 arrow notation (currently only on FF, IE11 and Edge).
+implementing λ-calculus using EcmaScript 6 arrow notation (currently only on Chrome, FF, IE11 and Edge)
 
-Inspired by the study of ["Functional Programming through Lambda Calculus"](http://www.amazon.com/Introduction-Functional-Programming-Calculus-Mathematics/dp/0486478831) (G. Michaelson)
+inspired by the study of ["Functional Programming through Lambda Calculus"](http://www.amazon.com/Introduction-Functional-Programming-Calculus-Mathematics/dp/0486478831) (G. Michaelson)
 
-Made possible only by the mind-blowing work of Alonzo Church.
+made possible only by the mind-blowing work of Alonzo Church
 
 ![Alonzo Church](/img/church.jpg)
 
 At each paragraph you can:
   - view the related ES6 code
-  - run and exercise the ES6 code (open in new tab the HTML file and start the browser console - currently only on FF, IE11 and Edge)
+  - run and exercise the ES6 code (open in new tab the HTML file and start the browser console - currently only on Chrome, FF, IE11 and Edge)
 
 ### Table of Contents
  - [definitions](#definitions)
