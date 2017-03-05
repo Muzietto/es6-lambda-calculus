@@ -150,7 +150,7 @@ __trying to implement recursion using `SELF_APPLY` in an eager language is impos
 
 our very first solution for implementing recursion will actually be a cheat: we will not use pure λ-expressions, we will mix JavaScript's `if then else` operator (which evaluates _either branch_ depending on the boolean check) in our code.
 
-__but, but, but...__ in a latter paragraph we will eventually __manage to implement recursion in our ES6 pure λ-expressions__ by leaving `SELF_APPLY` aside and __putting in place a _lazy_ application mechanism__;
+__but, but, but...__ in a latter paragraph we will eventually __manage to implement recursion in our ES6 pure λ-expressions__, still using `SELF_APPLY` but feeding it with ___lazy_ function applications__;
 
 ### pairs
 
