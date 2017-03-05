@@ -146,9 +146,9 @@ application to can be thought of in two ways:
 
 __NB: ES6 is an eager language, so the second example ain't real running code, and it's here just for the show__
 
-__trying to implement recursion using `SELF_APPLY` in an eager language is impossible__, because the call-by-value nature will force the interpreter to evaluate _both left and right side_ before deciding which path to take; but evaluating the right side implies another turn of the wheel, a new right side to interpret, and then another, and then another... ad libitum before anything useful can be done with the expression;
+__trying to implement recursion using `SELF_APPLY` in an eager language is impossible__: every useable recursive mechanism needs to have first thing a boolean check to decide whether to get out of the loop or recur once more; well, a pure call-by-value nature requests the interpreter to evaluate _both left and right branch_ before deciding which path to take; but evaluating the right branch implies another turn of the wheel, a new right branch to interpret along with the left, and then another, and then another... ad libitum before anything useful can be done with the expression;
 
-our very first solution for implementing recursion will actually be a cheat: we will not use pure λ-expressions, we will mix JavaScript's `if then else` operator (which evaluates either branch depending on the boolean check) in our code.
+our very first solution for implementing recursion will actually be a cheat: we will not use pure λ-expressions, we will mix JavaScript's `if then else` operator (which evaluates _either branch_ depending on the boolean check) in our code.
 
 __but, but, but...__ in a latter paragraph we will eventually __manage to implement recursion in our ES6 pure λ-expressions__ by leaving `SELF_APPLY` aside and __putting in place a _lazy_ application mechanism__;
 
