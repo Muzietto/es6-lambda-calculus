@@ -24,7 +24,7 @@ At each paragraph you can:
 ---
 ## definitions
 ###### ES6 code in [01-definitions-first-examples-es6.js](/es6/01-definitions-first-examples-es6.js)
-###### HTML is [01-definitions-first-examples.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/01-definitions-first-examples.html)
+###### HTML is [01-definitions-first-examples.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/html/01-definitions-first-examples.html)
 <br/>
 
 #####  lambda-expression := name  |  function  |  function-application
@@ -171,7 +171,7 @@ the two simplest operations on pairs are the getters `FIRST` and `SECOND`:
 ---
 ## booleans
 ###### ES6 code in [02-booleans-es6.js](/es6/02-booleans-es6.js)
-###### HTML is [02-booleans.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/02-booleans.html)
+###### HTML is [02-booleans.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/html/02-booleans.html)
 <br/>
 
 Let's start our exposition from the **ternary operator**, one of the most basic concepts in computer science:
@@ -234,7 +234,7 @@ expressing OR in terms of λ-calculus derives immediately:
 ---
 ## natural numbers
 ###### ES6 code in [03-natural-numbers-es6.js](/es6/03-natural-numbers-es6.js)
-###### HTML is [03-natural-numbers.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/03-natural-numbers.html)
+###### HTML is [03-natural-numbers.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/html/03-natural-numbers.html)
 <br/>
 
 so far we have been using symbols like `1` or `2` to express numbers; unfortunately, we've been cheating: this practice is not allowed in λ-calculus
@@ -304,7 +304,7 @@ we define then that `PRED ZERO = ZERO` and we get:
 ---
 ## recursion and arithmetics
 ###### ES6 code in [04-recursion-arithmetics-es6.js](/es6/04-recursion-arithmetics-es6.js)
-###### HTML is [04-recursion-arithmetics.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/04-recursion-arithmetics.html)
+###### HTML is [04-recursion-arithmetics.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/html/04-recursion-arithmetics.html)
 <br/>
 
 ### addition
@@ -369,7 +369,7 @@ Alonzo Church managed to define also subtraction, power, absolute value and inte
 ---
 ## introducing laziness
 ###### ES6 code in [05-laziness-es6.js](/es6/05-laziness-es6.js)
-###### HTML is [05-laziness.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/05-laziness.html)
+###### HTML is [05-laziness.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/html/05-laziness.html)
 <br/>
 
 at the previous paragraph we saw that recursion implemented through `SELF_APPLY` requires lazy evaluation of `COND`; this can be done putting a `LAZY_COND` in place, which operates on lazy expressions instead of evaluating them straight away
@@ -462,7 +462,7 @@ a truly insightful function of this family is `jsinteger`, which takes a numeral
 ---
 ## types
 ###### ES6 code in [06-types-es6.js](/es6/06-types-es6.js)
-###### HTML is [06-types.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/06-types.html)
+###### HTML is [06-types.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/html/06-types.html)
 <br/>
 
 types ensure that operators are applied on the objects they are supposed to handle;
@@ -560,7 +560,7 @@ now we make sure that `TYPED_ADD` and `TYPED_MULT` will operate only on numerals
 ---
 ## lists
 ###### ES6 code in [07-lists-es6.js](/es6/07-lists-es6.js)
-###### HTML is [07-lists.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/07-lists.html)
+###### HTML is [07-lists.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/html/07-lists.html)
 <br/>
 
 __a list in λ-calculus is implemented as a binary tree__ by _chaining pairs one inside the other_ (guess where LISP got the idea from, in the first place...)
@@ -664,7 +664,7 @@ from `ALL` we derive helper functions that check whether a list contains only ho
 ---
 ## characters and strings
 ###### ES6 code in [08-chars-strings-es6.js](/es6/08-chars-strings-es6.js)
-###### HTML is [08-chars-strings.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/08-chars-strings.html)
+###### HTML is [08-chars-strings.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/html/08-chars-strings.html)
 <br/>
 
 ### characters (type FOUR)
