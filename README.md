@@ -208,7 +208,7 @@ definition using the ternary operator is straightforward:
 
 expressing NOT in terms of λ-calculus is also straightforward:
 
-    def NOT x = COND FALSE TRUE x = x FALSE TRUE // if x is true, then NOT x is FALSE; otherwise it's TRUE
+    def NOT x = COND FALSE TRUE x = x FALSE TRUE   // if x is true, then NOT x is FALSE; otherwise it's TRUE
 
 ### AND operator
 
@@ -218,7 +218,7 @@ definition using the ternary operator is the following:
 
 expressing AND in terms of λ-calculus derives immediately:
 
-    def AND x y = COND y FALSE x = x y FALSE // if x is true, then AND x y depends on y; otherwise it's certainly FALSE
+    def AND x y = COND y FALSE x = x y FALSE   // if x is true, then AND x y depends on y; otherwise it's certainly FALSE
 
 ### OR operator
 
@@ -228,7 +228,7 @@ definition using the ternary operator is the following:
 
 expressing OR in terms of λ-calculus derives immediately:
 
-    def OR x y = COND TRUE y x = x TRUE y // if x is true, then OR x y is certainly TRUE; otherwise it depends on y
+    def OR x y = COND TRUE y x = x TRUE y   // if x is true, then OR x y is certainly TRUE; otherwise it depends on y
 
 ###### [back to the top](#table-of-contents)
 ---
