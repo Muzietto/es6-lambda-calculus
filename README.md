@@ -92,11 +92,11 @@ for example (still using illegitimate expressions `+`, `1` and `2` ;-):
 
     ((λx.λy.x+y 1) 2) = (λy.1+y 2) = 3  // variables x and y get bound stepwise to value 1 and value 2
 
-convention is that function application associates to the left:
+the convention is that function application associates to the left:
 
     (λx.λy.x+y 1 2) = ((λx.λy.x+y 1) 2)
 
-convention is also that function application may be omitted every time this does not bring ambiguities in the expression:
+the convention is also that function application may be omitted every time this does not bring ambiguities in the expression:
 
     λx.λy.x+y 1 2 = (λx.λy.x+y 1 2)
 
