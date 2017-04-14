@@ -40,8 +40,8 @@ var APPEND = SELF_APPLY(APP2);
 // EQUAL(VALUE(HEAD(TAIL(APPEND(THREE_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(NIL)))))))(TWO)
 // EQUAL(VALUE(HEAD(TAIL(TAIL(APPEND(THREE_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(NIL))))))))(THREE)
 
-var MAP2 = f => mapper => list => LAZY_COND(_ => NIL)(_ => CONS(mapper(HEAD(list)))(f(f)(mapper)(TAIL(list))))(ISEMPTY(list)) // lazy - will do
-var MAP = SELF_APPLY(MAP2); // MAP list mapper
+var MAP1 = f => list => mapper => LAZY_COND(_ => NIL)(_ => CONS(mapper(HEAD(list)))(f(f)(TAIL(list))(mapper)))(ISEMPTY(list)) // lazy - will do
+var MAP = SELF_APPLY(MAP1); // MAP list mapper
 
 // MAP(TYPED_ADD(ONE_OBJ))(CONS(ZERO_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(NIL)))) // CONS(ONE_OBJ)(CONS(TWO_OBJ)(CONS(THREE_OBJ)(NIL)))
 // EQUAL(LENGTH(MAP(TYPED_ADD(ONE_OBJ))(CONS(ZERO_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(NIL))))))(THREE) // TRUE
@@ -49,8 +49,8 @@ var MAP = SELF_APPLY(MAP2); // MAP list mapper
 // EQUAL(VALUE(HEAD(TAIL(MAP(TYPED_ADD(ONE_OBJ))(CONS(ZERO_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(NIL))))))))(TWO) // TRUE
 // EQUAL(VALUE(HEAD(TAIL(TAIL(MAP(TYPED_ADD(ONE_OBJ))(CONS(ZERO_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(NIL)))))))))(THREE) // TRUE
 
-var RED2 = f => fun => acc => list => LAZY_COND(_ => acc)(_ => f(f)(fun)(fun(acc)(HEAD(list)))(TAIL(list)))(ISEMPTY(list)) // lazy - will do
-var REDUCE = SELF_APPLY(RED2); // REDUCE fun acc list
+var RED1 = f => fun => acc => list => LAZY_COND(_ => acc)(_ => f(f)(fun)(fun(acc)(HEAD(list)))(TAIL(list)))(ISEMPTY(list)) // lazy - will do
+var REDUCE = SELF_APPLY(RED1); // REDUCE fun acc list
 
 // EQUAL(VALUE(REDUCE(TYPED_ADD)(ZERO_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(CONS(THREE_OBJ)(NIL))))))(SIX)
 // EQUAL(TYPE(REDUCE(TYPED_ADD)(ZERO_OBJ)(CONS(ONE_OBJ)(CONS(TWO_OBJ)(CONS(THREE_OBJ)(NIL))))))(TWO) // it's a numeral...
