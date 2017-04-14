@@ -298,7 +298,7 @@ we define then that `PRED ZERO = ZERO` and we get:
 
     predecessor(n) = isZero(n) ? 0 : naivePredecessor(n)  // using the ternary operator
 
-    PRED n = COND ZERO (NAIVE_PRED n) (ISZERO n) = (ISZERO n) ZERO (NAIVE_PRED n)
+    PRED n = COND ZERO (NAIVE_PRED n) (ISZERO n) = (ISZERO n) ZERO (NAIVE_PRED n) = (ISZERO n) ZERO (n SECOND)
 
 ###### [back to the top](#table-of-contents)
 ---
