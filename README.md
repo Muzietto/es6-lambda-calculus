@@ -37,7 +37,7 @@ a "resolved" (or "evalued") λ-expression is called a _value_
 
 keyword `def` binds names to expressions
 
-    def IDENTITY = λx.x
+    def IDENTITY = λx.x  // this is a comment (something that Alonzo Church actually did NOT foresee)
     def TWELVE = (SUCCESSOR ELEVEN)
     def id = IDENTITY  // that's a bit tricky, I admit...
 
