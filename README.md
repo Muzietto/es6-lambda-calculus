@@ -638,7 +638,7 @@ the version with implicit recursion is:
     def RED1 f fun acc list = LAZY_COND λ_.acc λ_.(f f fun (fun acc HEAD(list)) (TAIL list)) (ISEMPTY list)
     def REDUCE = SELF_APPLY RED1
 
-the codebase contains a JavaScript implementation for both `MAP1` and `RED1`
+the codebase contains an ES6 implementation for both `MAP1` and `RED1`
 
 ### helper functions for managing JavaScript arrays
 
