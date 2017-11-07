@@ -56,7 +56,7 @@ when the function body is again a function, we are actually watching a [curried 
 
 when a function is mentioned inside a `def`, we can shift variables to the left side of the definition:
 
-    def SUM = λx.λy.x+y --> SUM x = λy.x+y --> SUM x y = x+y // NB: "def" appears only in the first equation!!
+    def SUM = λx.λy.x+y --> SUM x = λy.x+y --> SUM x y = x+y // NB: "def" appears only in the first expression!!
 
 NB: things like `pippo*2` and `x+y` are used here just to give an idea of what function bodies are made for, but they are not legitimate. Actually, function bodies can host only precise λ-expressions. The most relevant function bodies contain __function applications__
 
@@ -116,7 +116,7 @@ function `SELF_APPLY` is a quirky thing; it applies whatever function to _itself
     def SELF_APPLY = λs.(s s)
     var SELF_APPLY = s => s(s)
 
-this function has a very strange, rather unique characteristic: if you try with paper and pencil the next equation, you will verify that:
+this function has a very strange, rather unique characteristic: if you try with paper and pencil the next expression, you will verify that:
 
     (SELF_APPLY SELF_APPLY) = (λs.(s s) λs.(s s)) = ... = (SELF_APPLY SELF_APPLY)
 
