@@ -33,7 +33,7 @@ a "resolved" (or "evalued") λ-expression is called a _value_
 
 #####  name := character sequence
 
-    e.g. IDENTITY, pippo, c3b0
+    e.g. IDENTITY, pippo, C3PO
 
 keyword `def` binds names to expressions
 
