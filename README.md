@@ -724,7 +724,7 @@ in this case `MAKE_STRING`, the basic operation for strings, needs to check both
 
     def MAKE_STRING string = (AND (ISLIST string) (ALL_CHARS string)) (MAKE_OBJ string_type string) STRING_ERROR;
 
-a conversion function from JavaScript strings to λ-calculus `STRING`'s builds upon the conversion functions for JS arrays and `LIST`s:
+a conversion function from JavaScript strings to λ-calculus `STRING`s builds upon the conversion functions for JS arrays and `LIST`s:
 
     var string2STRING = string => MAKE_STRING(array2LIST(string.split('').map(char2CHAR)));
 
