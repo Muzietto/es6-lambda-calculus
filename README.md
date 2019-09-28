@@ -27,7 +27,7 @@ At each paragraph you can:
 ###### HTML is [01-definitions-first-examples.html](http://rawgit.com/Muzietto/es6-lambda-calculus/master/html/01-definitions-first-examples.html)
 <br/>
 
-#####  lambda-expression := name  |  function  |  function-application
+#####  lambda-expression := name  |  function  |  function application
 
 a "resolved" (or "evalued") λ-expression is called a _value_
 
