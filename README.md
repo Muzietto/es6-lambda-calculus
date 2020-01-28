@@ -320,7 +320,7 @@ the big problem here is that __we have the function name mentioned in its own bo
 in order to implement recursion, we do some juggling remembering `SELF_APPLY = λs.(s s)`, for which we know that an infinite loop `(SELF_APPLY SELF_APPLY) = ... = (SELF_APPLY SELF_APPLY)` exists;
 we create a helper function `add2` that carries an additional function `f` in its signature __and applies it to itself__:
 
-    var add2 = x => y => (y === 0) ? x : f(f)(x+1)(y-1)
+    var add2 = f => x => y => (y === 0) ? x : f(f)(x+1)(y-1)
     def ADD2 f x y = COND x (f f (SUCC x) (PRED y)) (ISZERO y) = (ISZERO y) x (f f (SUCC x) (PRED y))
 
 you noticed that we wrote `def ADD2` and not `rec ADD2`, because (contrary to `ADD`) the `ADD2` function is not recursive, as it does not mention itself inside the body
